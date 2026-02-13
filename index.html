@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Automatizamos la atención al cliente, reservas y reseñas de su negocio con inteligencia artificial. Diagnóstico gratuito. Resultados en 2-4 semanas. Madrid, España.">
+    <meta name="keywords" content="automatización IA, chatbot empresas, agencia IA España, automatización negocios, chatbot WhatsApp, asistente reservas, reseñas Google automáticas">
+    <meta name="author" content="Edrai Solutions">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Edrai Solutions | Automatización con IA para Negocios">
+    <meta property="og:description" content="Chatbots, asistentes de reservas y reseñas automáticas para que su negocio funcione solo. Diagnóstico gratuito.">
+    <meta property="og:url" content="https://edrai.solutions">
+    <meta property="og:site_name" content="Edrai Solutions">
+    <meta property="og:locale" content="es_ES">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Edrai Solutions | Automatización con IA para Negocios">
+    <meta name="twitter:description" content="Chatbots, asistentes de reservas y reseñas automáticas para que su negocio funcione solo.">
+
+    <title>Edrai Solutions | Automatización con IA para Negocios en España</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f9fafb;
+            scroll-behavior: smooth;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.15);
+        }
+        
+        /* Estilo del Gradiente de Revelado Ultra-Estable */
+        .text-gradient {
+            display: inline-block;
+            background: linear-gradient(to right, #22d3ee 50%, #ffffff 50%);
+            background-size: 200% 100%;
+            background-position: 100% 0;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: background-position 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: background-position;
+            
+            /* Alineación perfecta con el texto base */
+            vertical-align: baseline;
+            line-height: inherit;
+            margin: 0;
+            padding: 0 0.02em 0.12em 0; /* Espacio mínimo para descenders sin descuadrar */
+        }
+
+        .text-gradient.reveal {
+            background-position: 0% 0;
+        }
+
+        .glass {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .flow-line {
+            position: relative;
+            overflow: hidden;
+        }
+        .flow-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.4), transparent);
+            animation: flow 2s infinite linear;
+        }
+        @keyframes flow {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .flow-line-vertical::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.4), transparent);
+            animation: flowVertical 2s infinite linear;
+        }
+        @keyframes flowVertical {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Edrai Solutions",
+      "url": "https://edrai.solutions",
+      "email": "info@edrai.solutions",
+      "telephone": "+34654954602",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Madrid",
+        "addressCountry": "ES"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/edrai-solutions"
+      ],
+      "description": "Agencia de automatización con IA para negocios en España. Chatbots, asistentes de reservas y automatización de reseñas."
+    },
+    {
+      "@type": "LocalBusiness",
+      "name": "Edrai Solutions",
+      "telephone": "+34654954602",
+      "email": "info@edrai.solutions",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Madrid",
+        "addressCountry": "ES"
+      },
+      "priceRange": "$$",
+      "openingHours": "Mo-Fr 09:00-18:00"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Necesito conocimientos técnicos para usar las automatizaciones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Nosotros nos encargamos de toda la parte técnica. Usted recibe un sistema funcionando y una formación para su equipo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto tiempo tarda en estar funcionando?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Entre 2 y 4 semanas desde que aprobamos el plan juntos. Proyectos más simples como un chatbot básico pueden estar listos en 1 semana."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué pasa si no me convence el resultado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Trabajamos con validaciones en cada fase. Usted aprueba antes de que lancemos nada. Además, ofrecemos un período de ajuste post-lanzamiento incluido."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Y si ya tengo una web o un CRM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nos integramos con lo que ya tiene. No necesita cambiar nada de su infraestructura actual."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Mis datos están seguros?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cumplimos con el RGPD. Sus datos y los de sus clientes se procesan con las medidas de seguridad que exige la normativa europea."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.2 
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const observeGradients = () => {
+                document.querySelectorAll('.text-gradient').forEach(el => {
+                    observer.observe(el);
+                });
+            };
+
+            observeGradients();
+
+            const mutationObserver = new MutationObserver(() => {
+                document.querySelectorAll('.text-gradient:not(.reveal)').forEach(el => {
+                    observer.observe(el);
+                });
+            });
+            mutationObserver.observe(document.body, { childList: true, subtree: true });
+        });
+    </script>
+</body>
+</html>
