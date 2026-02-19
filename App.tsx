@@ -325,11 +325,19 @@ const App: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {TEAM.map((member, idx) => (
               <div key={idx} className="glass rounded-[32px] overflow-hidden group hover:border-cyan-400/30 transition-all duration-500 shadow-xl border border-white/5">
-                <div className="h-40 flex items-center justify-center bg-gradient-to-br from-[#0a1120] to-[#030712] relative overflow-hidden border-b border-white/5">
+                <div className="h-64 md:h-72 flex items-center justify-center bg-gradient-to-br from-[#0a1120] to-[#030712] relative overflow-hidden border-b border-white/5">
                   <div className="absolute inset-0 bg-cyan-400/[0.03] blur-[60px] rounded-full scale-150 group-hover:scale-110 transition-transform duration-700"></div>
-                  <div className="text-7xl font-black text-white/[0.02] tracking-tighter transition-all group-hover:text-cyan-400/[0.05] group-hover:scale-105 duration-500 select-none">
-                    {getInitials(member.name)}
-                  </div>
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-[center_35%]"
+                    />
+                  ) : (
+                    <div className="text-7xl font-black text-white/[0.02] tracking-tighter transition-all group-hover:text-cyan-400/[0.05] group-hover:scale-105 duration-500 select-none">
+                      {getInitials(member.name)}
+                    </div>
+                  )}
                 </div>
                 <div className="p-8">
                   <div className="flex flex-col gap-1 mb-6">
@@ -557,3 +565,7 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+
+
+
