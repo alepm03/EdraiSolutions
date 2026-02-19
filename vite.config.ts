@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
 
   return {
-    base: '/EdraiSolutions/',   // 👈 MUY IMPORTANTE para GitHub Pages
+    base: '/',   // 👈 MUY IMPORTANTE para GitHub Pages
     server: {
       port: 3000,
       host: '0.0.0.0',
