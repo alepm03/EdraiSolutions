@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect x="4" y="4" width="92" height="92" rx="20" ry="20" fill="#22D3EE"/>
+  <text x="50" y="52" text-anchor="middle" dominant-baseline="central" 
+        font-family="Poppins, Inter, system-ui, -apple-system, sans-serif" 
+        font-weight="700" font-size="60" fill="#0A0A0A">E</text>
+</svg>

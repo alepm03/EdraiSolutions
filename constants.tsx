@@ -87,14 +87,14 @@ export const TEAM: TeamMember[] = [
     name: 'Ricardo Pichardo',
     role: 'Co-Founder & CEO',
     bio: 'Especialista en automatización y estrategia de negocio. Ayuda a negocios a identificar dónde la IA les ahorra tiempo y dinero, y lo convierte en soluciones que funcionan desde el primer día.',
-    image: 'static/FotoRicardo.jpeg',
+    image: '/static/FotoRicardo.jpeg',
     linkedin: 'https://www.linkedin.com/in/ricardopichardo'
   },
   {
     name: 'Alejandro Pichardo',
     role: 'Co-Founder & CTO',
     bio: 'Responsable técnico de todas las implementaciones. Se asegura de que cada chatbot, cada integración y cada automatización sea robusta, segura y fácil de mantener.',
-    image: 'static/FotoAle.png',
+    image: '/static/FotoAle.png',
     linkedin: 'https://www.linkedin.com/in/alejandro-pichardo-036478392/' // Placeholder
   }
 ];
