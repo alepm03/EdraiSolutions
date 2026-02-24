@@ -16,7 +16,7 @@ interface Message {
 
 const RealChatDemo: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'bot', text: '¡Hola! Soy el asistente inteligente de **Fabrik Fitness**. ¿En qué puedo ayudarte hoy? Puedo informarte sobre horarios, tarifas o clases disponibles.' }
+    { role: 'bot', text: '¡Hola! Soy el asistente inteligente del **Centro Deportivo**. ¿En qué puedo ayudarte hoy? Puedo informarte sobre horarios, tarifas o clases disponibles.' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +57,7 @@ const RealChatDemo: React.FC = () => {
     } catch (err) {
       console.error('Chat Error:', err);
       setError('No se pudo conectar con el asistente. El entorno de pruebas podría estar offline.');
-      setMessages(prev => [...prev, { role: 'bot', text: 'Lo siento, estoy experimentando dificultades técnicas para conectar con mi base de datos de Fabrik Fitness.' }]);
+      setMessages(prev => [...prev, { role: 'bot', text: 'Lo siento, estoy experimentando dificultades técnicas para conectar con mi base de datos.' }]);
     } finally {
       setIsLoading(false);
     }
@@ -76,7 +76,7 @@ const RealChatDemo: React.FC = () => {
                 <Dumbbell className="w-7 h-7" />
               </div>
               <div>
-                <h3 className="font-black text-2xl leading-none tracking-tight uppercase">Fabrik Fitness</h3>
+                <h3 className="font-black text-2xl leading-none tracking-tight uppercase">Centro Deportivo</h3>
                 <span className="text-[11px] text-cyan-400 font-black uppercase tracking-widest mt-1 block">Demo Real en Vivo</span>
               </div>
             </div>
@@ -150,7 +150,7 @@ const RealChatDemo: React.FC = () => {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Pregunta sobre Fabrik Fitness..."
+                  placeholder="Pregunta sobre horarios, tarifas o clases..."
                   className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-cyan-400/50 transition-all font-bold"
                 />
                 <button 

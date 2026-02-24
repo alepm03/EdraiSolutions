@@ -529,19 +529,19 @@ const App: React.FC = () => {
               <ul className="space-y-8 text-gray-400 text-[13px] font-bold tracking-widest uppercase">
                 <li className="flex items-center space-x-4 group">
                   <Mail className="w-5 h-5 text-cyan-400" />
-                  <a href="mailto:info@edrai.solutions" className="group-hover:text-white transition-colors">info@edrai.solutions</a>
+                  <a href="mailto:info@edraisolutions.es" className="group-hover:text-white transition-colors">info@edraisolutions.es</a>
                 </li>
                 <li className="flex items-center space-x-4 group">
                   <Phone className="w-5 h-5 text-cyan-400" />
                   <a href="tel:+34654954602" className="group-hover:text-white transition-colors">+34 654 954 602</a>
                 </li>
                 <li className="flex items-center space-x-4 group">
-                  <MapPin className="w-5 h-5 text-cyan-400" />
-                  <span className="group-hover:text-white transition-colors">Madrid, España</span>
-                </li>
-                <li className="flex items-center space-x-4 group">
                   <MessageCircle className="w-5 h-5 text-cyan-400" />
                   <a href="https://wa.me/34654954602?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20sus%20servicios" target="_blank" rel="noopener noreferrer" className="group-hover:text-white transition-colors">WhatsApp</a>
+                </li>
+                <li className="flex items-center space-x-4 group">
+                  <MapPin className="w-5 h-5 text-cyan-400" />
+                  <span className="group-hover:text-white transition-colors">Madrid, España</span>
                 </li>
               </ul>
             </div>
