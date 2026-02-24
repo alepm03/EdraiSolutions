@@ -40,7 +40,7 @@ const RealChatDemo: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://unclustering-daimen-zula.ngrok-free.dev/webhook/c04f1d1b-0c5c-4eb7-ad54-0efab6e59426/chat', {
+      const response = await fetch('https://n8n.srv1420918.hstgr.cloud/webhook/c04f1d1b-0c5c-4eb7-ad54-0efab6e59426/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
