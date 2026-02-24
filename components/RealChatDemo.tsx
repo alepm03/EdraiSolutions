@@ -15,6 +15,7 @@ interface Message {
 }
 
 const RealChatDemo: React.FC = () => {
+  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL || 'https://n8n.srv1420918.hstgr.cloud/webhook/c04f1d1b-0c5c-4eb7-ad54-0efab6e59426/chat';
   const [messages, setMessages] = useState<Message[]>([
     { role: 'bot', text: '¡Hola! Soy el asistente inteligente del **Centro Deportivo**. ¿En qué puedo ayudarte hoy? Puedo informarte sobre horarios, tarifas o clases disponibles.' }
   ]);
@@ -40,7 +41,7 @@ const RealChatDemo: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://n8n.srv1420918.hstgr.cloud/webhook/c04f1d1b-0c5c-4eb7-ad54-0efab6e59426/chat', {
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
