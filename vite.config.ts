@@ -13,8 +13,9 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [react()],
     define: {
-      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+      // Worker URL is not a secret — safe to embed in the bundle.
+      // The actual GEMINI_API_KEY lives in the Cloudflare Worker (cf-worker/).
+      'process.env.WORKER_URL': JSON.stringify(env.VITE_WORKER_URL ?? ''),
     },
     resolve: {
       alias: {

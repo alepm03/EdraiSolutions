@@ -11,7 +11,6 @@ import {
   Lightbulb,
   CheckCircle2
 } from 'lucide-react';
-import { GoogleGenAI } from '@google/genai';
 import { ChatMessage } from '../types';
 
 const KNOWLEDGE_BASE = `
@@ -104,23 +103,18 @@ const ChatbotDemo: React.FC = () => {
     setIsTyping(true);
 
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-      if (!apiKey) throw new Error('Falta VITE_GEMINI_API_KEY');
-
-      const ai = new GoogleGenAI({ apiKey });
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: [...messages, { role: 'user', text: userMessage }].map(m => ({
-          role: m.role,
-          parts: [{ text: m.text }]
-        })),
-        config: {
+      const res = await fetch(process.env.WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [...messages, { role: 'user', text: userMessage }],
           systemInstruction: selectedAgent.systemPrompt,
           temperature: 0.6,
-        }
+        }),
       });
 
-      const aiText = response.text || 'Entendido. ¿Deseas que profundicemos en algún detalle de este servicio?';
+      const data = await res.json();
+      const aiText = data.text || 'Entendido. ¿Deseas que profundicemos en algún detalle de este servicio?';
       setMessages(prev => [...prev, { role: 'model', text: aiText }]);
     } catch (error) {
       console.error('Gemini API Error:', error);

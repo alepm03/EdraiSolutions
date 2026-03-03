@@ -8,7 +8,6 @@ import {
   Minus,
   Sparkles
 } from 'lucide-react';
-import { GoogleGenAI } from '@google/genai';
 import { ChatMessage } from '../types';
 
 const FloatingChatWidget: React.FC = () => {
@@ -36,23 +35,18 @@ const FloatingChatWidget: React.FC = () => {
     setIsTyping(true);
 
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-      if (!apiKey) throw new Error('Falta VITE_GEMINI_API_KEY');
-
-      const ai = new GoogleGenAI({ apiKey });
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: [...messages, { role: 'user', text: userMessage }].map(m => ({
-          role: m.role,
-          parts: [{ text: m.text }]
-        })),
-        config: {
+      const res = await fetch(process.env.WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [...messages, { role: 'user', text: userMessage }],
           systemInstruction: 'Eres el asistente oficial de Edrai Solutions, expertos en automatización con IA. Tu tono es ejecutivo, tecnológico y resolutivo. Ayuda al usuario a entender cómo la IA puede optimizar sus procesos y anímale a agendar una auditoría. Sé conciso (máximo 2-3 líneas).',
           temperature: 0.7,
-        }
+        }),
       });
 
-      const aiText = response.text || 'Entendido. ¿Deseas que analicemos cómo implementar esto en tu flujo operativo?';
+      const data = await res.json();
+      const aiText = data.text || 'Entendido. ¿Deseas que analicemos cómo implementar esto en tu flujo operativo?';
       setMessages(prev => [...prev, { role: 'model', text: aiText }]);
     } catch (error) {
       console.error('Chat Widget Error:', error);
@@ -63,10 +57,10 @@ const FloatingChatWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] flex flex-col items-end font-sans">
+    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end font-sans">
       {/* Chat Window */}
       {isOpen && (
-        <div className="mb-4 sm:mb-6 w-[min(420px,calc(100vw-2rem))] h-[min(600px,calc(100vh-7.5rem))] sm:h-[min(600px,calc(100vh-8.5rem))] bg-gray-950/80 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-white/10 animate-in slide-in-from-bottom-8 fade-in duration-500">
+        <div className="mb-6 w-[380px] sm:w-[420px] h-[600px] bg-gray-950/80 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-white/10 animate-in slide-in-from-bottom-8 fade-in duration-500">
           
           {/* Header */}
           <div className="relative bg-gradient-to-r from-cyan-950/50 to-blue-950/50 px-6 py-5 flex items-center justify-between border-b border-white/10">
