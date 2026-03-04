@@ -113,12 +113,6 @@ const ChatbotDemo: React.FC = () => {
         }),
       });
 
-      if (!res.ok) {
-        const errBody = await res.json().catch(() => ({}));
-        console.error('[ChatbotDemo] Worker error:', res.status, errBody);
-        throw new Error(`Worker responded with ${res.status}`);
-      }
-
       const data = await res.json();
       const aiText = data.text || 'Entendido. ¿Deseas que profundicemos en algún detalle de este servicio?';
       setMessages(prev => [...prev, { role: 'model', text: aiText }]);

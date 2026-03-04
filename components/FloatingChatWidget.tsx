@@ -45,12 +45,6 @@ const FloatingChatWidget: React.FC = () => {
         }),
       });
 
-      if (!res.ok) {
-        const errBody = await res.json().catch(() => ({}));
-        console.error('[FloatingChat] Worker error:', res.status, errBody);
-        throw new Error(`Worker responded with ${res.status}`);
-      }
-
       const data = await res.json();
       const aiText = data.text || 'Entendido. ¿Deseas que analicemos cómo implementar esto en tu flujo operativo?';
       setMessages(prev => [...prev, { role: 'model', text: aiText }]);
