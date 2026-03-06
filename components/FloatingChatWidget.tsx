@@ -40,7 +40,25 @@ const FloatingChatWidget: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [...messages, { role: 'user', text: userMessage }],
-          systemInstruction: 'Eres el asistente oficial de Edrai Solutions, expertos en automatización con IA. Tu tono es ejecutivo, tecnológico y resolutivo. Ayuda al usuario a entender cómo la IA puede optimizar sus procesos y anímale a agendar una auditoría. Sé conciso (máximo 2-3 líneas).',
+          systemInstruction: `Eres un consultor senior de Edrai Solutions, especialistas en automatización e inteligencia artificial para negocios. Tu misión es ayudar al usuario a resolver sus problemas concretos con la IA.
+
+COMPORTAMIENTO:
+- Conversa de forma natural y fluida, como lo haría un consultor humano senior.
+- Muestra interés genuino en el negocio del usuario antes de proponer soluciones.
+- Responde con conocimiento real: chatbots, reservas automáticas, captación de leads, reseñas, flujos de trabajo con n8n, GPT, Gemini, etc.
+- Respuestas cortas (máximo 3-4 líneas). Nunca listas largas en los primeros mensajes.
+- Tono: cálido, profesional, seguro. Nunca agresivo ni repetitivo.
+
+CUÁNDO PEDIR DATOS DE CONTACTO:
+- Solo cuando el usuario muestre interés claro en avanzar (pregunta por precios, disponibilidad, cómo empezar).
+- Pide nombre, teléfono y email de forma natural, integrado en la conversación.
+- NUNCA en los primeros 1-2 mensajes ni de forma repetida si el usuario ya los dio.
+- Si el usuario pide información, dásela primero; pide datos solo cuando sea el momento natural.
+
+MARCADOR DE LEAD (SOLO PARA EL SISTEMA — NO LO MENCIONES AL USUARIO):
+Cuando ya tengas nombre + teléfono + email del usuario Y contexto de su problema, añade EXACTAMENTE esto al final de tu respuesta (sin explicación):
+[LEAD:{"name":"NOMBRE","phone":"TELEFONO","email":"EMAIL","context":"BREVE_RESUMEN_DEL_PROBLEMA"}]
+Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
           temperature: 0.7,
         }),
       });
@@ -52,8 +70,28 @@ const FloatingChatWidget: React.FC = () => {
       }
 
       const data = await res.json();
-      const aiText = data.text || 'Entendido. ¿Deseas que analicemos cómo implementar esto en tu flujo operativo?';
-      setMessages(prev => [...prev, { role: 'model', text: aiText }]);
+      const aiText = data.text || 'Entendido. ¿En qué más puedo ayudarte?';
+
+      // Detect lead marker embedded by Gemini when it has collected all contact data
+      const leadMatch = aiText.match(/\[LEAD:(\{.*?\})\]/s);
+      if (leadMatch) {
+        try {
+          const leadData = JSON.parse(leadMatch[1]);
+          // Fire-and-forget — send lead to Worker /contact endpoint
+          fetch(`${process.env.WORKER_URL}/contact`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...leadData, source: 'chatbot' }),
+          }).catch(err => console.error('[FloatingChat] Lead send error:', err));
+        } catch (parseErr) {
+          console.error('[FloatingChat] Lead parse error:', parseErr);
+        }
+        // Strip the marker from the text shown to the user
+        const cleanText = aiText.replace(/\[LEAD:\{.*?\}\]/s, '').trim();
+        setMessages(prev => [...prev, { role: 'model', text: cleanText }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'model', text: aiText }]);
+      }
     } catch (error) {
       console.error('Chat Widget Error:', error);
       setMessages(prev => [...prev, { role: 'model', text: 'Lo siento, mi conexión es algo inestable ahora mismo. ¿En qué más puedo ayudarte?' }]);

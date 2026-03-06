@@ -36,6 +36,8 @@ import RealChatDemo from './components/RealChatDemo';
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', message: '', rgpd: false });
+  const [contactStatus, setContactStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +59,31 @@ const App: React.FC = () => {
     { name: 'Google Gemini', icon: <ShieldCheck className="w-5 h-5" /> },
     { name: 'ElevenLabs', icon: <Volume2 className="w-5 h-5" /> }
   ];
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactForm.rgpd) return;
+    setContactStatus('loading');
+    try {
+      const res = await fetch(`${process.env.WORKER_URL}/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:    contactForm.name,
+          email:   contactForm.email,
+          phone:   contactForm.phone,
+          message: contactForm.message,
+          source:  'formulario-web',
+        }),
+      });
+      if (!res.ok) throw new Error(`Worker /contact responded ${res.status}`);
+      setContactStatus('success');
+      setContactForm({ name: '', email: '', phone: '', message: '', rgpd: false });
+    } catch (err) {
+      console.error('[ContactForm] Error:', err);
+      setContactStatus('error');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#030712] text-white selection:bg-cyan-500/30 selection:text-cyan-200">
@@ -446,31 +473,42 @@ const App: React.FC = () => {
 
             <div className="glass p-12 md:p-20 rounded-[60px] border border-white/10 shadow-3xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-400/10 blur-[120px] -z-10"></div>
-              <form className="space-y-8">
+              <form onSubmit={handleContactSubmit} className="space-y-8">
                 <div className="space-y-4">
                   <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Nombre *</label>
-                  <input type="text" required placeholder="Su nombre o el de su empresa" className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
+                  <input type="text" required placeholder="Su nombre o el de su empresa" value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
                 </div>
                 <div className="space-y-4">
                   <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Email *</label>
-                  <input type="email" required placeholder="ejemplo@correo.com" className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
+                  <input type="email" required placeholder="ejemplo@correo.com" value={contactForm.email} onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
                 </div>
                 <div className="space-y-4">
                   <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Teléfono *</label>
-                  <input type="tel" required placeholder="+34 600 000 000" className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
+                  <input type="tel" required placeholder="+34 600 000 000" value={contactForm.phone} onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
                 </div>
                 <div className="space-y-4">
                   <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">¿Qué quiere automatizar?</label>
-                  <textarea rows={3} placeholder="Ej: responder mensajes de clientes, gestionar citas, pedir reseñas..." className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold resize-none"></textarea>
+                  <textarea rows={3} placeholder="Ej: responder mensajes de clientes, gestionar citas, pedir reseñas..." value={contactForm.message} onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold resize-none"></textarea>
                 </div>
                 <div className="flex items-start space-x-4 p-4 bg-white/5 rounded-2xl">
-                  <input type="checkbox" required id="rgpd" className="mt-1 w-5 h-5 accent-cyan-400 rounded-lg" />
+                  <input type="checkbox" required id="rgpd" checked={contactForm.rgpd} onChange={e => setContactForm(f => ({ ...f, rgpd: e.target.checked }))} className="mt-1 w-5 h-5 accent-cyan-400 rounded-lg" />
                   <label htmlFor="rgpd" className="text-[12px] text-gray-400 leading-relaxed font-bold">
                     He leído y acepto la <a href="#" className="text-cyan-400 hover:underline">política de privacidad</a>.
                   </label>
                 </div>
-                <button type="submit" className="w-full bg-cyan-400 text-black py-8 rounded-3xl font-black text-2xl transition-all transform hover:scale-[1.02] active:scale-95 shadow-[0_20px_40px_rgba(34,211,238,0.4)]">
-                  SOLICITAR DIAGNÓSTICO GRATUITO
+                {contactStatus === 'success' && (
+                  <div className="flex items-center space-x-3 p-4 bg-green-500/10 border border-green-500/20 rounded-2xl">
+                    <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />
+                    <p className="text-green-400 font-bold text-sm">¡Mensaje enviado! Le contactaremos en menos de 24 horas.</p>
+                  </div>
+                )}
+                {contactStatus === 'error' && (
+                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl">
+                    <p className="text-red-400 font-bold text-sm">Ha ocurrido un error. Por favor, inténtelo de nuevo o escríbanos por WhatsApp.</p>
+                  </div>
+                )}
+                <button type="submit" disabled={contactStatus === 'loading'} className="w-full bg-cyan-400 text-black py-8 rounded-3xl font-black text-2xl transition-all transform hover:scale-[1.02] active:scale-95 shadow-[0_20px_40px_rgba(34,211,238,0.4)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100">
+                  {contactStatus === 'loading' ? 'ENVIANDO...' : 'SOLICITAR DIAGNÓSTICO GRATUITO'}
                 </button>
                 <p className="text-center text-gray-500 text-[10px] font-black uppercase tracking-[0.3em]">
                   Respuesta Garantizada en <span className="text-cyan-400">&lt; 24 Horas</span>
