@@ -22,20 +22,24 @@ const GEMINI_API_URL =
  * CORS — only allow requests from the production GitHub Pages domain
  * and localhost for local development.
  */
-const ALLOWED_ORIGINS = [
+const ALLOWED_ORIGINS = new Set([
+  "https://edraisolutions.es",
+  "https://www.edraisolutions.es",
   "https://alepm03.github.io",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
-];
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+]);
 
 function getCorsHeaders(requestOrigin) {
-  const origin = ALLOWED_ORIGINS.includes(requestOrigin)
-    ? requestOrigin
-    : ALLOWED_ORIGINS[0];
+  const isAllowed = ALLOWED_ORIGINS.has(requestOrigin);
   return {
-    "Access-Control-Allow-Origin":  origin,
+    ...(isAllowed ? { "Access-Control-Allow-Origin": requestOrigin } : {}),
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+    "Vary": "Origin",
   };
 }
 
