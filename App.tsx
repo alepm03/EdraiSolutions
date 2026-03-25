@@ -32,12 +32,14 @@ import { SERVICES, UPCOMING_SERVICES, PROCESS, TEAM } from './constants';
 import ChatbotDemo from './components/ChatbotDemo';
 import FloatingChatWidget from './components/FloatingChatWidget';
 import RealChatDemo from './components/RealChatDemo';
+import LegalModal from './components/LegalModal';
 
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', message: '', rgpd: false });
   const [contactStatus, setContactStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [legalModal, setLegalModal] = useState<null | 'privacidad' | 'cookies'>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -181,14 +183,14 @@ const App: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8 text-center md:text-left">
             <div className="max-w-2xl">
               <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Servicios</div>
-              <h2 className="text-4xl md:text-6xl font-black leading-[1] tracking-tighter">QUÉ HACEMOS POR SU NEGOCIO</h2>
+              <h2 className="text-4xl md:text-6xl font-black leading-[1] tracking-tighter">QUÉ HACEMOS POR TU NEGOCIO</h2>
             </div>
             <p className="text-gray-400 max-w-md text-xl font-medium leading-relaxed">
-              Automatizaciones listas para funcionar en su negocio desde la primera semana.
+              Automatizaciones listas para funcionar en tu negocio desde la primera semana.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10 mb-32">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-32">
             {SERVICES.map((service) => (
               <div key={service.id} className="glass p-12 rounded-[40px] border border-white/5 hover:border-cyan-400/30 transition-all group relative overflow-hidden flex flex-col h-full">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-400/5 blur-[80px] -z-10 group-hover:bg-cyan-400/15 transition-all"></div>
@@ -291,7 +293,7 @@ const App: React.FC = () => {
             {/* Divider Line on Desktop */}
             <div className="hidden md:block w-px h-28 bg-white/10 mx-8 shrink-0"></div>
             <p className="text-gray-400 text-xl max-w-md font-medium leading-relaxed">
-              Entendemos los problemas reales de cada sector. Por eso nuestras soluciones funcionan desde el primer día.
+              Hemos diseñado nuestras soluciones específicamente para estos sectores. Prueba las demos y comprueba cómo funcionaría en tu negocio.
             </p>
           </div>
 
@@ -334,8 +336,8 @@ const App: React.FC = () => {
 
         <section id="demos-reales" className="container mx-auto px-6">
           <div className="text-center mb-24">
-             <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Cliente real</div>
-             <h2 className="text-4xl md:text-6xl font-black tracking-tighter">FUNCIONANDO EN <br /><span className="text-gradient">PRODUCCIÓN</span></h2>
+             <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Integración en vivo</div>
+             <h2 className="text-4xl md:text-6xl font-black tracking-tighter">INTEGRACIÓN REAL<br /><span className="text-gradient">PRUÉBALA AHORA</span></h2>
           </div>
           <RealChatDemo />
         </section>
@@ -392,14 +394,14 @@ const App: React.FC = () => {
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Preguntas <span className="text-gradient">frecuentes</span></h2>
-            <p className="text-gray-400 text-xl font-medium">Las dudas más habituales de nuestros clientes antes de empezar.</p>
+            <p className="text-gray-400 text-xl font-medium">Las preguntas que más nos hacen antes de empezar.</p>
           </div>
           
           <div className="space-y-4">
             {[
               {
                 q: '¿Necesito conocimientos técnicos?',
-                a: 'No. Nosotros nos encargamos de toda la parte técnica. Usted recibe un sistema funcionando y una formación para su equipo. Si algo falla, nos ocupamos nosotros.'
+                a: 'No. Nosotros nos encargamos de toda la parte técnica. Recibes un sistema funcionando y formación para tu equipo. Si algo falla, nos ocupamos nosotros.'
               },
               {
                 q: '¿Cuánto tiempo tarda en estar funcionando?',
@@ -411,11 +413,11 @@ const App: React.FC = () => {
               },
               {
                 q: '¿Qué pasa si no me convence el resultado?',
-                a: 'Trabajamos con validaciones en cada fase. Usted aprueba antes de que lancemos nada. Además, ofrecemos un período de ajuste post-lanzamiento incluido.'
+                a: 'Trabajamos con validaciones en cada fase. Tú apruebas antes de que lancemos nada. Además, ofrecemos un período de ajuste post-lanzamiento incluido.'
               },
               {
                 q: '¿Y si ya tengo una web o un CRM?',
-                a: 'Nos integramos con lo que ya tiene. No necesita cambiar de herramientas ni migrar nada.'
+                a: 'Nos integramos con lo que ya tienes. No necesitas cambiar de herramientas ni migrar nada.'
               },
               {
                 q: '¿Mis datos y los de mis clientes están seguros?',
@@ -443,10 +445,10 @@ const App: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-32 items-center">
             <div>
               <h2 className="text-5xl md:text-7xl font-black mb-10 leading-[0.9] tracking-tighter">
-                HABLEMOS DE SU <br /><span className="text-gradient">NEGOCIO</span>
+                HABLEMOS DE TU <br /><span className="text-gradient">NEGOCIO</span>
               </h2>
               <p className="text-gray-400 text-2xl mb-16 leading-relaxed font-medium max-w-lg">
-                Cuéntenos qué quiere mejorar y le proponemos una solución en menos de 24 horas. Sin compromiso.
+                Cuéntanos qué quieres mejorar y te proponemos una solución en menos de 24 horas. Sin compromiso.
               </p>
 
               <div className="space-y-12">
@@ -456,7 +458,7 @@ const App: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-black text-xl mb-3 tracking-tight">DIAGNÓSTICO GRATUITO</h4>
-                    <p className="text-gray-400 font-medium leading-relaxed">Analizamos su negocio y le mostramos dónde puede ahorrar tiempo y dinero con automatización.</p>
+                    <p className="text-gray-400 font-medium leading-relaxed">Analizamos tu negocio y te mostramos dónde puedes ahorrar tiempo y dinero con automatización.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-8 group">
@@ -465,7 +467,7 @@ const App: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-black text-xl mb-3 tracking-tight">TODO INCLUIDO</h4>
-                    <p className="text-gray-400 font-medium leading-relaxed">Nos encargamos del diseño, la implementación y el mantenimiento. Usted solo ve resultados.</p>
+                    <p className="text-gray-400 font-medium leading-relaxed">Nos encargamos del diseño, la implementación y el mantenimiento. Tú solo ves resultados.</p>
                   </div>
                 </div>
               </div>
@@ -476,7 +478,7 @@ const App: React.FC = () => {
               <form onSubmit={handleContactSubmit} className="space-y-8">
                 <div className="space-y-4">
                   <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Nombre *</label>
-                  <input type="text" required placeholder="Su nombre o el de su empresa" value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
+                  <input type="text" required placeholder="Tu nombre o el de tu empresa" value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
                 </div>
                 <div className="space-y-4">
                   <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Email *</label>
@@ -487,24 +489,24 @@ const App: React.FC = () => {
                   <input type="tel" required placeholder="+34 600 000 000" value={contactForm.phone} onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">¿Qué quiere automatizar?</label>
+                  <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">¿Qué quieres automatizar?</label>
                   <textarea rows={3} placeholder="Ej: responder mensajes de clientes, gestionar citas, pedir reseñas..." value={contactForm.message} onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold resize-none"></textarea>
                 </div>
                 <div className="flex items-start space-x-4 p-4 bg-white/5 rounded-2xl">
                   <input type="checkbox" required id="rgpd" checked={contactForm.rgpd} onChange={e => setContactForm(f => ({ ...f, rgpd: e.target.checked }))} className="mt-1 w-5 h-5 accent-cyan-400 rounded-lg" />
                   <label htmlFor="rgpd" className="text-[12px] text-gray-400 leading-relaxed font-bold">
-                    He leído y acepto la <a href="#" className="text-cyan-400 hover:underline">política de privacidad</a>.
+                    He leído y acepto la <button type="button" onClick={() => setLegalModal('privacidad')} className="text-cyan-400 hover:underline font-bold">política de privacidad</button>.
                   </label>
                 </div>
                 {contactStatus === 'success' && (
                   <div className="flex items-center space-x-3 p-4 bg-green-500/10 border border-green-500/20 rounded-2xl">
                     <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0" />
-                    <p className="text-green-400 font-bold text-sm">¡Mensaje enviado! Le contactaremos en menos de 24 horas.</p>
+                    <p className="text-green-400 font-bold text-sm">¡Mensaje enviado! Te contactaremos en menos de 24 horas.</p>
                   </div>
                 )}
                 {contactStatus === 'error' && (
                   <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl">
-                    <p className="text-red-400 font-bold text-sm">Ha ocurrido un error. Por favor, inténtelo de nuevo o escríbanos por WhatsApp.</p>
+                    <p className="text-red-400 font-bold text-sm">Ha ocurrido un error. Por favor, inténtalo de nuevo o escríbenos por WhatsApp.</p>
                   </div>
                 )}
                 <button type="submit" disabled={contactStatus === 'loading'} className="w-full bg-cyan-400 text-black py-8 rounded-3xl font-black text-2xl transition-all transform hover:scale-[1.02] active:scale-95 shadow-[0_20px_40px_rgba(34,211,238,0.4)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100">
@@ -513,9 +515,15 @@ const App: React.FC = () => {
                 <p className="text-center text-gray-500 text-[10px] font-black uppercase tracking-[0.3em]">
                   Respuesta Garantizada en <span className="text-cyan-400">&lt; 24 Horas</span>
                 </p>
-                <p className="text-center text-gray-500 text-sm mt-4">
-                  O escríbanos por <a href="https://wa.me/34654954602?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20de%20automatizaci%C3%B3n" target="_blank" rel="noopener noreferrer" className="text-green-400 font-bold hover:text-green-300">WhatsApp</a>
-                </p>
+                <a
+                  href="https://wa.me/34654954602?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20vuestros%20servicios%20de%20automatizaci%C3%B3n"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 w-full border-2 border-green-500 text-green-400 py-4 rounded-2xl font-black text-lg hover:bg-green-500/10 transition-all"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Escríbenos por WhatsApp
+                </a>
               </form>
             </div>
           </div>
@@ -524,6 +532,9 @@ const App: React.FC = () => {
 
       {/* Floating Chat Widget */}
       <FloatingChatWidget />
+
+      {/* Legal Modals */}
+      {legalModal && <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />}
 
       {/* Footer */}
       <footer className="bg-[#010409] pt-48 pb-16 border-t border-white/5">
@@ -537,8 +548,8 @@ const App: React.FC = () => {
                 Automatización con inteligencia artificial para negocios en España. Chatbots, reservas y reseñas que funcionan solos.
               </p>
               <div className="flex space-x-6">
-                <a href="#" className="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-cyan-400 hover:text-black transition-all shadow-xl"><Linkedin className="w-6 h-6" /></a>
-                <a href="#" className="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-cyan-400 hover:text-black transition-all shadow-xl"><Instagram className="w-6 h-6" /></a>
+                <a href="https://www.linkedin.com/in/ricardopichardo" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-cyan-400 hover:text-black transition-all shadow-xl"><Linkedin className="w-6 h-6" /></a>
+                <a href="https://www.instagram.com/edraisolutions/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-12 h-12 bg-white/5 flex items-center justify-center rounded-2xl hover:bg-cyan-400 hover:text-black transition-all shadow-xl"><Instagram className="w-6 h-6" /></a>
               </div>
             </div>
 
@@ -557,8 +568,8 @@ const App: React.FC = () => {
               <ul className="space-y-6 text-gray-400 text-[13px] font-bold uppercase tracking-widest">
                 <li><a href="#equipo" className="hover:text-white transition-colors">Nuestro Equipo</a></li>
                 <li><a href="#proceso" className="hover:text-white transition-colors">Metodología</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacidad</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contacto</a></li>
+                <li><button onClick={() => setLegalModal('privacidad')} className="hover:text-white transition-colors text-left">Privacidad</button></li>
+                <li><a href="#contacto" className="hover:text-white transition-colors">Contacto</a></li>
               </ul>
             </div>
 
@@ -566,7 +577,7 @@ const App: React.FC = () => {
               <h4 className="font-black text-[12px] mb-10 uppercase tracking-[0.5em] text-cyan-400">Contacto</h4>
               <ul className="space-y-8 text-gray-400 text-[13px] font-bold tracking-widest uppercase">
                 <li className="flex items-center space-x-4 group">
-                  <Mail className="w-5 h-5 text-cyan-400" />
+                  <Mail className="w-5 h-5 shrink-0 text-cyan-400" />
                   <a href="mailto:info@edraisolutions.es" className="group-hover:text-white transition-colors">info@edraisolutions.es</a>
                 </li>
                 <li className="flex items-center space-x-4 group">
@@ -585,15 +596,16 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] text-gray-400 font-black uppercase tracking-[0.5em]">
-            <div className="flex items-center space-x-4">
-               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-               <span>Disponibles para nuevos proyectos</span>
+          <div className="pt-10 border-t border-white/5 flex flex-col items-center gap-5 text-[11px] text-gray-500 font-bold uppercase tracking-[0.3em]">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
+              <span>Disponibles para nuevos proyectos</span>
             </div>
-            <div className="text-center">© 2026 Edrai Solutions. Automatización con IA.</div>
-            <div className="flex space-x-12">
-              <a href="#" className="hover:text-white transition-colors">Términos</a>
-              <a href="#" className="hover:text-white transition-colors">Cookies</a>
+            <div>© 2026 Edrai Solutions. Automatización con IA.</div>
+            <div className="flex items-center gap-6">
+              <button onClick={() => setLegalModal('privacidad')} className="uppercase tracking-[0.3em] font-black text-[11px] hover:text-white transition-colors">Privacidad</button>
+              <span className="text-white/10">·</span>
+              <button onClick={() => setLegalModal('cookies')} className="uppercase tracking-[0.3em] font-black text-[11px] hover:text-white transition-colors">Cookies</button>
             </div>
           </div>
         </div>

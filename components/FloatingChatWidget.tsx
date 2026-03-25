@@ -199,7 +199,6 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
                 <Send className="w-5 h-5" />
               </button>
             </form>
-            <p className="mt-3 text-[10px] text-center text-gray-500 font-medium">Demo · Las respuestas son generadas por IA</p>
           </div>
         </div>
       )}

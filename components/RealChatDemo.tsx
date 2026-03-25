@@ -15,7 +15,7 @@ interface Message {
 }
 
 const RealChatDemo: React.FC = () => {
-  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL || 'https://n8n.srv1420918.hstgr.cloud/webhook/c04f1d1b-0c5c-4eb7-ad54-0efab6e59426/chat';
+  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
   const [messages, setMessages] = useState<Message[]>([
     { role: 'bot', text: '¡Hola! Soy el asistente inteligente del **Centro Deportivo**. ¿En qué puedo ayudarte hoy? Puedo informarte sobre horarios, tarifas o clases disponibles.' }
   ]);
@@ -33,6 +33,10 @@ const RealChatDemo: React.FC = () => {
   const handleSend = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!input.trim() || isLoading) return;
+    if (!webhookUrl) {
+      setError('Demo no disponible en este momento. Escríbenos por WhatsApp para una demo en directo.');
+      return;
+    }
 
     const userMessage = input.trim();
     setInput('');
@@ -83,7 +87,7 @@ const RealChatDemo: React.FC = () => {
             </div>
 
             <p className="text-gray-400 text-[15px] leading-relaxed mb-8 font-medium">
-              Estás interactuando con una integración real de Edrai Solutions. Este bot está conectado directamente a un flujo de trabajo de <strong className="text-cyan-400">n8n</strong> que gestiona la lógica de un centro deportivo.
+              Estás interactuando con una integración real de Edrai Solutions.
             </p>
 
             <div className="space-y-4">
@@ -93,7 +97,7 @@ const RealChatDemo: React.FC = () => {
               </div>
               <div className="flex items-center gap-3 text-xs font-black text-gray-500 uppercase tracking-widest">
                 <Sparkles className="w-4 h-4 text-cyan-400" />
-                <span>Motor: n8n + AI Agent</span>
+                <span>Motor: AI Agent</span>
               </div>
             </div>
 

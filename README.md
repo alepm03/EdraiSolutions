@@ -1,20 +1,52 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Edrai Solutions — Web corporativa
 
-# Run and deploy your AI Studio app
+Web de [Edrai Solutions](https://edraisolutions.es), agencia de automatización con IA para negocios en España.
 
-This contains everything you need to run your app locally.
+## Stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1kL3mV-RCmNJvDF6p0ZslaIYfjiiaqFRj
+- **Frontend:** React 19 · TypeScript · Vite · Tailwind CSS
+- **AI Backend:** Cloudflare Workers (proxy Gemini/OpenAI)
+- **Automatizaciones:** n8n (flujos de trabajo y demos en vivo)
 
-## Run Locally
+## Setup local
 
-**Prerequisites:**  Node.js
+1. Instalar dependencias:
+   ```bash
+   npm install
+   ```
 
+2. Copiar el archivo de variables de entorno y rellenarlo:
+   ```bash
+   cp .env.local.example .env.local
+   ```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+3. Arrancar el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+   → Disponible en `http://localhost:3000`
+
+## Variables de entorno
+
+| Variable | Descripción |
+|----------|-------------|
+| `VITE_WORKER_URL` | URL del Cloudflare Worker desplegado (proxy de IA para chatbots y formulario) |
+| `VITE_N8N_WEBHOOK_URL` | URL del webhook n8n para la demo de integración en vivo |
+
+> Las claves de API (Gemini, OpenAI, etc.) **no se almacenan en el frontend**. Viven como secretos en el Cloudflare Worker (`cf-worker/`).
+
+## Desplegar el Worker
+
+```bash
+cd cf-worker
+npx wrangler deploy
+```
+
+## Equipo
+
+- **Ricardo Pichardo** — Co-Founder & CEO · [LinkedIn](https://www.linkedin.com/in/ricardopichardo)
+- **Alejandro Pichardo** — Co-Founder & CTO · [LinkedIn](https://www.linkedin.com/in/alejandro-pichardo-036478392/)
+
+---
+
+[edraisolutions.es](https://edraisolutions.es) · info@edraisolutions.es

@@ -209,7 +209,7 @@ const ChatbotDemo: React.FC = () => {
               </div>
             </div>
           </div>
-          <button className="p-2 text-gray-600 hover:text-white transition-colors"><MoreVertical className="w-6 h-6" /></button>
+          <button className="p-2 text-gray-600 hover:text-white transition-colors" aria-label="Más opciones"><MoreVertical className="w-6 h-6" /></button>
         </div>
 
         {/* Messages */}
