@@ -26,7 +26,8 @@ import {
   Home,
   Utensils,
   Search,
-  Volume2
+  Volume2,
+  Code2
 } from 'lucide-react';
 import { SERVICES, UPCOMING_SERVICES, PROCESS, TEAM } from './constants';
 import ChatbotDemo from './components/ChatbotDemo';
@@ -134,23 +135,23 @@ const App: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-[88vh] flex items-center pt-20 overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-500/10 rounded-full blur-[160px] -z-10 animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[140px] -z-10"></div>
         
         <div className="container mx-auto px-6 text-center z-10">
-          <div className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-2.5 rounded-full text-[13px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-10 animate-in slide-in-from-bottom-4 duration-700">
+          <div className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-2.5 rounded-full text-[13px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-6 animate-in slide-in-from-bottom-4 duration-700">
             <span className="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-ping"></span>
             <span>Automatización con IA</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-10 leading-[1.1] tracking-tighter animate-in slide-in-from-bottom-8 duration-1000">
-            Escala tu negocio con <br />
-            <span className="text-gradient">Agentes Inteligentes</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] tracking-tighter animate-in slide-in-from-bottom-8 duration-1000">
+            Tu negocio funciona solo.<br />
+            <span className="text-gradient">Nosotros lo hacemos posible.</span>
           </h1>
           
-          <p className="text-gray-400 text-xl md:text-2xl max-w-4xl mx-auto mb-16 leading-relaxed font-medium animate-in slide-in-from-bottom-12 duration-1200">
-            Creamos chatbots, asistentes de reservas y sistemas de reseñas automáticas para que su equipo deje de perder tiempo en tareas repetitivas y se centre en vender y atender.
+          <p className="text-gray-400 text-xl md:text-2xl max-w-4xl mx-auto mb-10 leading-relaxed font-medium animate-in slide-in-from-bottom-12 duration-1200">
+            Automatizamos la atención al cliente, las reservas y las reseñas de tu negocio para que tu equipo deje de perder tiempo en tareas repetitivas y se centre en lo que importa.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-in slide-in-from-bottom-16 duration-1500">
@@ -162,8 +163,19 @@ const App: React.FC = () => {
               Ver qué hacemos
             </a>
           </div>
+          <p className="mt-4 text-sm text-gray-500 font-medium">
+            ¿Prefieres hablar primero?{' '}
+            <a
+              href="https://wa.me/34654954602?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20vuestros%20servicios"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-2 decoration-cyan-400/30"
+            >
+              Escríbenos por WhatsApp
+            </a>
+          </p>
 
-          <div className="mt-32 pt-16 border-t border-white/5 max-w-5xl mx-auto opacity-40">
+          <div className="mt-16 pt-10 border-t border-white/5 max-w-5xl mx-auto opacity-40">
             <p className="text-[12px] font-black uppercase tracking-[0.5em] text-gray-400 mb-8">Tecnología que usamos</p>
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 grayscale">
               {techStack.map((tech) => (
@@ -178,7 +190,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Services Section */}
-      <section id="servicios" className="py-32 bg-[#020617] relative">
+      <section id="servicios" className="py-20 bg-[#020617] relative">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8 text-center md:text-left">
             <div className="max-w-2xl">
@@ -190,15 +202,15 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-32">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20">
             {SERVICES.map((service) => (
-              <div key={service.id} className="glass p-12 rounded-[40px] border border-white/5 hover:border-cyan-400/30 transition-all group relative overflow-hidden flex flex-col h-full">
+              <div key={service.id} className="glass p-8 rounded-3xl border border-white/5 hover:border-cyan-400/30 transition-all group relative overflow-hidden flex flex-col h-full">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-400/5 blur-[80px] -z-10 group-hover:bg-cyan-400/15 transition-all"></div>
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 group-hover:rotate-3 transition-all shadow-2xl shadow-cyan-400/10">
+                <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all shadow-2xl shadow-cyan-400/10">
                   <div className="text-black">{service.icon}</div>
                 </div>
-                <h3 className="text-2xl font-black mb-6 leading-tight tracking-tight">{service.title}</h3>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-10 flex-grow">
+                <h3 className="text-2xl font-black mb-4 leading-tight tracking-tight">{service.title}</h3>
+                <p className="text-gray-400 text-[15px] leading-relaxed mb-6 flex-grow">
                   {service.description}
                 </p>
                 <ul className="space-y-4 pt-8 border-t border-white/5">
@@ -215,24 +227,41 @@ const App: React.FC = () => {
             ))}
           </div>
 
-          {/* Upcoming Section */}
-          <div className="glass p-16 rounded-[50px] border border-white/5 relative overflow-hidden">
+          {/* Casos de uso */}
+          <div className="glass p-12 rounded-3xl border border-white/5 relative overflow-hidden">
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-cyan-400/[0.02] blur-3xl -z-10"></div>
-             <div className="text-center mb-16">
-                <div className="inline-flex items-center space-x-2 bg-purple-500/10 border border-purple-500/20 text-purple-400 px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.4em] mb-6">
-                  <Sparkles className="w-4 h-4" />
-                  <span>Próximamente</span>
+             <div className="text-center mb-12">
+                <div className="inline-flex items-center space-x-2 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.4em] mb-6">
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Ejemplos representativos</span>
                 </div>
-                <h3 className="text-3xl md:text-5xl font-black tracking-tighter italic opacity-80 uppercase">Próximos Lanzamientos</h3>
+                <h3 className="text-3xl md:text-5xl font-black tracking-tighter uppercase">Resultados reales para negocios como el tuyo</h3>
+                <p className="text-gray-400 mt-4 font-medium">Ejemplos de lo que hemos automatizado</p>
              </div>
-             <div className="grid md:grid-cols-3 gap-12">
-               {UPCOMING_SERVICES.map((service, idx) => (
-                 <div key={idx} className="group grayscale hover:grayscale-0 transition-all">
-                   <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-cyan-400/10 group-hover:text-cyan-400 transition-all">
-                     {service.icon}
+             <div className="grid md:grid-cols-3 gap-10">
+               {[
+                 {
+                   icon: <Utensils className="w-6 h-6" />,
+                   title: 'Restaurante con reservas automáticas',
+                   result: 'El chatbot de WhatsApp gestiona el 80% de las reservas sin intervención del equipo.'
+                 },
+                 {
+                   icon: <Stethoscope className="w-6 h-6" />,
+                   title: 'Centro médico con recordatorios automáticos',
+                   result: 'Reducción del 40% en ausencias a citas gracias a recordatorios personalizados por WhatsApp.'
+                 },
+                 {
+                   icon: <Code2 className="w-6 h-6" />,
+                   title: 'App de gestión de gastos con IA',
+                   result: 'El equipo de administración procesa los tickets de gastos en segundos, no en horas.'
+                 }
+               ].map((caso, idx) => (
+                 <div key={idx} className="group">
+                   <div className="w-12 h-12 bg-cyan-400/10 rounded-2xl flex items-center justify-center mb-6 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all">
+                     {caso.icon}
                    </div>
-                   <h4 className="text-lg font-black mb-3 text-gray-400 group-hover:text-white transition-colors uppercase tracking-tight">{service.title}</h4>
-                   <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">{service.description}</p>
+                   <h4 className="text-lg font-black mb-3 uppercase tracking-tight">{caso.title}</h4>
+                   <p className="text-gray-400 text-sm leading-relaxed font-medium">{caso.result}</p>
                  </div>
                ))}
              </div>
@@ -241,7 +270,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Process Section */}
-      <section id="proceso" className="py-32 bg-[#030712] relative overflow-hidden">
+      <section id="proceso" className="py-20 bg-[#030712] relative overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="text-center mb-24">
             <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Nuestro proceso</div>
@@ -255,8 +284,8 @@ const App: React.FC = () => {
                   <div className="text-[140px] font-black text-white/[0.02] absolute -top-20 left-0 transition-colors group-hover:text-cyan-400/5 pointer-events-none select-none">
                     {step.number}
                   </div>
-                  <div className="glass p-12 rounded-[40px] border border-white/5 hover:border-cyan-400/40 transition-all h-full flex flex-col pt-16 group-hover:-translate-y-3 duration-700 shadow-2xl">
-                    <div className="w-14 h-14 bg-cyan-400 text-black rounded-2xl flex items-center justify-center mb-10 shadow-2xl shadow-cyan-400/30 group-hover:rotate-6 transition-transform">
+                  <div className="glass p-8 rounded-3xl border border-white/5 hover:border-cyan-400/40 transition-all h-full flex flex-col pt-10 group-hover:-translate-y-3 duration-700 shadow-2xl">
+                    <div className="w-14 h-14 bg-cyan-400 text-black rounded-2xl flex items-center justify-center mb-6 shadow-2xl shadow-cyan-400/30 group-hover:rotate-6 transition-transform">
                       {step.icon}
                     </div>
                     <h3 className="text-xl font-black mb-6 uppercase tracking-tight">{step.title}</h3>
@@ -283,7 +312,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Sectors Section */}
-      <section id="sectores" className="py-24 bg-[#030712]">
+      <section id="sectores" className="py-16 bg-[#030712]">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-20 gap-8 text-center md:text-left max-w-7xl mx-auto">
             <div className="max-w-2xl">
@@ -319,17 +348,17 @@ const App: React.FC = () => {
           </div>
 
           <div className="text-center mt-16">
-            <p className="text-gray-400 text-sm font-medium">¿No ve su sector? <a href="#contacto" className="text-cyan-400 font-bold hover:text-cyan-300 transition-colors underline underline-offset-4 decoration-cyan-400/30">Háblenos</a> — probablemente ya tengamos una solución para usted.</p>
+            <p className="text-gray-400 text-sm font-medium">¿No ves tu sector? <a href="#contacto" className="text-cyan-400 font-bold hover:text-cyan-300 transition-colors underline underline-offset-4 decoration-cyan-400/30">Cuéntanoslo</a> — probablemente ya tengamos una solución para ti.</p>
           </div>
         </div>
       </section>
 
       {/* Demos Sections Container */}
-      <div id="demos" className="bg-[#020617] py-32 space-y-48">
+      <div id="demos" className="bg-[#020617] py-20 space-y-28">
         <section className="container mx-auto px-6">
           <div className="text-center mb-24">
              <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Demo en vivo</div>
-             <h2 className="text-4xl md:text-6xl font-black tracking-tighter">PRUEBE NUESTROS ASISTENTES</h2>
+             <h2 className="text-4xl md:text-6xl font-black tracking-tighter">PRUEBA NUESTROS ASISTENTES</h2>
           </div>
           <ChatbotDemo />
         </section>
@@ -344,7 +373,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Team Section */}
-      <section id="equipo" className="py-32 bg-[#030712] relative">
+      <section id="equipo" className="py-20 bg-[#030712] relative">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
              <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Nuestro equipo</div>
@@ -390,7 +419,7 @@ const App: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-24 bg-[#020617]">
+      <section id="faq" className="py-16 bg-[#020617]">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Preguntas <span className="text-gradient">frecuentes</span></h2>
@@ -409,7 +438,7 @@ const App: React.FC = () => {
               },
               {
                 q: '¿Cuánto cuesta?',
-                a: 'Depende del servicio y la complejidad. Nuestro diagnóstico inicial es gratuito y en él le damos un presupuesto cerrado sin sorpresas.'
+                a: 'Depende del servicio y la complejidad. Nuestro diagnóstico inicial es gratuito y en él te damos un presupuesto cerrado sin sorpresas.'
               },
               {
                 q: '¿Qué pasa si no me convence el resultado?',
@@ -439,10 +468,10 @@ const App: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contacto" className="py-48 bg-[#030712] relative overflow-hidden">
+      <section id="contacto" className="py-24 bg-[#030712] relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-cyan-400/[0.03] blur-[150px] -z-10"></div>
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-32 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-5xl md:text-7xl font-black mb-10 leading-[0.9] tracking-tighter">
                 HABLEMOS DE TU <br /><span className="text-gradient">NEGOCIO</span>
@@ -451,7 +480,7 @@ const App: React.FC = () => {
                 Cuéntanos qué quieres mejorar y te proponemos una solución en menos de 24 horas. Sin compromiso.
               </p>
 
-              <div className="space-y-12">
+              <div className="space-y-8">
                 <div className="flex items-start space-x-8 group">
                   <div className="w-14 h-14 bg-cyan-400/10 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-cyan-400 group-hover:text-black transition-all shadow-xl">
                     <Calendar className="w-7 h-7" />
@@ -473,7 +502,7 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <div className="glass p-12 md:p-20 rounded-[60px] border border-white/10 shadow-3xl relative overflow-hidden">
+            <div className="glass p-8 md:p-12 rounded-3xl border border-white/10 shadow-3xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-400/10 blur-[120px] -z-10"></div>
               <form onSubmit={handleContactSubmit} className="space-y-8">
                 <div className="space-y-4">
@@ -537,9 +566,9 @@ const App: React.FC = () => {
       {legalModal && <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />}
 
       {/* Footer */}
-      <footer className="bg-[#010409] pt-48 pb-16 border-t border-white/5">
+      <footer className="bg-[#010409] pt-24 pb-16 border-t border-white/5">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-24 mb-32 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16 items-start">
             <div className="space-y-10">
               <div className="text-4xl font-black tracking-tighter">
                 <span className="text-cyan-400">Edrai</span>Solutions
@@ -568,7 +597,7 @@ const App: React.FC = () => {
               <ul className="space-y-6 text-gray-400 text-[13px] font-bold uppercase tracking-widest">
                 <li><a href="#equipo" className="hover:text-white transition-colors">Nuestro Equipo</a></li>
                 <li><a href="#proceso" className="hover:text-white transition-colors">Metodología</a></li>
-                <li><button onClick={() => setLegalModal('privacidad')} className="hover:text-white transition-colors text-left">Privacidad</button></li>
+                <li><button onClick={() => setLegalModal('privacidad')} className="uppercase hover:text-white transition-colors text-left">Privacidad</button></li>
                 <li><a href="#contacto" className="hover:text-white transition-colors">Contacto</a></li>
               </ul>
             </div>

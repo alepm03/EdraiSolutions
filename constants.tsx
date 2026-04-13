@@ -41,6 +41,13 @@ export const SERVICES: Service[] = [
     description: 'Después de cada servicio, tu cliente recibe una invitación para dejar una reseña. Las reseñas negativas se detectan a tiempo para que puedas actuar antes de que se publiquen.',
     icon: <Star className="w-6 h-6" />,
     features: ['Invitación automática tras cada servicio', 'Alertas inmediatas de reseñas negativas', 'Respuestas sugeridas por IA']
+  },
+  {
+    id: 'software',
+    title: 'Software a medida con IA',
+    description: 'Desarrollamos aplicaciones internas que automatizan procesos únicos de tu negocio: gestión de gastos con OCR, dashboards de datos, herramientas de análisis. Todo integrado con tus sistemas actuales.',
+    icon: <Code2 className="w-6 h-6" />,
+    features: ['Apps web listas en 4-8 semanas', 'Integración con tus herramientas actuales', 'Soporte y evolución incluidos']
   }
 ];
 
@@ -52,12 +59,12 @@ export const UPCOMING_SERVICES = [
   },
   {
     title: 'Cualificación automática de leads',
-    description: 'Identifique qué contactos tienen más interés en comprar, sin que su equipo comercial pierda tiempo con los que no.',
+    description: 'Identifica qué contactos tienen más interés en comprar, sin que tu equipo comercial pierda tiempo con los que no.',
     icon: <Users className="w-6 h-6" />
   },
   {
     title: 'Informes automáticos con datos',
-    description: 'Vea de un vistazo qué funciona en su negocio y qué no, con informes que se generan solos y alertas cuando algo cambia.',
+    description: 'Ve de un vistazo qué funciona en tu negocio y qué no, con informes que se generan solos y alertas cuando algo cambia.',
     icon: <LineChart className="w-6 h-6" />
   }
 ];
