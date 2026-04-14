@@ -347,10 +347,10 @@ const App: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 max-w-5xl mx-auto">
             {[
-              { value: '×3', label: 'ROI medio en los primeros 6 meses' },
+              { value: '24/7', label: 'Disponibilidad continua' },
               { value: '80%', label: 'Reducción de tareas manuales' },
               { value: '< 4 sem', label: 'De idea a producción' },
-              { value: '24/7', label: 'Disponibilidad continua' },
+              { value: '×3', label: 'Retorno medio de inversión' },
             ].map((stat, idx) => (
               <div key={idx} className="text-center group">
                 <div className="text-4xl md:text-5xl font-black text-cyan-400 tracking-tighter mb-2 group-hover:scale-105 transition-transform">
