@@ -16,13 +16,20 @@
     <meta property="og:url" content="https://edraisolutions.es">
     <meta property="og:site_name" content="Edrai Solutions">
     <meta property="og:locale" content="es_ES">
+    <meta property="og:image" content="https://edraisolutions.es/static/favicon-48x48.png">
+    <meta property="og:image:width" content="48">
+    <meta property="og:image:height" content="48">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Edrai Solutions | Agencia de Automatización con IA para Pymes">
     <meta name="twitter:description" content="Chatbots, agentes de voz y software a medida para que tu negocio funcione solo. Diagnóstico gratuito.">
+    <meta name="twitter:image" content="https://edraisolutions.es/static/favicon-48x48.png">
 
-        <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="icon" type="image/png" sizes="48x48" href="/static/favicon-48x48.png">
     <title>Edrai Solutions | Agencia de Automatización con IA para Pymes en España</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,6 +104,20 @@
         @keyframes flowVertical {
             0% { top: -100%; }
             100% { top: 100%; }
+        }
+        @keyframes aurora-drift-1 {
+            0%, 100% { transform: translate(0%, 0%) scale(1); }
+            33%       { transform: translate(8%, -14%) scale(1.15); }
+            66%       { transform: translate(-7%, 9%) scale(0.9); }
+        }
+        @keyframes aurora-drift-2 {
+            0%, 100% { transform: translate(0%, 0%) scale(1); }
+            33%       { transform: translate(-11%, 8%) scale(1.12); }
+            66%       { transform: translate(12%, -7%) scale(1.18); }
+        }
+        @keyframes shimmer-pass {
+            0%   { transform: translateX(-200%) skewX(-15deg); }
+            100% { transform: translateX(500%)  skewX(-15deg); }
         }
         .no-scrollbar::-webkit-scrollbar {
             display: none;

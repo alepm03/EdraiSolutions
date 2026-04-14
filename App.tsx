@@ -15,18 +15,12 @@ import {
   Headphones as SupportIcon,
   Sparkles,
   ArrowRight,
-  Workflow,
-  Cpu,
-  Layers,
-  ShieldCheck,
   MessageSquare,
   MessageCircle,
   Stethoscope,
   Dumbbell,
   Home,
   Utensils,
-  Search,
-  Volume2,
   Code2
 } from 'lucide-react';
 import { SERVICES, UPCOMING_SERVICES, PROCESS, TEAM } from './constants';
@@ -34,6 +28,48 @@ import ChatbotDemo from './components/ChatbotDemo';
 import FloatingChatWidget from './components/FloatingChatWidget';
 import RealChatDemo from './components/RealChatDemo';
 import LegalModal from './components/LegalModal';
+
+// ── Tech Stack SVG Logos ─────────────────────────────────────────────────────
+const OpenAILogo = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 260" className="w-5 h-5 fill-current">
+    <path d="M239.184 106.203a64.716 64.716 0 0 0-5.576-53.103C219.452 28.459 191 15.784 163.213 21.74A65.586 65.586 0 0 0 52.096 45.22a64.716 64.716 0 0 0-43.23 31.36c-14.31 24.602-11.061 55.634 8.033 76.74a64.665 64.665 0 0 0 5.525 53.102c14.174 24.65 42.644 37.324 70.446 31.36a64.72 64.72 0 0 0 48.754 21.744c28.481.025 53.714-18.361 62.414-45.481a64.767 64.767 0 0 0 43.229-31.36c14.137-24.558 10.875-55.423-8.083-76.483Zm-97.56 136.338a48.397 48.397 0 0 1-31.105-11.255l1.535-.87 51.67-29.825a8.595 8.595 0 0 0 4.247-7.367v-72.85l21.845 12.636c.218.111.37.32.409.563v60.367c-.056 26.818-21.783 48.545-48.601 48.601Zm-104.466-44.61a48.345 48.345 0 0 1-5.781-32.589l1.534.921 51.722 29.826a8.339 8.339 0 0 0 8.441 0l63.181-36.425v25.221a.87.87 0 0 1-.358.665l-52.335 30.184c-23.257 13.398-52.97 5.431-66.404-17.803ZM23.549 85.38a48.499 48.499 0 0 1 25.58-21.333v61.39a8.288 8.288 0 0 0 4.195 7.316l62.874 36.272-21.845 12.636a.819.819 0 0 1-.767 0L41.353 151.53c-23.211-13.454-31.171-43.144-17.804-66.405v.256Zm179.466 41.695-63.08-36.63L161.73 77.86a.819.819 0 0 1 .768 0l52.233 30.184a48.6 48.6 0 0 1-7.316 87.635v-61.391a8.544 8.544 0 0 0-4.4-7.213Zm21.742-32.69-1.535-.922-51.619-30.081a8.39 8.39 0 0 0-8.492 0L99.98 99.808V74.587a.716.716 0 0 1 .307-.665l52.233-30.133a48.652 48.652 0 0 1 72.236 50.391v.205ZM88.061 139.097l-21.845-12.585a.87.87 0 0 1-.41-.614V65.685a48.652 48.652 0 0 1 79.757-37.346l-1.535.87-51.67 29.825a8.595 8.595 0 0 0-4.246 7.367l-.051 72.697Zm11.868-25.58 28.138-16.217 28.188 16.218v32.434l-28.086 16.218-28.188-16.218-.052-32.434Z"/>
+  </svg>
+);
+
+const AnthropicLogo = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
+    <path fillRule="evenodd" d="M13.827 3.52h3.603L24 20h-3.603l-6.57-16.48zm-7.258 0h3.767L16.906 20h-3.674l-1.343-3.461H5.017l-1.344 3.46H0L6.57 3.522zm4.132 9.959L8.453 7.687 6.205 13.48H10.7z" />
+  </svg>
+);
+
+const N8nLogo = () => (
+  <svg viewBox="0 0 228 120" className="w-7 h-4 fill-current">
+    <path fillRule="evenodd" clipRule="evenodd" d="M204 48C192.817 48 183.42 40.3514 180.756 30H153.248C147.382 30 142.376 34.241 141.412 40.0272L140.425 45.9456C139.489 51.5648 136.646 56.4554 132.626 60C136.646 63.5446 139.489 68.4352 140.425 74.0544L141.412 79.9728C142.376 85.759 147.382 90 153.248 90H156.756C159.42 79.6486 168.817 72 180 72C193.255 72 204 82.7452 204 96C204 109.255 193.255 120 180 120C168.817 120 159.42 112.351 156.756 102H153.248C141.516 102 131.504 93.5181 129.575 81.9456L128.588 76.0272C127.624 70.241 122.618 66 116.752 66H107.244C104.58 76.3514 95.183 84 84 84C72.817 84 63.4204 76.3514 60.7561 66H47.2439C44.5796 76.3514 35.183 84 24 84C10.7452 84 0 73.2548 0 60C0 46.7452 10.7452 36 24 36C35.183 36 44.5796 43.6486 47.2439 54H60.7561C63.4204 43.6486 72.817 36 84 36C95.183 36 104.58 43.6486 107.244 54H116.752C122.618 54 127.624 49.759 128.588 43.9728L129.575 38.0544C131.504 26.4819 141.516 18 153.248 18L180.756 18C183.42 7.64864 192.817 0 204 0C217.255 0 228 10.7452 228 24C228 37.2548 217.255 48 204 48ZM204 36C210.627 36 216 30.6274 216 24C216 17.3726 210.627 12 204 12C197.373 12 192 17.3726 192 24C192 30.6274 197.373 36 204 36ZM24 72C30.6274 72 36 66.6274 36 60C36 53.3726 30.6274 48 24 48C17.3726 48 12 53.3726 12 60C12 66.6274 17.3726 72 24 72ZM96 60C96 66.6274 90.6274 72 84 72C77.3726 72 72 66.6274 72 60C72 53.3726 77.3726 48 84 48C90.6274 48 96 53.3726 96 60ZM192 96C192 102.627 186.627 108 180 108C173.373 108 168 102.627 168 96C168 89.3726 173.373 84 180 84C186.627 84 192 89.3726 192 96Z" />
+  </svg>
+);
+
+const PerplexityLogo = () => (
+  <svg viewBox="0 0 48 48" className="w-5 h-5 fill-none stroke-current" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M24 4.5v39M13.73 16.573v-9.99L24 16.573m0 14.5L13.73 41.417V27.01L24 16.573m0 0l10.27-9.99v9.99"/>
+    <path d="M13.73 31.396H9.44V16.573h29.12v14.823h-4.29"/>
+    <path d="M24 16.573L34.27 27.01v14.407L24 31.073"/>
+  </svg>
+);
+
+const GeminiLogo = () => (
+  <svg viewBox="0 0 28 28" className="w-5 h-5 fill-current">
+    <path d="M14 28A14 14 0 0 1 14 0a11.36 11.36 0 0 0-8 3.37C4.14 5.17 3.1 7.5 3.1 10c0 2.5 1.04 4.83 2.9 6.63A11.36 11.36 0 0 0 14 20a11.36 11.36 0 0 0 8-3.37A9.45 9.45 0 0 0 24.9 10c0-2.5-1.04-4.83-2.9-6.63A11.36 11.36 0 0 0 14 0a14 14 0 0 1 0 28z"/>
+  </svg>
+);
+
+const ElevenLabsLogo = () => (
+  <svg viewBox="0 0 32 32" className="w-5 h-5 fill-current">
+    <rect x="4" y="4" width="8" height="24" rx="2"/>
+    <rect x="16" y="4" width="5" height="24" rx="2"/>
+    <rect x="23" y="4" width="5" height="24" rx="2"/>
+  </svg>
+);
+// ─────────────────────────────────────────────────────────────────────────────
 
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,12 +91,12 @@ const App: React.FC = () => {
   };
 
   const techStack = [
-    { name: 'OpenAI', icon: <Cpu className="w-5 h-5" /> },
-    { name: 'n8n', icon: <Workflow className="w-5 h-5" /> },
-    { name: 'Anthropic', icon: <Layers className="w-5 h-5" /> },
-    { name: 'Perplexity', icon: <Search className="w-5 h-5" /> },
-    { name: 'Google Gemini', icon: <ShieldCheck className="w-5 h-5" /> },
-    { name: 'ElevenLabs', icon: <Volume2 className="w-5 h-5" /> }
+    { name: 'OpenAI', icon: <OpenAILogo /> },
+    { name: 'n8n', icon: <N8nLogo /> },
+    { name: 'Anthropic', icon: <AnthropicLogo /> },
+    { name: 'Perplexity', icon: <PerplexityLogo /> },
+    { name: 'Google Gemini', icon: <GeminiLogo /> },
+    { name: 'ElevenLabs', icon: <ElevenLabsLogo /> },
   ];
 
   const handleContactSubmit = async (e: React.FormEvent) => {
@@ -68,7 +104,7 @@ const App: React.FC = () => {
     if (!contactForm.rgpd) return;
     setContactStatus('loading');
     try {
-      const res = await fetch(`${process.env.WORKER_URL}/contact`, {
+      const res = await fetch(`${import.meta.env.VITE_WORKER_URL}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -134,57 +170,197 @@ const App: React.FC = () => {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative min-h-[88vh] flex items-center pt-20 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-500/10 rounded-full blur-[160px] -z-10 animate-pulse"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[140px] -z-10"></div>
-        
-        <div className="container mx-auto px-6 text-center z-10">
-          <div className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-6 py-2.5 rounded-full text-[13px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-6 animate-in slide-in-from-bottom-4 duration-700">
-            <span className="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-ping"></span>
-            <span>Automatización con IA</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] tracking-tighter animate-in slide-in-from-bottom-8 duration-1000">
-            Tu negocio funciona solo.<br />
-            <span className="text-gradient">Nosotros lo hacemos posible.</span>
-          </h1>
-          
-          <p className="text-gray-400 text-xl md:text-2xl max-w-4xl mx-auto mb-10 leading-relaxed font-medium animate-in slide-in-from-bottom-12 duration-1200">
-            Automatizamos la atención al cliente, las reservas y las reseñas de tu negocio para que tu equipo deje de perder tiempo en tareas repetitivas y se centre en lo que importa.
-          </p>
+      {/* Hero Section — Split layout */}
+      <section className="relative min-h-[92vh] flex items-center pt-24 pb-12 overflow-hidden">
+        {/* 1. Radial gradient base — negro al centro, cyan en bordes */}
+        <div className="absolute inset-0 -z-30" style={{
+          background: 'radial-gradient(125% 125% at 48% 0%, #030712 38%, rgba(34,211,238,0.07) 100%)'
+        }} />
+        {/* 2. Dot-grid — puntos en las intersecciones, no líneas continuas */}
+        <div className="absolute inset-0 -z-20" style={{
+          backgroundImage: `linear-gradient(to right, rgba(34,211,238,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(34,211,238,0.12) 1px, transparent 1px)`,
+          backgroundSize: '48px 48px',
+          maskImage: 'repeating-linear-gradient(to right, black 0px, black 2px, transparent 2px, transparent 48px), repeating-linear-gradient(to bottom, black 0px, black 2px, transparent 2px, transparent 48px)',
+          WebkitMaskImage: 'repeating-linear-gradient(to right, black 0px, black 2px, transparent 2px, transparent 48px), repeating-linear-gradient(to bottom, black 0px, black 2px, transparent 2px, transparent 48px)',
+          maskComposite: 'intersect',
+          WebkitMaskComposite: 'source-in',
+        } as React.CSSProperties} />
+        {/* 3. Aurora blob 1 — cyan, animado 22s */}
+        <div className="absolute top-[-20%] left-[-12%] w-[55%] h-[70%] bg-cyan-500/14 rounded-full blur-[130px] -z-10"
+             style={{ animation: 'aurora-drift-1 22s ease-in-out infinite' }} />
+        {/* 4. Aurora blob 2 — azul, animado 28s, diferente fase */}
+        <div className="absolute bottom-[-20%] right-[-8%] w-[50%] h-[65%] bg-blue-600/10 rounded-full blur-[120px] -z-10"
+             style={{ animation: 'aurora-drift-2 28s ease-in-out infinite' }} />
+        {/* 5. Noise texture — granulado sutil al 3% */}
+        <div className="absolute inset-0 -z-10 opacity-[0.035] pointer-events-none" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: '256px 256px',
+        }} />
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-in slide-in-from-bottom-16 duration-1500">
-            <a href="#contacto" className="w-full sm:w-auto bg-cyan-400 hover:bg-cyan-300 text-black px-12 py-6 rounded-2xl font-black text-xl flex items-center justify-center space-x-3 transition-all group shadow-[0_0_50px_rgba(34,211,238,0.25)] hover:-translate-y-1">
-              <span>Pedir diagnóstico gratuito</span>
-              <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a href="#servicios" className="w-full sm:w-auto glass border border-white/20 hover:bg-white/10 text-white px-12 py-6 rounded-2xl font-bold text-xl transition-all text-center hover:-translate-y-1">
-              Ver qué hacemos
-            </a>
-          </div>
-          <p className="mt-4 text-sm text-gray-500 font-medium">
-            ¿Prefieres hablar primero?{' '}
-            <a
-              href="https://wa.me/34654954602?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20vuestros%20servicios"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-2 decoration-cyan-400/30"
-            >
-              Escríbenos por WhatsApp
-            </a>
-          </p>
+        <div className="container mx-auto px-6 z-10">
+          <div className="grid lg:grid-cols-[54%_46%] gap-10 xl:gap-16 items-center">
 
-          <div className="mt-16 pt-10 border-t border-white/5 max-w-5xl mx-auto opacity-40">
-            <p className="text-[12px] font-black uppercase tracking-[0.5em] text-gray-400 mb-8">Tecnología que usamos</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 grayscale">
-              {techStack.map((tech) => (
-                <div key={tech.name} className="flex items-center space-x-2 text-white">
-                  {tech.icon}
-                  <span className="font-black text-sm">{tech.name}</span>
+            {/* ── Left: Copy ── */}
+            <div className="text-left">
+              <div className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-5 py-2 rounded-full text-[12px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-6 animate-in slide-in-from-bottom-4 duration-700">
+                <span className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
+                <span>Agencia IA · España</span>
+              </div>
+
+              <h1 className="text-5xl md:text-6xl lg:text-[4.2rem] xl:text-7xl font-black mb-5 leading-[1.05] tracking-tighter animate-in slide-in-from-bottom-8 duration-1000">
+                Automatiza tu negocio.<br />
+                <span className="text-gradient">Multiplica tus resultados.</span>
+              </h1>
+
+              <p className="text-gray-400 text-lg xl:text-xl max-w-lg mb-8 leading-relaxed font-medium animate-in slide-in-from-bottom-12 duration-1200">
+                Chatbots, agentes de voz y software a medida para que tu equipo deje de perder tiempo en tareas repetitivas. Operativo en menos de 8 semanas.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-5 animate-in slide-in-from-bottom-16 duration-1400">
+                <a href="#contacto" className="relative overflow-hidden w-full sm:w-auto bg-cyan-400 hover:bg-cyan-300 text-black px-8 py-4 rounded-xl font-black text-[17px] flex items-center justify-center space-x-2 transition-all hover:-translate-y-1 shadow-[0_0_40px_rgba(34,211,238,0.2)] group">
+                  {/* Shimmer beam */}
+                  <span className="pointer-events-none absolute top-0 left-0 w-12 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:[animation:shimmer-pass_0.65s_ease-out_forwards]" />
+                  <span className="relative z-10">Pedir diagnóstico gratuito</span>
+                  <ChevronRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <a href="#servicios" className="w-full sm:w-auto glass border border-white/20 hover:bg-white/10 text-white px-8 py-4 rounded-xl font-bold text-[17px] transition-all text-center hover:-translate-y-1">
+                  Ver qué hacemos
+                </a>
+              </div>
+
+              <p className="text-sm text-gray-500 font-medium animate-in fade-in duration-2000">
+                ¿Prefieres hablar primero?{' '}
+                <a
+                  href="https://wa.me/34654954602?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20vuestros%20servicios"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-2 decoration-cyan-400/30"
+                >
+                  Escríbenos por WhatsApp
+                </a>
+              </p>
+
+              {/* Tech stack — inline, left-aligned */}
+              <div className="mt-10 pt-8 border-t border-white/5 opacity-40">
+                <p className="text-[11px] font-black uppercase tracking-[0.45em] text-gray-400 mb-5">Tecnología que usamos</p>
+                <div className="flex flex-wrap items-center gap-6 grayscale">
+                  {techStack.map((tech) => (
+                    <div key={tech.name} className="flex items-center space-x-2 text-white">
+                      {tech.icon}
+                      <span className="font-black text-sm">{tech.name}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
+
+            {/* ── Right: Live chat mockup ── */}
+            <div className="relative hidden lg:flex justify-center items-center">
+              <div className="relative w-full max-w-[360px]">
+
+                {/* Ambient glow behind card */}
+                <div className="absolute inset-0 bg-cyan-400/8 blur-[80px] rounded-full scale-[1.4] -z-10" />
+
+                {/* Chat card */}
+                <div className="glass border border-white/10 rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)] animate-in slide-in-from-right-8 duration-1000">
+
+                  {/* Header */}
+                  <div className="bg-white/5 px-5 py-4 flex items-center justify-between border-b border-white/5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 bg-cyan-400 rounded-xl flex items-center justify-center text-black font-black text-sm shadow-lg shadow-cyan-400/20">E</div>
+                      <div>
+                        <div className="text-[13px] font-black leading-none mb-1">Asistente Edrai</div>
+                        <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-bold">
+                          <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                          En línea · Responde al instante
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-1.5">
+                      <span className="w-3 h-3 rounded-full bg-white/10" />
+                      <span className="w-3 h-3 rounded-full bg-white/10" />
+                      <span className="w-3 h-3 rounded-full bg-cyan-400/40" />
+                    </div>
+                  </div>
+
+                  {/* Messages */}
+                  <div className="p-4 space-y-3.5 bg-[#030712]/70">
+                    <div className="flex justify-end">
+                      <div className="bg-cyan-400/15 border border-cyan-400/20 text-white text-[13px] px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-[82%] font-medium leading-snug">
+                        Hola, ¿tenéis mesa para 2 el viernes a las 21h?
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2.5">
+                      <div className="w-7 h-7 bg-cyan-400 rounded-lg flex items-center justify-center text-black font-black text-xs shrink-0 mt-0.5 shadow-md shadow-cyan-400/20">E</div>
+                      <div className="bg-white/5 border border-white/10 text-[13px] px-4 py-2.5 rounded-2xl rounded-tl-sm max-w-[82%] text-gray-200 font-medium leading-snug">
+                        ¡Hola! Tenemos disponibilidad el viernes a las 21:00 para 2 personas. ¿Te la reservo?
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end">
+                      <div className="bg-cyan-400/15 border border-cyan-400/20 text-white text-[13px] px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-[72%] font-medium leading-snug">
+                        Sí, perfecto. Me llamo Ana García.
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2.5">
+                      <div className="w-7 h-7 bg-cyan-400 rounded-lg flex items-center justify-center text-black font-black text-xs shrink-0 mt-0.5 shadow-md shadow-cyan-400/20">E</div>
+                      <div className="bg-white/5 border border-white/10 text-[13px] px-4 py-2.5 rounded-2xl rounded-tl-sm text-gray-200 font-medium leading-relaxed">
+                        <span className="text-emerald-400 font-black">✓ Reserva confirmada</span><br />
+                        <span className="text-white">Ana García · Viernes · 21:00 · 2 pax</span><br />
+                        <span className="text-gray-500 text-[11px]">Confirmación enviada por WhatsApp</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Input bar */}
+                  <div className="px-4 py-3 border-t border-white/5 flex items-center gap-3 bg-[#020617]/60">
+                    <div className="flex-1 bg-white/5 rounded-xl px-4 py-2.5 text-[13px] text-gray-600 font-medium">Escribe tu consulta...</div>
+                    <div className="w-9 h-9 bg-cyan-400 rounded-xl flex items-center justify-center text-black shrink-0 shadow-lg shadow-cyan-400/20">
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating badge — top right */}
+                <div className="absolute -top-4 -right-6 bg-[#00101a] border border-white/15 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2.5 z-20 animate-in slide-in-from-right-4 duration-1200">
+                  <span className="text-2xl font-black text-emerald-400 leading-none">↓80%</span>
+                  <span className="text-[11px] text-gray-400 font-bold leading-tight">tareas<br />manuales</span>
+                </div>
+
+                {/* Floating badge — bottom left */}
+                <div className="absolute -bottom-4 -left-6 bg-[#00101a] border border-white/15 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2.5 z-20 animate-in slide-in-from-left-4 duration-1200">
+                  <span className="text-2xl font-black text-cyan-400 leading-none">24/7</span>
+                  <span className="text-[11px] text-gray-400 font-bold leading-tight">sin<br />interrupciones</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Bar */}
+      <section className="py-14 bg-[#020617] border-y border-white/5">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 max-w-5xl mx-auto">
+            {[
+              { value: '×3', label: 'ROI medio en los primeros 6 meses' },
+              { value: '80%', label: 'Reducción de tareas manuales' },
+              { value: '< 4 sem', label: 'De idea a producción' },
+              { value: '24/7', label: 'Disponibilidad continua' },
+            ].map((stat, idx) => (
+              <div key={idx} className="text-center group">
+                <div className="text-4xl md:text-5xl font-black text-cyan-400 tracking-tighter mb-2 group-hover:scale-105 transition-transform">
+                  {stat.value}
+                </div>
+                <div className="text-gray-500 text-[11px] font-black uppercase tracking-[0.3em]">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -202,30 +378,78 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20">
-            {SERVICES.map((service) => (
-              <div key={service.id} className="glass p-8 rounded-3xl border border-white/5 hover:border-cyan-400/30 transition-all group relative overflow-hidden flex flex-col h-full">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-400/5 blur-[80px] -z-10 group-hover:bg-cyan-400/15 transition-all"></div>
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all shadow-2xl shadow-cyan-400/10">
-                  <div className="text-black">{service.icon}</div>
-                </div>
-                <h3 className="text-2xl font-black mb-4 leading-tight tracking-tight">{service.title}</h3>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-6 flex-grow">
-                  {service.description}
-                </p>
-                <ul className="space-y-4 pt-8 border-t border-white/5">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start space-x-3 text-[13px] font-bold text-gray-300">
-                      <div className="w-5 h-5 bg-cyan-400/20 rounded-full flex items-center justify-center shrink-0 mt-0.5">
-                        <CheckCircle2 className="w-3 h-3 text-cyan-400" />
+          {/* Bento grid — Row 1: [Chatbots col-2][Booking col-1] · Row 2: [Voice col-2 FEATURED][Reviews col-1] · Row 3: [Software col-3] */}
+          {(() => {
+            const bentoSpans = [
+              'md:col-span-2',
+              'md:col-span-1',
+              'md:col-span-2', // Voice IA — promoted
+              'md:col-span-1', // Reseñas — demoted
+              'md:col-span-3',
+            ];
+            // Subtle top-border accent per card
+            const cardAccents = [
+              'before:from-cyan-400/60 before:to-blue-500/40',
+              'before:from-blue-400/40 before:to-cyan-400/20',
+              'before:from-violet-400/70 before:to-cyan-400/50',
+              'before:from-amber-400/40 before:to-yellow-400/20',
+              'before:from-cyan-400/80 before:to-violet-500/60',
+            ];
+            const isVoice = (idx: number) => idx === 2;
+            return (
+              <div className="grid md:grid-cols-3 gap-6 mb-20 auto-rows-fr">
+                {SERVICES.map((service, idx) => {
+                  const isFeatured = idx === 4;
+                  const isVoiceCard = isVoice(idx);
+                  return (
+                    <div
+                      key={service.id}
+                      className={`glass rounded-3xl border border-white/5 hover:border-cyan-400/30 transition-all group relative overflow-hidden ${bentoSpans[idx]} ${isFeatured ? 'p-10 flex flex-row items-center gap-10' : 'p-8 flex flex-col h-full'} before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r ${cardAccents[idx]}`}
+                    >
+                      {/* Ambient glow */}
+                      <div className={`absolute ${isFeatured ? 'top-0 left-0 w-64' : 'top-0 right-0 w-48'} h-48 bg-cyan-400/5 blur-[80px] -z-10 group-hover:bg-cyan-400/15 transition-all`} />
+
+                      {/* Watermark icon background */}
+                      <div className="absolute bottom-4 right-4 opacity-[0.04] scale-[4] origin-bottom-right pointer-events-none select-none text-white">
+                        {service.icon}
                       </div>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+
+                      {/* Voice badge */}
+                      {isVoiceCard && (
+                        <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-violet-500/15 border border-violet-400/30 text-violet-300 text-[10px] font-black uppercase tracking-[0.3em] px-3 py-1 rounded-full z-10">
+                          <span className="w-1.5 h-1.5 bg-violet-400 rounded-full animate-pulse" />
+                          Destacado
+                        </div>
+                      )}
+
+                      {/* Icon block */}
+                      <div className={`shrink-0 w-16 h-16 ${isVoiceCard ? 'bg-gradient-to-br from-violet-400 to-cyan-500' : 'bg-gradient-to-br from-cyan-400 to-blue-600'} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all shadow-2xl shadow-cyan-400/10 ${isFeatured ? '' : 'mb-6'}`}>
+                        <div className="text-black">{service.icon}</div>
+                      </div>
+
+                      {/* Content */}
+                      <div className={`${isFeatured ? 'flex-1' : 'flex flex-col flex-1'}`}>
+                        <h3 className="text-2xl font-black mb-4 leading-tight tracking-tight">{service.title}</h3>
+                        <p className="text-gray-400 text-[15px] leading-relaxed mb-6 flex-grow">
+                          {service.description}
+                        </p>
+                        <ul className={`${isFeatured ? 'flex flex-wrap gap-x-8 gap-y-3' : 'space-y-4'} pt-6 border-t border-white/5`}>
+                          {service.features.map((feature, fIdx) => (
+                            <li key={fIdx} className="flex items-start space-x-3 text-[13px] font-bold text-gray-300">
+                              <div className={`w-5 h-5 ${isVoiceCard ? 'bg-violet-400/20' : 'bg-cyan-400/20'} rounded-full flex items-center justify-center shrink-0 mt-0.5`}>
+                                <CheckCircle2 className={`w-3 h-3 ${isVoiceCard ? 'text-violet-400' : 'text-cyan-400'}`} />
+                              </div>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+            );
+          })()}
 
           {/* Casos de uso */}
           <div className="glass p-12 rounded-3xl border border-white/5 relative overflow-hidden">
@@ -329,9 +553,9 @@ const App: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {[
               { icon: <Stethoscope className="w-8 h-8" />, title: 'Clínicas y centros de salud', desc: 'Gestión de citas, recordatorios de consultas, recogida automática de reseñas post-visita.', gradient: 'from-cyan-500 to-blue-600' },
+              { icon: <Utensils className="w-8 h-8" />, title: 'Hostelería y restauración', desc: 'Reservas de mesa, gestión de reseñas, respuestas automáticas a preguntas frecuentes.', gradient: 'from-amber-500 to-orange-600' },
               { icon: <Dumbbell className="w-8 h-8" />, title: 'Gimnasios y centros deportivos', desc: 'Reservas de clases, atención automática a nuevos leads, campañas de reactivación.', gradient: 'from-emerald-500 to-teal-600' },
-              { icon: <Home className="w-8 h-8" />, title: 'Inmobiliarias', desc: 'Cualificación automática de compradores, coordinación de visitas, seguimiento post-visita.', gradient: 'from-violet-500 to-purple-600' },
-              { icon: <Utensils className="w-8 h-8" />, title: 'Hostelería y restauración', desc: 'Reservas de mesa, gestión de reseñas, respuestas automáticas a preguntas frecuentes.', gradient: 'from-amber-500 to-orange-600' }
+              { icon: <Home className="w-8 h-8" />, title: 'Inmobiliarias', desc: 'Cualificación automática de compradores, coordinación de visitas, seguimiento post-visita.', gradient: 'from-violet-500 to-purple-600' }
             ].map((sector, idx) => (
               <div key={idx} className="glass p-10 rounded-[32px] border border-white/5 hover:border-white/20 transition-all group text-center flex flex-col items-center hover:-translate-y-2 duration-500">
                 <div className={`mb-8 w-20 h-20 bg-gradient-to-br ${sector.gradient} rounded-2xl flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all`}>
@@ -566,7 +790,7 @@ const App: React.FC = () => {
       {legalModal && <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />}
 
       {/* Footer */}
-      <footer className="bg-[#010409] pt-24 pb-16 border-t border-white/5">
+      <footer className="bg-[#050d17] pt-24 pb-16 border-t border-white/8">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16 items-start">
             <div className="space-y-10">
