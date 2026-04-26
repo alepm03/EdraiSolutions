@@ -19,7 +19,7 @@ import {
   MessageCircle,
   Stethoscope,
   Dumbbell,
-  Home,
+  Building2,
   Utensils,
   Code2
 } from 'lucide-react';
@@ -397,14 +397,16 @@ const App: React.FC = () => {
             ];
             const isVoice = (idx: number) => idx === 2;
             return (
-              <div className="grid md:grid-cols-3 gap-6 mb-20 auto-rows-fr">
+              <div className="grid md:grid-cols-3 gap-5 mb-16">
                 {SERVICES.map((service, idx) => {
                   const isFeatured = idx === 4;
                   const isVoiceCard = isVoice(idx);
+                  const titleMinH = isFeatured ? '' : 'min-h-[56px]';
+                  const descMinH = isFeatured ? '' : 'min-h-[112px]';
                   return (
                     <div
                       key={service.id}
-                      className={`glass rounded-3xl border border-white/5 hover:border-cyan-400/30 transition-all group relative overflow-hidden ${bentoSpans[idx]} ${isFeatured ? 'p-10 flex flex-row items-center gap-10' : 'p-8 flex flex-col h-full'} before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r ${cardAccents[idx]}`}
+                      className={`glass rounded-3xl border border-white/5 hover:border-cyan-400/30 transition-all group relative overflow-hidden ${bentoSpans[idx]} ${isFeatured ? 'p-7 flex flex-row items-center gap-7' : 'p-6 flex flex-col h-full'} before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r ${cardAccents[idx]}`}
                     >
                       {/* Ambient glow */}
                       <div className={`absolute ${isFeatured ? 'top-0 left-0 w-64' : 'top-0 right-0 w-48'} h-48 bg-cyan-400/5 blur-[80px] -z-10 group-hover:bg-cyan-400/15 transition-all`} />
@@ -422,21 +424,24 @@ const App: React.FC = () => {
                         </div>
                       )}
 
-                      {/* Icon block */}
-                      <div className={`shrink-0 w-16 h-16 ${isVoiceCard ? 'bg-gradient-to-br from-violet-400 to-cyan-500' : 'bg-gradient-to-br from-cyan-400 to-blue-600'} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all shadow-2xl shadow-cyan-400/10 ${isFeatured ? '' : 'mb-6'}`}>
-                        <div className="text-black">{service.icon}</div>
+                      {/* Icon block — minimal glyph */}
+                      <div className={`shrink-0 ${isFeatured ? 'pr-2' : 'h-12 mb-5'} flex items-center group-hover:translate-x-0.5 transition-transform relative z-10`}>
+                        {React.cloneElement(service.icon as React.ReactElement, {
+                          className: `w-9 h-9 ${isVoiceCard ? 'text-violet-300' : 'text-cyan-300'}`,
+                          strokeWidth: 1.5,
+                        })}
                       </div>
 
                       {/* Content */}
                       <div className={`${isFeatured ? 'flex-1' : 'flex flex-col flex-1'}`}>
-                        <h3 className="text-2xl font-black mb-4 leading-tight tracking-tight">{service.title}</h3>
-                        <p className="text-gray-400 text-[15px] leading-relaxed mb-6 flex-grow">
+                        <h3 className={`text-xl font-black mb-3 leading-tight tracking-tight ${titleMinH}`}>{service.title}</h3>
+                        <p className={`text-gray-400 text-[14px] leading-relaxed mb-5 ${descMinH}`}>
                           {service.description}
                         </p>
-                        <ul className={`${isFeatured ? 'flex flex-wrap gap-x-8 gap-y-3' : 'space-y-4'} pt-6 border-t border-white/5`}>
+                        <ul className={`${isFeatured ? 'flex flex-wrap gap-x-7 gap-y-2.5' : 'space-y-2.5 mt-auto'} pt-5 border-t border-white/5`}>
                           {service.features.map((feature, fIdx) => (
                             <li key={fIdx} className="flex items-start space-x-3 text-[13px] font-bold text-gray-300">
-                              <div className={`w-5 h-5 ${isVoiceCard ? 'bg-violet-400/20' : 'bg-cyan-400/20'} rounded-full flex items-center justify-center shrink-0 mt-0.5`}>
+                              <div className={`w-5 h-5 ${isVoiceCard ? 'bg-violet-400/15' : 'bg-cyan-400/15'} rounded-full flex items-center justify-center shrink-0 mt-0.5`}>
                                 <CheckCircle2 className={`w-3 h-3 ${isVoiceCard ? 'text-violet-400' : 'text-cyan-400'}`} />
                               </div>
                               <span>{feature}</span>
@@ -550,21 +555,22 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {[
-              { icon: <Stethoscope className="w-8 h-8" />, title: 'Clínicas y centros de salud', desc: 'Gestión de citas, recordatorios de consultas, recogida automática de reseñas post-visita.', gradient: 'from-cyan-500 to-blue-600' },
-              { icon: <Utensils className="w-8 h-8" />, title: 'Hostelería y restauración', desc: 'Reservas de mesa, gestión de reseñas, respuestas automáticas a preguntas frecuentes.', gradient: 'from-amber-500 to-orange-600' },
-              { icon: <Dumbbell className="w-8 h-8" />, title: 'Gimnasios y centros deportivos', desc: 'Reservas de clases, atención automática a nuevos leads, campañas de reactivación.', gradient: 'from-emerald-500 to-teal-600' },
-              { icon: <Home className="w-8 h-8" />, title: 'Inmobiliarias', desc: 'Cualificación automática de compradores, coordinación de visitas, seguimiento post-visita.', gradient: 'from-violet-500 to-purple-600' }
+              { icon: <Stethoscope className="w-7 h-7" strokeWidth={2} />, title: 'Clínicas y centros de salud', desc: 'Agenda online sin llamadas, recordatorios para reducir ausencias y recogida automática de reseñas tras la visita.' },
+              { icon: <Utensils className="w-7 h-7" strokeWidth={2} />, title: 'Hostelería y restauración', desc: 'Reservas por WhatsApp, gestión de reseñas en tiempo real y respuestas instantáneas a las preguntas que se repiten cada día.' },
+              { icon: <Dumbbell className="w-7 h-7" strokeWidth={2} />, title: 'Gimnasios y centros deportivos', desc: 'Reservas de clases sin saturar recepción, atención automática a leads de Instagram y campañas de reactivación para socios inactivos.' },
+              { icon: <Building2 className="w-7 h-7" strokeWidth={2} />, title: 'Inmobiliarias', desc: 'Cualificación automática de compradores, coordinación de visitas con tu agenda y seguimiento post-visita sin que se enfríe el lead.' }
             ].map((sector, idx) => (
-              <div key={idx} className="glass p-10 rounded-[32px] border border-white/5 hover:border-white/20 transition-all group text-center flex flex-col items-center hover:-translate-y-2 duration-500">
-                <div className={`mb-8 w-20 h-20 bg-gradient-to-br ${sector.gradient} rounded-2xl flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:rotate-3 transition-all`}>
+              <div key={idx} className="glass p-8 rounded-[28px] border border-white/5 hover:border-cyan-400/30 transition-all group text-center flex flex-col items-center hover:-translate-y-1 duration-500">
+                <div className="mb-7 w-16 h-16 rounded-2xl bg-cyan-400/10 border border-cyan-400/30 flex items-center justify-center text-cyan-300 group-hover:bg-cyan-400/15 transition-all shadow-[0_0_30px_-12px_rgba(34,211,238,0.55)]">
                   {sector.icon}
                 </div>
-                <h3 className="text-base font-black mb-4 group-hover:text-white transition-colors leading-tight uppercase tracking-tight">
+                <h3 className="text-[15px] font-black group-hover:text-white transition-colors leading-tight uppercase tracking-tight min-h-[44px] flex items-center justify-center">
                   {sector.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                <div className="w-10 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent my-4 group-hover:via-cyan-400/70 transition-colors" />
+                <p className="text-gray-400 text-[13px] leading-relaxed font-medium min-h-[80px]">
                   {sector.desc}
                 </p>
               </div>

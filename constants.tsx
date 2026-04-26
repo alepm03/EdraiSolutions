@@ -31,7 +31,7 @@ export const SERVICES: Service[] = [
   {
     id: 'voice',
     title: 'Agentes de voz IA',
-    description: 'Un agente de voz atiende tus llamadas entrantes de forma autónoma: responde preguntas frecuentes, agenda citas y transfiere a tu equipo cuando es necesario. Disponible las 24 horas, sin tiempos de espera.',
+    description: 'Un agente de voz entrenado con toda la información de tu negocio: precios, servicios, horarios y casuísticas. Atiende llamadas las 24 horas, resuelve consultas, agenda citas y transfiere a tu equipo cuando el caso lo requiere. Sin tiempos de espera, sin llamadas perdidas.',
     icon: <Mic className="w-6 h-6" />,
     features: ['Atiende llamadas sin intervención humana', 'Agenda citas y resuelve consultas habituales', 'Transfiere a tu equipo cuando el caso lo requiere']
   },
