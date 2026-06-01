@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Menu, 
   X, 
@@ -28,6 +28,13 @@ import ChatbotDemo from './components/ChatbotDemo';
 import FloatingChatWidget from './components/FloatingChatWidget';
 import RealChatDemo from './components/RealChatDemo';
 import LegalModal from './components/LegalModal';
+import { useLandingAnimations } from './hooks/useLandingAnimations';
+import HeroParticles from './components/HeroParticles';
+import SiteBackground from './components/SiteBackground';
+import SectionDivider from './components/SectionDivider';
+import AnimatedCounter from './components/AnimatedCounter';
+import LogoMarquee from './components/LogoMarquee';
+import { getSectionTheme } from './lib/sectionTheme';
 
 // ── Tech Stack SVG Logos ─────────────────────────────────────────────────────
 const OpenAILogo = () => (
@@ -77,6 +84,9 @@ const App: React.FC = () => {
   const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', message: '', rgpd: false });
   const [contactStatus, setContactStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [legalModal, setLegalModal] = useState<null | 'privacidad' | 'cookies'>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useLandingAnimations(rootRef);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,7 +135,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#030712] text-white selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div ref={rootRef} className="relative min-h-screen text-white selection:bg-cyan-500/30 selection:text-cyan-200">
+      {/* Global animated backdrop — paints its own #030712 base */}
+      <SiteBackground />
+
+      {/* Scroll progress bar */}
+      <div className="fixed top-0 left-0 right-0 z-[200] h-[3px] bg-cyan-400 origin-left scale-x-0 shadow-[0_0_12px_rgba(34,211,238,0.7)]" data-scroll-progress />
+
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${scrolled ? 'glass py-3' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex items-center justify-between">
@@ -171,7 +187,7 @@ const App: React.FC = () => {
       </nav>
 
       {/* Hero Section — Split layout */}
-      <section className="relative min-h-[92vh] flex items-center pt-24 pb-12 overflow-hidden">
+      <section data-hero className="relative min-h-[92vh] flex items-center pt-24 pb-12 overflow-hidden">
         {/* 1. Radial gradient base — negro al centro, cyan en bordes */}
         <div className="absolute inset-0 -z-30" style={{
           background: 'radial-gradient(125% 125% at 48% 0%, #030712 38%, rgba(34,211,238,0.07) 100%)'
@@ -186,10 +202,10 @@ const App: React.FC = () => {
           WebkitMaskComposite: 'source-in',
         } as React.CSSProperties} />
         {/* 3. Aurora blob 1 — cyan, animado 22s */}
-        <div className="absolute top-[-20%] left-[-12%] w-[55%] h-[70%] bg-cyan-500/14 rounded-full blur-[130px] -z-10"
+        <div data-parallax="2" className="absolute top-[-20%] left-[-12%] w-[55%] h-[70%] bg-cyan-500/14 rounded-full blur-[130px] -z-10"
              style={{ animation: 'aurora-drift-1 22s ease-in-out infinite' }} />
         {/* 4. Aurora blob 2 — azul, animado 28s, diferente fase */}
-        <div className="absolute bottom-[-20%] right-[-8%] w-[50%] h-[65%] bg-blue-600/10 rounded-full blur-[120px] -z-10"
+        <div data-parallax="3" className="absolute bottom-[-20%] right-[-8%] w-[50%] h-[65%] bg-blue-600/10 rounded-full blur-[120px] -z-10"
              style={{ animation: 'aurora-drift-2 28s ease-in-out infinite' }} />
         {/* 5. Noise texture — granulado sutil al 3% */}
         <div className="absolute inset-0 -z-10 opacity-[0.035] pointer-events-none" style={{
@@ -198,26 +214,29 @@ const App: React.FC = () => {
           backgroundSize: '256px 256px',
         }} />
 
+        {/* 6. Animated neural-network particle field — always-on motion */}
+        <HeroParticles />
+
         <div className="container mx-auto px-6 z-10">
           <div className="grid lg:grid-cols-[54%_46%] gap-10 xl:gap-16 items-center">
 
             {/* ── Left: Copy ── */}
-            <div className="text-left">
-              <div className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-5 py-2 rounded-full text-[12px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-6 animate-in slide-in-from-bottom-4 duration-700">
+            <div className="text-left min-w-0">
+              <div data-hero-item className="inline-flex items-center space-x-3 bg-white/5 border border-white/10 px-5 py-2 rounded-full text-[12px] font-black uppercase tracking-[0.3em] text-cyan-400 mb-6">
                 <span className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
                 <span>Agencia IA · España</span>
               </div>
 
-              <h1 className="text-5xl md:text-6xl lg:text-[4.2rem] xl:text-7xl font-black mb-5 leading-[1.05] tracking-tighter animate-in slide-in-from-bottom-8 duration-1000">
+              <h1 data-hero-item className="text-5xl md:text-6xl lg:text-[4.2rem] xl:text-7xl font-black mb-5 leading-[1.05] tracking-tighter">
                 Automatiza tu negocio.<br />
                 <span className="text-gradient">Multiplica tus resultados.</span>
               </h1>
 
-              <p className="text-gray-400 text-lg xl:text-xl max-w-lg mb-8 leading-relaxed font-medium animate-in slide-in-from-bottom-12 duration-1200">
-                Chatbots, agentes de voz y software a medida para que tu equipo deje de perder tiempo en tareas repetitivas. Operativo en menos de 8 semanas.
+              <p data-hero-item className="text-gray-400 text-lg xl:text-xl max-w-lg mb-8 leading-relaxed font-medium">
+                Chatbots, agentes de voz y software a medida para que tu equipo deje de perder tiempo en tareas repetitivas. Operativo en menos de 4 semanas.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-5 animate-in slide-in-from-bottom-16 duration-1400">
+              <div data-hero-item className="flex flex-col sm:flex-row gap-4 mb-5">
                 <a href="#contacto" className="relative overflow-hidden w-full sm:w-auto bg-cyan-400 hover:bg-cyan-300 text-black px-8 py-4 rounded-xl font-black text-[17px] flex items-center justify-center space-x-2 transition-all hover:-translate-y-1 shadow-[0_0_40px_rgba(34,211,238,0.2)] group">
                   {/* Shimmer beam */}
                   <span className="pointer-events-none absolute top-0 left-0 w-12 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:[animation:shimmer-pass_0.65s_ease-out_forwards]" />
@@ -229,7 +248,7 @@ const App: React.FC = () => {
                 </a>
               </div>
 
-              <p className="text-sm text-gray-500 font-medium animate-in fade-in duration-2000">
+              <p data-hero-item className="text-sm text-gray-500 font-medium">
                 ¿Prefieres hablar primero?{' '}
                 <a
                   href="https://wa.me/34654954602?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20vuestros%20servicios"
@@ -241,29 +260,22 @@ const App: React.FC = () => {
                 </a>
               </p>
 
-              {/* Tech stack — inline, left-aligned */}
-              <div className="mt-10 pt-8 border-t border-white/5 opacity-40">
+              {/* Tech stack — animated marquee */}
+              <div data-hero-item className="mt-10 pt-8 border-t border-white/5 min-w-0 max-w-full overflow-hidden">
                 <p className="text-[11px] font-black uppercase tracking-[0.45em] text-gray-400 mb-5">Tecnología que usamos</p>
-                <div className="flex flex-wrap items-center gap-6 grayscale">
-                  {techStack.map((tech) => (
-                    <div key={tech.name} className="flex items-center space-x-2 text-white">
-                      {tech.icon}
-                      <span className="font-black text-sm">{tech.name}</span>
-                    </div>
-                  ))}
-                </div>
+                <LogoMarquee items={techStack} speed={40} />
               </div>
             </div>
 
             {/* ── Right: Live chat mockup ── */}
             <div className="relative hidden lg:flex justify-center items-center">
-              <div className="relative w-full max-w-[360px]">
+              <div data-hero-mockup className="relative w-full max-w-[360px]">
 
                 {/* Ambient glow behind card */}
                 <div className="absolute inset-0 bg-cyan-400/8 blur-[80px] rounded-full scale-[1.4] -z-10" />
 
                 {/* Chat card */}
-                <div className="glass border border-white/10 rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)] animate-in slide-in-from-right-8 duration-1000">
+                <div className="glass border border-white/10 rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)]">
 
                   {/* Header */}
                   <div className="bg-white/5 px-5 py-4 flex items-center justify-between border-b border-white/5">
@@ -343,19 +355,22 @@ const App: React.FC = () => {
       </section>
 
       {/* Stats Bar */}
-      <section className="py-14 bg-[#020617] border-y border-white/5">
+      <section className="py-14 bg-[#020617]/50 backdrop-blur-sm border-y border-white/5">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 max-w-5xl mx-auto">
             {[
-              { value: '24/7', label: 'Disponibilidad continua' },
-              { value: '80%', label: 'Reducción de tareas manuales' },
-              { value: '< 4 sem', label: 'De idea a producción' },
-              { value: '×3', label: 'Retorno medio de inversión' },
+              { prefix: '', value: 24, suffix: '/7', label: 'Disponibilidad continua' },
+              { prefix: '', value: 80, suffix: '%', label: 'Reducción de tareas manuales' },
+              { prefix: '< ', value: 4, suffix: ' sem', label: 'De idea a producción' },
+              { prefix: '×', value: 3, suffix: '', label: 'Retorno medio de inversión' },
             ].map((stat, idx) => (
-              <div key={idx} className="text-center group">
-                <div className="text-4xl md:text-5xl font-black text-cyan-400 tracking-tighter mb-2 group-hover:scale-105 transition-transform">
-                  {stat.value}
-                </div>
+              <div key={idx} className="gsap-reveal text-center group">
+                <AnimatedCounter
+                  prefix={stat.prefix}
+                  value={stat.value}
+                  suffix={stat.suffix}
+                  className="block text-4xl md:text-5xl font-black text-cyan-400 tracking-tighter mb-2 group-hover:scale-105 transition-transform"
+                />
                 <div className="text-gray-500 text-[11px] font-black uppercase tracking-[0.3em]">
                   {stat.label}
                 </div>
@@ -365,8 +380,10 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      <SectionDivider accentRgb={getSectionTheme('servicios').accentRgb} />
+
       {/* Services Section */}
-      <section id="servicios" className="py-20 bg-[#020617] relative">
+      <section id="servicios" className="py-20 bg-[#020617]/40 relative">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8 text-center md:text-left">
             <div className="max-w-2xl">
@@ -406,7 +423,8 @@ const App: React.FC = () => {
                   return (
                     <div
                       key={service.id}
-                      className={`glass rounded-3xl border border-white/5 hover:border-cyan-400/30 transition-all group relative overflow-hidden ${bentoSpans[idx]} ${isFeatured ? 'p-7 flex flex-row items-center gap-7' : 'p-6 flex flex-col h-full'} before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r ${cardAccents[idx]}`}
+                      data-tilt
+                      className={`gsap-reveal card-glow glass rounded-3xl border border-white/5 hover:border-cyan-400/30 transition-colors group relative overflow-hidden ${bentoSpans[idx]} ${isFeatured ? 'p-7 flex flex-row items-center gap-7' : 'p-6 flex flex-col h-full'} before:absolute before:inset-x-0 before:top-0 before:h-[2px] before:bg-gradient-to-r ${cardAccents[idx]}`}
                     >
                       {/* Ambient glow */}
                       <div className={`absolute ${isFeatured ? 'top-0 left-0 w-64' : 'top-0 right-0 w-48'} h-48 bg-cyan-400/5 blur-[80px] -z-10 group-hover:bg-cyan-400/15 transition-all`} />
@@ -485,7 +503,7 @@ const App: React.FC = () => {
                    result: 'El equipo de administración procesa los tickets de gastos en segundos, no en horas.'
                  }
                ].map((caso, idx) => (
-                 <div key={idx} className="group">
+                 <div key={idx} className="gsap-reveal group">
                    <div className="w-12 h-12 bg-cyan-400/10 rounded-2xl flex items-center justify-center mb-6 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all">
                      {caso.icon}
                    </div>
@@ -498,23 +516,25 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      <SectionDivider accentRgb={getSectionTheme('proceso').accentRgb} />
+
       {/* Process Section */}
-      <section id="proceso" className="py-20 bg-[#030712] relative overflow-hidden">
+      <section id="proceso" className="py-20 bg-transparent relative overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="text-center mb-24">
-            <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Nuestro proceso</div>
+            <div className="text-[#3b82f6] font-black text-sm uppercase tracking-[0.4em] mb-4">Nuestro proceso</div>
             <h2 className="text-4xl md:text-6xl font-black leading-none tracking-tighter">CÓMO <br />TRABAJAMOS</h2>
           </div>
 
           <div className="flex flex-col lg:flex-row items-stretch justify-between gap-0 relative">
             {PROCESS.map((step, idx) => (
               <React.Fragment key={idx}>
-                <div className="flex-1 relative group z-10">
+                <div className="gsap-reveal flex-1 relative group z-10">
                   <div className="text-[140px] font-black text-white/[0.02] absolute -top-20 left-0 transition-colors group-hover:text-cyan-400/5 pointer-events-none select-none">
                     {step.number}
                   </div>
-                  <div className="glass p-8 rounded-3xl border border-white/5 hover:border-cyan-400/40 transition-all h-full flex flex-col pt-10 group-hover:-translate-y-3 duration-700 shadow-2xl">
-                    <div className="w-14 h-14 bg-cyan-400 text-black rounded-2xl flex items-center justify-center mb-6 shadow-2xl shadow-cyan-400/30 group-hover:rotate-6 transition-transform">
+                  <div className="glass p-8 rounded-3xl border border-white/5 hover:border-[#3b82f6]/50 transition-all h-full flex flex-col pt-10 group-hover:-translate-y-3 duration-700 shadow-2xl">
+                    <div className="w-14 h-14 bg-[#3b82f6] text-black rounded-2xl flex items-center justify-center mb-6 shadow-2xl shadow-[0_8px_30px_rgba(59,130,246,0.35)] group-hover:rotate-6 transition-transform">
                       {step.icon}
                     </div>
                     <h3 className="text-xl font-black mb-6 uppercase tracking-tight">{step.title}</h3>
@@ -540,12 +560,14 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      <SectionDivider accentRgb={getSectionTheme('sectores').accentRgb} />
+
       {/* Sectors Section */}
-      <section id="sectores" className="py-16 bg-[#030712]">
+      <section id="sectores" className="py-16 bg-transparent">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-20 gap-8 text-center md:text-left max-w-7xl mx-auto">
             <div className="max-w-2xl">
-              <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Sectores</div>
+              <div className="text-[#8b5cf6] font-black text-sm uppercase tracking-[0.4em] mb-4">Sectores</div>
               <h2 className="text-4xl md:text-6xl font-black leading-tight tracking-tighter">EN QUÉ SECTORES NOS <span className="text-gradient">ESPECIALIZAMOS</span></h2>
             </div>
             {/* Divider Line on Desktop */}
@@ -562,8 +584,8 @@ const App: React.FC = () => {
               { icon: <Dumbbell className="w-7 h-7" strokeWidth={2} />, title: 'Gimnasios y centros deportivos', desc: 'Reservas de clases sin saturar recepción, atención automática a leads de Instagram y campañas de reactivación para socios inactivos.' },
               { icon: <Building2 className="w-7 h-7" strokeWidth={2} />, title: 'Inmobiliarias', desc: 'Cualificación automática de compradores, coordinación de visitas con tu agenda y seguimiento post-visita sin que se enfríe el lead.' }
             ].map((sector, idx) => (
-              <div key={idx} className="glass p-8 rounded-[28px] border border-white/5 hover:border-cyan-400/30 transition-all group text-center flex flex-col items-center hover:-translate-y-1 duration-500">
-                <div className="mb-7 w-16 h-16 rounded-2xl bg-cyan-400/10 border border-cyan-400/30 flex items-center justify-center text-cyan-300 group-hover:bg-cyan-400/15 transition-all shadow-[0_0_30px_-12px_rgba(34,211,238,0.55)]">
+              <div key={idx} data-tilt className="gsap-reveal card-glow glass p-8 rounded-[28px] border border-white/5 hover:border-[#8b5cf6]/40 transition-colors group text-center flex flex-col items-center">
+                <div className="mb-7 w-16 h-16 rounded-2xl bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 flex items-center justify-center text-[#a78bfa] group-hover:bg-[#8b5cf6]/20 transition-all shadow-[0_0_30px_-12px_rgba(139,92,246,0.6)]">
                   {sector.icon}
                 </div>
                 <h3 className="text-[15px] font-black group-hover:text-white transition-colors leading-tight uppercase tracking-tight min-h-[44px] flex items-center justify-center">
@@ -583,11 +605,13 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      <SectionDivider accentRgb={getSectionTheme('demos').accentRgb} />
+
       {/* Demos Sections Container */}
-      <div id="demos" className="bg-[#020617] py-20 space-y-28">
+      <div id="demos" className="bg-[#020617]/40 py-20 space-y-28">
         <section className="container mx-auto px-6">
           <div className="text-center mb-24">
-             <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Demo en vivo</div>
+             <div className="text-[#10b981] font-black text-sm uppercase tracking-[0.4em] mb-4">Demo en vivo</div>
              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">PRUEBA NUESTROS ASISTENTES</h2>
           </div>
           <ChatbotDemo />
@@ -595,15 +619,17 @@ const App: React.FC = () => {
 
         <section id="demos-reales" className="container mx-auto px-6">
           <div className="text-center mb-24">
-             <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Integración en vivo</div>
+             <div className="text-[#10b981] font-black text-sm uppercase tracking-[0.4em] mb-4">Integración en vivo</div>
              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">INTEGRACIÓN REAL<br /><span className="text-gradient">PRUÉBALA AHORA</span></h2>
           </div>
           <RealChatDemo />
         </section>
       </div>
 
+      <SectionDivider accentRgb={getSectionTheme('equipo').accentRgb} />
+
       {/* Team Section */}
-      <section id="equipo" className="py-20 bg-[#030712] relative">
+      <section id="equipo" className="py-20 bg-transparent relative">
         <div className="container mx-auto px-6">
           <div className="text-center mb-20">
              <div className="text-cyan-400 font-black text-sm uppercase tracking-[0.4em] mb-4">Nuestro equipo</div>
@@ -648,10 +674,13 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      <SectionDivider accentRgb={getSectionTheme('faq').accentRgb} />
+
       {/* FAQ Section */}
-      <section id="faq" className="py-16 bg-[#020617]">
+      <section id="faq" className="py-16 bg-[#020617]/40">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-16">
+            <div className="text-[#3b82f6] font-black text-sm uppercase tracking-[0.4em] mb-4">FAQ</div>
             <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Preguntas <span className="text-gradient">frecuentes</span></h2>
             <p className="text-gray-400 text-xl font-medium">Las preguntas que más nos hacen antes de empezar.</p>
           </div>
@@ -683,7 +712,7 @@ const App: React.FC = () => {
                 a: 'Cumplimos con el RGPD. Los datos se procesan en servidores europeos y con las medidas de seguridad que exige la normativa.'
               }
             ].map((item, idx) => (
-              <details key={idx} className="glass rounded-2xl border border-white/5 group">
+              <details key={idx} className="gsap-reveal glass rounded-2xl border border-white/5 group">
                 <summary className="px-8 py-6 cursor-pointer text-lg font-bold flex items-center justify-between hover:text-cyan-400 transition-colors list-none">
                   {item.q}
                   <ChevronRight className="w-5 h-5 text-gray-500 group-open:rotate-90 transition-transform shrink-0 ml-4" />
@@ -697,8 +726,10 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      <SectionDivider accentRgb={getSectionTheme('contacto').accentRgb} />
+
       {/* Contact Section */}
-      <section id="contacto" className="py-24 bg-[#030712] relative overflow-hidden">
+      <section id="contacto" className="py-24 bg-transparent relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-cyan-400/[0.03] blur-[150px] -z-10"></div>
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -837,7 +868,7 @@ const App: React.FC = () => {
               <ul className="space-y-8 text-gray-400 text-[13px] font-bold tracking-widest uppercase">
                 <li className="flex items-center space-x-4 group">
                   <Mail className="w-5 h-5 shrink-0 text-cyan-400" />
-                  <a href="mailto:info@edraisolutions.es" className="group-hover:text-white transition-colors">info@edraisolutions.es</a>
+                  <a href="mailto:ricardopichardo@edraisolutions.es" className="group-hover:text-white transition-colors">ricardopichardo@edraisolutions.es</a>
                 </li>
                 <li className="flex items-center space-x-4 group">
                   <Phone className="w-5 h-5 text-cyan-400" />

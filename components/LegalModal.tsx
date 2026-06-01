@@ -17,7 +17,7 @@ const PrivacidadContent: React.FC = () => (
         <strong className="text-white">Actividad:</strong> Edrai Solutions — Automatización con IA<br />
         <strong className="text-white">Domicilio:</strong> Madrid, España<br />
         <strong className="text-white">Email de contacto:</strong>{' '}
-        <a href="mailto:info@edraisolutions.es" className="text-cyan-400 hover:underline">info@edraisolutions.es</a>
+        <a href="mailto:ricardopichardo@edraisolutions.es" className="text-cyan-400 hover:underline">ricardopichardo@edraisolutions.es</a>
       </p>
     </section>
 
@@ -66,7 +66,7 @@ const PrivacidadContent: React.FC = () => (
       <h3 className="text-white font-black text-lg mb-3 uppercase tracking-tight">7. Tus derechos</h3>
       <p>
         Puedes ejercer en cualquier momento los derechos de <strong className="text-white">acceso, rectificación, supresión, oposición, portabilidad y limitación</strong> del tratamiento de tus datos, enviando un email a{' '}
-        <a href="mailto:info@edraisolutions.es" className="text-cyan-400 hover:underline">info@edraisolutions.es</a>{' '}
+        <a href="mailto:ricardopichardo@edraisolutions.es" className="text-cyan-400 hover:underline">ricardopichardo@edraisolutions.es</a>{' '}
         con el asunto "Protección de datos" e indicando el derecho que deseas ejercer.
       </p>
       <p className="mt-3">
@@ -130,7 +130,7 @@ const CookiesContent: React.FC = () => (
       <h3 className="text-white font-black text-lg mb-3 uppercase tracking-tight">Contacto</h3>
       <p>
         Para cualquier duda sobre el uso de cookies, escríbenos a{' '}
-        <a href="mailto:info@edraisolutions.es" className="text-cyan-400 hover:underline">info@edraisolutions.es</a>.
+        <a href="mailto:ricardopichardo@edraisolutions.es" className="text-cyan-400 hover:underline">ricardopichardo@edraisolutions.es</a>.
       </p>
     </section>
   </div>
