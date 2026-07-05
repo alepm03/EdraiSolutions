@@ -164,7 +164,7 @@ const App: React.FC = () => {
             </a>
           </div>
 
-          <button className="md:hidden text-white p-2 glass rounded-lg" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button className="md:hidden text-white p-2 glass rounded-lg" aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
@@ -645,6 +645,8 @@ const App: React.FC = () => {
                     <img
                       src={member.image}
                       alt={member.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-[center_35%]"
                     />
                   ) : (
@@ -767,20 +769,20 @@ const App: React.FC = () => {
               <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-400/10 blur-[120px] -z-10"></div>
               <form onSubmit={handleContactSubmit} className="space-y-8">
                 <div className="space-y-4">
-                  <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Nombre *</label>
-                  <input type="text" required placeholder="Tu nombre o el de tu empresa" value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
+                  <label htmlFor="contact-name" className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Nombre *</label>
+                  <input id="contact-name" type="text" required autoComplete="name" placeholder="Tu nombre o el de tu empresa" value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Email *</label>
-                  <input type="email" required placeholder="ejemplo@correo.com" value={contactForm.email} onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
+                  <label htmlFor="contact-email" className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Email *</label>
+                  <input id="contact-email" type="email" required autoComplete="email" placeholder="ejemplo@correo.com" value={contactForm.email} onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Teléfono *</label>
-                  <input type="tel" required placeholder="+34 600 000 000" value={contactForm.phone} onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
+                  <label htmlFor="contact-phone" className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Teléfono *</label>
+                  <input id="contact-phone" type="tel" required autoComplete="tel" placeholder="+34 600 000 000" value={contactForm.phone} onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">¿Qué quieres automatizar?</label>
-                  <textarea rows={3} placeholder="Ej: responder mensajes de clientes, gestionar citas, pedir reseñas..." value={contactForm.message} onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold resize-none"></textarea>
+                  <label htmlFor="contact-message" className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">¿Qué quieres automatizar?</label>
+                  <textarea id="contact-message" rows={3} placeholder="Ej: responder mensajes de clientes, gestionar citas, pedir reseñas..." value={contactForm.message} onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold resize-none"></textarea>
                 </div>
                 <div className="flex items-start space-x-4 p-4 bg-white/5 rounded-2xl">
                   <input type="checkbox" required id="rgpd" checked={contactForm.rgpd} onChange={e => setContactForm(f => ({ ...f, rgpd: e.target.checked }))} className="mt-1 w-5 h-5 accent-cyan-400 rounded-lg" />
