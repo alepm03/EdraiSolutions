@@ -619,7 +619,7 @@ const App: React.FC = () => {
 
         <section id="demos-reales" className="container mx-auto px-6">
           <div className="text-center mb-24">
-             <div className="text-[#10b981] font-black text-sm uppercase tracking-[0.4em] mb-4">Integración en vivo</div>
+             <div className="text-[#10b981] font-black text-sm uppercase tracking-[0.4em] mb-4">Caso real · Mercado del Barranco</div>
              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">INTEGRACIÓN REAL<br /><span className="text-gradient">PRUÉBALA AHORA</span></h2>
           </div>
           <RealChatDemo />
