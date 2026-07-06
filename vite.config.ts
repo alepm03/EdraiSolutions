@@ -9,7 +9,8 @@ export default defineConfig(({ mode }) => {
   return {
     base: '/',   // 👈 MUY IMPORTANTE para GitHub Pages
     server: {
-      port: 3000,
+      // 5173 porque el CORS del bot del Barranco (demo real) permite localhost:5173 en dev.
+      port: 5173,
       host: '0.0.0.0',
     },
     plugins: [react(), tailwindcss()],

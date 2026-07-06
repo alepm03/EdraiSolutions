@@ -14,9 +14,28 @@ interface Message {
   text: string;
 }
 
-// TODO: sustituir el patrón de webhook por el widget real de
-// ricardopm01/barranco-webchat cuando tengamos acceso al repositorio.
-// Mientras tanto, VITE_N8N_WEBHOOK_URL debe apuntar al endpoint del bot del Barranco.
+// El bot responde con markdown ligero: **negritas** y [enlaces](url).
+const renderMessageText = (text: string): React.ReactNode[] =>
+  text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\))/g).map((part, index) => {
+    const bold = part.match(/^\*\*([^*]+)\*\*$/);
+    if (bold) return <strong key={index} className="text-cyan-400 font-bold">{bold[1]}</strong>;
+    const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/);
+    if (link) {
+      return (
+        <a key={index} href={link[2]} target="_blank" rel="noopener noreferrer" className="text-cyan-400 font-bold underline underline-offset-2 hover:text-cyan-300">
+          {link[1]}
+        </a>
+      );
+    }
+    return part;
+  });
+
+// Conectado al bot real de producción de ricardopm01/barranco-webchat:
+// Edge Function en Vercel con CORS estricto (BARRANCO_ALLOWED_ORIGINS) → n8n → gpt-4o-mini.
+// Requiere que edraisolutions.es esté en la allowlist de CORS del Edge Function.
+const BARRANCO_API_URL =
+  import.meta.env.VITE_BARRANCO_API_URL || 'https://barranco-agent-edge.vercel.app/barranco-agent';
+
 const DEMO_CONFIG = {
   clientName: 'Mercado del Barranco',
   tagline: 'Demo Real en Vivo',
@@ -25,8 +44,8 @@ const DEMO_CONFIG = {
   welcomeMessage:
     '¡Hola! Soy el asistente del **Mercado del Barranco**. ¿En qué puedo ayudarte? Puedo informarte sobre horarios, puestos y gastronomía, reservas o eventos.',
   inputPlaceholder: 'Pregunta por horarios, puestos, reservas o eventos...',
-  offlineError:
-    'Demo no disponible en este momento. Escríbenos por WhatsApp para una demo en directo.',
+  rateLimitError:
+    'Has enviado muchos mensajes seguidos. Espera un minuto e inténtalo de nuevo.',
   connectionError:
     'No se pudo conectar con el asistente. El entorno de pruebas podría estar offline.',
   fallbackReply:
@@ -34,7 +53,9 @@ const DEMO_CONFIG = {
 };
 
 const RealChatDemo: React.FC = () => {
-  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+  // session_id propio y prefijado para poder distinguir el tráfico del demo
+  // del de clientes reales en las tablas del bot.
+  const sessionIdRef = useRef(`edrai-web-${crypto.randomUUID()}`);
   const [messages, setMessages] = useState<Message[]>([
     { role: 'bot', text: DEMO_CONFIG.welcomeMessage }
   ]);
@@ -52,10 +73,6 @@ const RealChatDemo: React.FC = () => {
   const handleSend = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!input.trim() || isLoading) return;
-    if (!webhookUrl) {
-      setError(DEMO_CONFIG.offlineError);
-      return;
-    }
 
     const userMessage = input.trim();
     setInput('');
@@ -64,18 +81,28 @@ const RealChatDemo: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(webhookUrl, {
+      const response = await fetch(BARRANCO_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ chatInput: userMessage }),
+        body: JSON.stringify({
+          session_id: sessionIdRef.current,
+          message: userMessage,
+          language: 'es',
+        }),
+        signal: AbortSignal.timeout(30_000),
       });
 
-      if (!response.ok) throw new Error('Error en la conexión con el servidor');
+      if (response.status === 429) {
+        setError(DEMO_CONFIG.rateLimitError);
+        setIsLoading(false);
+        return;
+      }
+      if (!response.ok) throw new Error(`Error en la conexión con el servidor (${response.status})`);
 
       const data = await response.json();
-      const botText = data.output || data.text || data.response || 'He recibido tu mensaje, pero no puedo procesar una respuesta ahora mismo.';
+      const botText = data.assistant_message || 'He recibido tu mensaje, pero no puedo procesar una respuesta ahora mismo.';
 
       setMessages(prev => [...prev, { role: 'bot', text: botText }]);
     } catch (err) {
@@ -144,9 +171,7 @@ const RealChatDemo: React.FC = () => {
                         ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold rounded-tr-none shadow-xl shadow-cyan-500/10'
                         : 'bg-white/5 text-gray-200 border border-white/5 rounded-tl-none backdrop-blur-md'
                     }`}>
-                      {msg.text.split('**').map((part, index) =>
-                        index % 2 === 1 ? <strong key={index} className="text-cyan-400 font-bold">{part}</strong> : part
-                      )}
+                      {renderMessageText(msg.text)}
                     </div>
                   </div>
                 </div>
