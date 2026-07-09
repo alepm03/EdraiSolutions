@@ -33,8 +33,10 @@ const renderMessageText = (text: string): React.ReactNode[] =>
 // Conectado al bot real de producción de ricardopm01/barranco-webchat:
 // Edge Function en Vercel con CORS estricto (BARRANCO_ALLOWED_ORIGINS) → n8n → gpt-4o-mini.
 // Requiere que edraisolutions.es esté en la allowlist de CORS del Edge Function.
+// En dev se pasa por el proxy de Vite (ver vite.config.ts) para sortear el CORS.
 const BARRANCO_API_URL =
-  import.meta.env.VITE_BARRANCO_API_URL || 'https://barranco-agent-edge.vercel.app/barranco-agent';
+  import.meta.env.VITE_BARRANCO_API_URL ||
+  (import.meta.env.DEV ? '/api/barranco' : 'https://barranco-agent-edge.vercel.app/barranco-agent');
 
 const DEMO_CONFIG = {
   clientName: 'Mercado del Barranco',
