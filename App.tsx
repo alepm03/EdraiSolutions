@@ -270,7 +270,9 @@ const App: React.FC = () => {
 
             {/* ── Right: Robot 3D interactivo (sigue el cursor) ── */}
             <div className="relative hidden lg:flex justify-center items-center">
-              <div data-hero-mockup className="relative w-full h-[560px] xl:h-[620px]">
+              {/* Altura y desplazamiento calibrados para que los pies del robot
+                  coincidan con la línea que separa la hero de la sección de stats. */}
+              <div data-hero-mockup className="relative w-full h-[740px] translate-y-[66px]">
 
                 {/* Ambient glow behind robot */}
                 <div className="absolute inset-8 bg-cyan-400/8 blur-[80px] rounded-full -z-10" />
