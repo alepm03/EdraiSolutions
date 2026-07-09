@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Send, 
-  Bot, 
-  User, 
-  Activity, 
-  Dumbbell,
+import {
+  Send,
+  Bot,
+  User,
+  Activity,
+  Store,
   AlertCircle,
   Sparkles
 } from 'lucide-react';
@@ -14,10 +14,52 @@ interface Message {
   text: string;
 }
 
+// El bot responde con markdown ligero: **negritas** y [enlaces](url).
+const renderMessageText = (text: string): React.ReactNode[] =>
+  text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\))/g).map((part, index) => {
+    const bold = part.match(/^\*\*([^*]+)\*\*$/);
+    if (bold) return <strong key={index} className="text-cyan-400 font-bold">{bold[1]}</strong>;
+    const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/);
+    if (link) {
+      return (
+        <a key={index} href={link[2]} target="_blank" rel="noopener noreferrer" className="text-cyan-400 font-bold underline underline-offset-2 hover:text-cyan-300">
+          {link[1]}
+        </a>
+      );
+    }
+    return part;
+  });
+
+// Conectado al bot real de producción de ricardopm01/barranco-webchat:
+// Edge Function en Vercel con CORS estricto (BARRANCO_ALLOWED_ORIGINS) → n8n → gpt-4o-mini.
+// Requiere que edraisolutions.es esté en la allowlist de CORS del Edge Function.
+// En dev se pasa por el proxy de Vite (ver vite.config.ts) para sortear el CORS.
+const BARRANCO_API_URL =
+  import.meta.env.VITE_BARRANCO_API_URL ||
+  (import.meta.env.DEV ? '/api/barranco' : 'https://barranco-agent-edge.vercel.app/barranco-agent');
+
+const DEMO_CONFIG = {
+  clientName: 'Mercado del Barranco',
+  tagline: 'Demo Real en Vivo',
+  sidebarDescription:
+    'Estás hablando con el asistente real que atiende a los visitantes del Mercado Lonja del Barranco de Sevilla: una integración en producción de Edrai Solutions.',
+  welcomeMessage:
+    '¡Hola! Soy el asistente del **Mercado del Barranco**. ¿En qué puedo ayudarte? Puedo informarte sobre horarios, puestos y gastronomía, reservas o eventos.',
+  inputPlaceholder: 'Pregunta por horarios, puestos, reservas o eventos...',
+  rateLimitError:
+    'Has enviado muchos mensajes seguidos. Espera un minuto e inténtalo de nuevo.',
+  connectionError:
+    'No se pudo conectar con el asistente. El entorno de pruebas podría estar offline.',
+  fallbackReply:
+    'Lo siento, estoy experimentando dificultades técnicas para conectar con mi base de datos.',
+};
+
 const RealChatDemo: React.FC = () => {
-  const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+  // session_id propio y prefijado para poder distinguir el tráfico del demo
+  // del de clientes reales en las tablas del bot.
+  const sessionIdRef = useRef(`edrai-web-${crypto.randomUUID()}`);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'bot', text: '¡Hola! Soy el asistente inteligente del **Centro Deportivo**. ¿En qué puedo ayudarte hoy? Puedo informarte sobre horarios, tarifas o clases disponibles.' }
+    { role: 'bot', text: DEMO_CONFIG.welcomeMessage }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -33,10 +75,6 @@ const RealChatDemo: React.FC = () => {
   const handleSend = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!input.trim() || isLoading) return;
-    if (!webhookUrl) {
-      setError('Demo no disponible en este momento. Escríbenos por WhatsApp para una demo en directo.');
-      return;
-    }
 
     const userMessage = input.trim();
     setInput('');
@@ -45,24 +83,34 @@ const RealChatDemo: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(webhookUrl, {
+      const response = await fetch(BARRANCO_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ chatInput: userMessage }),
+        body: JSON.stringify({
+          session_id: sessionIdRef.current,
+          message: userMessage,
+          language: 'es',
+        }),
+        signal: AbortSignal.timeout(30_000),
       });
 
-      if (!response.ok) throw new Error('Error en la conexión con el servidor');
+      if (response.status === 429) {
+        setError(DEMO_CONFIG.rateLimitError);
+        setIsLoading(false);
+        return;
+      }
+      if (!response.ok) throw new Error(`Error en la conexión con el servidor (${response.status})`);
 
       const data = await response.json();
-      const botText = data.output || data.text || data.response || 'He recibido tu mensaje, pero no puedo procesar una respuesta ahora mismo.';
-      
+      const botText = data.assistant_message || 'He recibido tu mensaje, pero no puedo procesar una respuesta ahora mismo.';
+
       setMessages(prev => [...prev, { role: 'bot', text: botText }]);
     } catch (err) {
       console.error('Chat Error:', err);
-      setError('No se pudo conectar con el asistente. El entorno de pruebas podría estar offline.');
-      setMessages(prev => [...prev, { role: 'bot', text: 'Lo siento, estoy experimentando dificultades técnicas para conectar con mi base de datos.' }]);
+      setError(DEMO_CONFIG.connectionError);
+      setMessages(prev => [...prev, { role: 'bot', text: DEMO_CONFIG.fallbackReply }]);
     } finally {
       setIsLoading(false);
     }
@@ -72,22 +120,22 @@ const RealChatDemo: React.FC = () => {
     <div className="max-w-5xl mx-auto">
       <div className="glass rounded-[40px] overflow-hidden border border-white/10 shadow-2xl relative">
         <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[100px] pointer-events-none"></div>
-        
+
         <div className="grid lg:grid-cols-12">
           {/* Info Sidebar */}
           <div className="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-white/10 bg-white/[0.01]">
             <div className="flex items-center gap-4 mb-8">
               <div className="w-14 h-14 bg-cyan-400 rounded-2xl flex items-center justify-center text-black shadow-lg shadow-cyan-400/20">
-                <Dumbbell className="w-7 h-7" />
+                <Store className="w-7 h-7" />
               </div>
               <div>
-                <h3 className="font-black text-2xl leading-none tracking-tight uppercase">Centro Deportivo</h3>
-                <span className="text-[11px] text-cyan-400 font-black uppercase tracking-widest mt-1 block">Demo Real en Vivo</span>
+                <h3 className="font-black text-2xl leading-none tracking-tight uppercase">{DEMO_CONFIG.clientName}</h3>
+                <span className="text-[11px] text-cyan-400 font-black uppercase tracking-widest mt-1 block">{DEMO_CONFIG.tagline}</span>
               </div>
             </div>
 
             <p className="text-gray-400 text-[15px] leading-relaxed mb-8 font-medium">
-              Estás interactuando con una integración real de Edrai Solutions.
+              {DEMO_CONFIG.sidebarDescription}
             </p>
 
             <div className="space-y-4">
@@ -121,13 +169,11 @@ const RealChatDemo: React.FC = () => {
                       {msg.role === 'user' ? <User className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
                     </div>
                     <div className={`px-6 py-4 rounded-3xl text-[15px] leading-relaxed font-medium ${
-                      msg.role === 'user' 
-                        ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold rounded-tr-none shadow-xl shadow-cyan-500/10' 
+                      msg.role === 'user'
+                        ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold rounded-tr-none shadow-xl shadow-cyan-500/10'
                         : 'bg-white/5 text-gray-200 border border-white/5 rounded-tl-none backdrop-blur-md'
                     }`}>
-                      {msg.text.split('**').map((part, index) => 
-                        index % 2 === 1 ? <strong key={index} className="text-cyan-400 font-bold">{part}</strong> : part
-                      )}
+                      {renderMessageText(msg.text)}
                     </div>
                   </div>
                 </div>
@@ -155,12 +201,13 @@ const RealChatDemo: React.FC = () => {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Pregunta sobre horarios, tarifas o clases..."
+                  placeholder={DEMO_CONFIG.inputPlaceholder}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-cyan-400/50 transition-all font-bold"
                 />
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={isLoading || !input.trim()}
+                  aria-label="Enviar mensaje"
                   className="p-4 bg-cyan-400 text-black rounded-2xl hover:bg-cyan-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed transform active:scale-95 flex-shrink-0 shadow-lg shadow-cyan-400/20"
                 >
                   <Send className="w-5 h-5" />

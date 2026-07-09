@@ -51,18 +51,11 @@ export function useLandingAnimations(scope: React.RefObject<HTMLElement | null>)
           });
         }
 
-        // Hero chat mockup — slide + settle, then gentle idle float
+        // Hero robot — slide de entrada. Sin float continuo: el robot debe
+        // quedar estático con los pies en la divisoria de la sección.
         const mockup = scope.current?.querySelector<HTMLElement>('[data-hero-mockup]');
         if (mockup) {
           gsap.from(mockup, { x: 40, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.25 });
-          gsap.to(mockup, {
-            y: -10,
-            duration: 3.5,
-            ease: 'sine.inOut',
-            repeat: -1,
-            yoyo: true,
-            delay: 1.2,
-          });
         }
 
         // Hero parallax — aurora blobs react to pointer (subtle depth)

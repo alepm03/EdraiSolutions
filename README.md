@@ -31,7 +31,7 @@ Web de [Edrai Solutions](https://edraisolutions.es), agencia de automatización 
 | Variable | Descripción |
 |----------|-------------|
 | `VITE_WORKER_URL` | URL del Cloudflare Worker desplegado (proxy de IA para chatbots y formulario) |
-| `VITE_N8N_WEBHOOK_URL` | URL del webhook n8n para la demo de integración en vivo |
+| `VITE_N8N_WEBHOOK_URL` | URL del webhook del chatbot del Mercado del Barranco (demo de integración real) |
 
 > Las claves de API (Gemini, OpenAI, etc.) **no se almacenan en el frontend**. Viven como secretos en el Cloudflare Worker (`cf-worker/`).
 
