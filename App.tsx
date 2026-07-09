@@ -30,6 +30,7 @@ import RealChatDemo from './components/RealChatDemo';
 import LegalModal from './components/LegalModal';
 import { useLandingAnimations } from './hooks/useLandingAnimations';
 import HeroParticles from './components/HeroParticles';
+import SplineRobot from './components/SplineRobot';
 import SiteBackground from './components/SiteBackground';
 import SectionDivider from './components/SectionDivider';
 import AnimatedCounter from './components/AnimatedCounter';
@@ -267,83 +268,24 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* ── Right: Live chat mockup ── */}
+            {/* ── Right: Robot 3D interactivo (sigue el cursor) ── */}
             <div className="relative hidden lg:flex justify-center items-center">
-              <div data-hero-mockup className="relative w-full max-w-[360px]">
+              <div data-hero-mockup className="relative w-full h-[560px] xl:h-[620px]">
 
-                {/* Ambient glow behind card */}
-                <div className="absolute inset-0 bg-cyan-400/8 blur-[80px] rounded-full scale-[1.4] -z-10" />
+                {/* Ambient glow behind robot */}
+                <div className="absolute inset-8 bg-cyan-400/8 blur-[80px] rounded-full -z-10" />
 
-                {/* Chat card */}
-                <div className="glass border border-white/10 rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)]">
-
-                  {/* Header */}
-                  <div className="bg-white/5 px-5 py-4 flex items-center justify-between border-b border-white/5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-cyan-400 rounded-xl flex items-center justify-center text-black font-black text-sm shadow-lg shadow-cyan-400/20">E</div>
-                      <div>
-                        <div className="text-[13px] font-black leading-none mb-1">Asistente Edrai</div>
-                        <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-bold">
-                          <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                          En línea · Responde al instante
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex gap-1.5">
-                      <span className="w-3 h-3 rounded-full bg-white/10" />
-                      <span className="w-3 h-3 rounded-full bg-white/10" />
-                      <span className="w-3 h-3 rounded-full bg-cyan-400/40" />
-                    </div>
-                  </div>
-
-                  {/* Messages */}
-                  <div className="p-4 space-y-3.5 bg-[#030712]/70">
-                    <div className="flex justify-end">
-                      <div className="bg-cyan-400/15 border border-cyan-400/20 text-white text-[13px] px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-[82%] font-medium leading-snug">
-                        Hola, ¿tenéis mesa para 2 el viernes a las 21h?
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2.5">
-                      <div className="w-7 h-7 bg-cyan-400 rounded-lg flex items-center justify-center text-black font-black text-xs shrink-0 mt-0.5 shadow-md shadow-cyan-400/20">E</div>
-                      <div className="bg-white/5 border border-white/10 text-[13px] px-4 py-2.5 rounded-2xl rounded-tl-sm max-w-[82%] text-gray-200 font-medium leading-snug">
-                        ¡Hola! Tenemos disponibilidad el viernes a las 21:00 para 2 personas. ¿Te la reservo?
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end">
-                      <div className="bg-cyan-400/15 border border-cyan-400/20 text-white text-[13px] px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-[72%] font-medium leading-snug">
-                        Sí, perfecto. Me llamo Ana García.
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2.5">
-                      <div className="w-7 h-7 bg-cyan-400 rounded-lg flex items-center justify-center text-black font-black text-xs shrink-0 mt-0.5 shadow-md shadow-cyan-400/20">E</div>
-                      <div className="bg-white/5 border border-white/10 text-[13px] px-4 py-2.5 rounded-2xl rounded-tl-sm text-gray-200 font-medium leading-relaxed">
-                        <span className="text-emerald-400 font-black">✓ Reserva confirmada</span><br />
-                        <span className="text-white">Ana García · Viernes · 21:00 · 2 pax</span><br />
-                        <span className="text-gray-500 text-[11px]">Confirmación enviada por WhatsApp</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Input bar */}
-                  <div className="px-4 py-3 border-t border-white/5 flex items-center gap-3 bg-[#020617]/60">
-                    <div className="flex-1 bg-white/5 rounded-xl px-4 py-2.5 text-[13px] text-gray-600 font-medium">Escribe tu consulta...</div>
-                    <div className="w-9 h-9 bg-cyan-400 rounded-xl flex items-center justify-center text-black shrink-0 shadow-lg shadow-cyan-400/20">
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </div>
-                </div>
+                {/* Spline robot — sin card, sobre el fondo propio de la hero */}
+                <SplineRobot className="w-full h-full" />
 
                 {/* Floating badge — top right */}
-                <div className="absolute -top-4 -right-6 bg-[#00101a] border border-white/15 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2.5 z-20 animate-in slide-in-from-right-4 duration-1200">
+                <div className="absolute top-6 right-0 bg-[#00101a] border border-white/15 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2.5 z-20 pointer-events-none animate-in slide-in-from-right-4 duration-1200">
                   <span className="text-2xl font-black text-emerald-400 leading-none">↓80%</span>
                   <span className="text-[11px] text-gray-400 font-bold leading-tight">tareas<br />manuales</span>
                 </div>
 
                 {/* Floating badge — bottom left */}
-                <div className="absolute -bottom-4 -left-6 bg-[#00101a] border border-white/15 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2.5 z-20 animate-in slide-in-from-left-4 duration-1200">
+                <div className="absolute bottom-10 left-0 bg-[#00101a] border border-white/15 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2.5 z-20 pointer-events-none animate-in slide-in-from-left-4 duration-1200">
                   <span className="text-2xl font-black text-cyan-400 leading-none">24/7</span>
                   <span className="text-[11px] text-gray-400 font-bold leading-tight">sin<br />interrupciones</span>
                 </div>
