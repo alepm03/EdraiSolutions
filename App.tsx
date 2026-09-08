@@ -35,6 +35,7 @@ import SiteBackground from './components/SiteBackground';
 import SectionDivider from './components/SectionDivider';
 import AnimatedCounter from './components/AnimatedCounter';
 import LogoMarquee from './components/LogoMarquee';
+import Logo from './components/Logo';
 import { getSectionTheme } from './lib/sectionTheme';
 
 // ── Tech Stack SVG Logos ─────────────────────────────────────────────────────
@@ -146,12 +147,9 @@ const App: React.FC = () => {
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${scrolled ? 'glass py-3' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <div className="flex items-center space-x-2 group cursor-pointer">
-            <div className="w-10 h-10 bg-cyan-400 rounded-xl flex items-center justify-center text-black font-black text-xl group-hover:rotate-12 transition-transform shadow-[0_0_20px_rgba(34,211,238,0.3)]">E</div>
-            <span className="text-2xl font-extrabold tracking-tighter">
-              <span className="text-cyan-400">Edrai</span>Solutions
-            </span>
-          </div>
+          <a href="#" className="group cursor-pointer" aria-label="Edrai Solutions — inicio">
+            <Logo size="nav" />
+          </a>
 
           <div className="hidden md:flex items-center space-x-10 text-[13px] font-bold uppercase tracking-widest text-gray-400">
             <a href="#servicios" className="hover:text-white transition-colors">Servicios</a>
@@ -777,9 +775,7 @@ const App: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-16 items-start">
             <div className="space-y-10">
-              <div className="text-4xl font-black tracking-tighter">
-                <span className="text-cyan-400">Edrai</span>Solutions
-              </div>
+              <Logo size="footer" />
               <p className="text-gray-400 text-sm leading-relaxed font-medium max-w-xs">
                 Automatización con inteligencia artificial para negocios en España. Chatbots, reservas y reseñas que funcionan solos.
               </p>

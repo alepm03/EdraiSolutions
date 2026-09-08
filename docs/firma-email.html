@@ -1,0 +1,97 @@
+<!--
+  Firma de correo — Edrai Solutions
+  =================================
+  Cómo usarla:
+    1. Abre este archivo en el navegador.
+    2. Selecciona la firma con el ratón (de arriba abajo) y cópiala con Ctrl+C.
+    3. Gmail:   Ajustes → Ver todos los ajustes → Firma → pegar con Ctrl+V.
+       Outlook: Archivo → Opciones → Correo → Firmas → pegar.
+    4. Envíate un correo de prueba antes de darla por buena.
+
+  Sustituye los campos entre {{ }} en la plantilla de abajo. Debajo hay dos
+  ejemplos ya rellenos que puedes copiar tal cual.
+
+  Notas técnicas:
+    - El logo se sirve desde https://edraisolutions.es/static/logo-mark-96.png,
+      así que solo se verá cuando la rama del rebrand esté desplegada. Los
+      clientes de correo no soportan SVG: tiene que ser PNG y con URL pública.
+    - Se muestra a 48 px pero el archivo es de 96 px, para que no se vea borroso
+      en pantallas retina.
+    - En modo oscuro de Gmail el hueco del corte deja pasar el fondo oscuro y la
+      mitad navy pierde contraste. Es aceptable, pero si os molesta hay
+      alternativa: usar el logo sobre una placa navy.
+    - Maquetada con tablas y estilos en línea a propósito: es lo único que
+      renderiza igual en Outlook, Gmail y Apple Mail.
+-->
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><title>Firma de correo — Edrai Solutions</title>
+<style>body{font-family:system-ui,sans-serif;background:#f1f5f9;margin:0;padding:40px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:#5B6B7C;margin:36px 0 12px}
+.card{background:#fff;padding:28px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}</style>
+</head>
+<body>
+
+<h2>Plantilla</h2>
+<div class="card">
+<!-- ▼▼▼ COPIAR DESDE AQUÍ ▼▼▼ -->
+<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background:#ffffff;font-family:Arial,Helvetica,sans-serif;color:#0D1B2A">
+  <tr>
+    <td style="padding-right:16px;vertical-align:top">
+      <img src="https://edraisolutions.es/static/logo-mark-96.png" width="48" height="48" alt="Edrai Solutions" style="display:block;width:48px;height:48px;border:0">
+    </td>
+    <td style="border-left:2px solid #22D3EE;padding-left:16px;vertical-align:top">
+      <div style="font-size:16px;font-weight:bold;color:#0D1B2A;line-height:1.3">{{NOMBRE}}</div>
+      <div style="font-size:13px;color:#5B6B7C;line-height:1.5;padding-bottom:8px">{{CARGO}} · Edrai Solutions</div>
+      <div style="font-size:13px;line-height:1.7">
+        <a href="mailto:{{EMAIL}}" style="color:#0D1B2A;text-decoration:none">{{EMAIL}}</a><br>
+        <a href="tel:{{TELEFONO_E164}}" style="color:#0D1B2A;text-decoration:none">{{TELEFONO}}</a><br>
+        <a href="https://edraisolutions.es" style="color:#22D3EE;text-decoration:none;font-weight:bold">edraisolutions.es</a>
+      </div>
+    </td>
+  </tr>
+</table>
+<!-- ▲▲▲ HASTA AQUÍ ▲▲▲ -->
+</div>
+
+<h2>Ricardo</h2>
+<div class="card">
+<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background:#ffffff;font-family:Arial,Helvetica,sans-serif;color:#0D1B2A">
+  <tr>
+    <td style="padding-right:16px;vertical-align:top">
+      <img src="https://edraisolutions.es/static/logo-mark-96.png" width="48" height="48" alt="Edrai Solutions" style="display:block;width:48px;height:48px;border:0">
+    </td>
+    <td style="border-left:2px solid #22D3EE;padding-left:16px;vertical-align:top">
+      <div style="font-size:16px;font-weight:bold;color:#0D1B2A;line-height:1.3">Ricardo Pichardo</div>
+      <div style="font-size:13px;color:#5B6B7C;line-height:1.5;padding-bottom:8px">CEO · Edrai Solutions</div>
+      <div style="font-size:13px;line-height:1.7">
+        <a href="mailto:ricardopichardo@edraisolutions.es" style="color:#0D1B2A;text-decoration:none">ricardopichardo@edraisolutions.es</a><br>
+        <a href="tel:+34654954602" style="color:#0D1B2A;text-decoration:none">+34 654 954 602</a><br>
+        <a href="https://edraisolutions.es" style="color:#22D3EE;text-decoration:none;font-weight:bold">edraisolutions.es</a>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+
+<h2>Alejandro</h2>
+<div class="card">
+<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background:#ffffff;font-family:Arial,Helvetica,sans-serif;color:#0D1B2A">
+  <tr>
+    <td style="padding-right:16px;vertical-align:top">
+      <img src="https://edraisolutions.es/static/logo-mark-96.png" width="48" height="48" alt="Edrai Solutions" style="display:block;width:48px;height:48px;border:0">
+    </td>
+    <td style="border-left:2px solid #22D3EE;padding-left:16px;vertical-align:top">
+      <div style="font-size:16px;font-weight:bold;color:#0D1B2A;line-height:1.3">Alejandro Pichardo</div>
+      <div style="font-size:13px;color:#5B6B7C;line-height:1.5;padding-bottom:8px">CTO · Edrai Solutions</div>
+      <div style="font-size:13px;line-height:1.7">
+        <a href="mailto:alejandro@edraisolutions.es" style="color:#0D1B2A;text-decoration:none">alejandro@edraisolutions.es</a><br>
+        <a href="https://edraisolutions.es" style="color:#22D3EE;text-decoration:none;font-weight:bold">edraisolutions.es</a>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+
+</body>
+</html>

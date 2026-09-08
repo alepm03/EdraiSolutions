@@ -1,15 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Edrai Solutions">
-  <style>
-    .cut-b { fill: #0D1B2A; }
-    @media (prefers-color-scheme: dark) { .cut-b { fill: #FFFFFF; } }
-  </style>
   <defs>
-    <clipPath id="edrai-cut-fav">
+    <clipPath id="edrai-cut-inv">
       <rect x="4" y="4" width="92" height="92" rx="26" ry="26"/>
     </clipPath>
   </defs>
-  <g clip-path="url(#edrai-cut-fav)">
+  <g clip-path="url(#edrai-cut-inv)">
+    <!-- Mitad superior del corte: cian -->
     <path d="M -125 147 L 221 -53 L 400 -400 L -400 -400 Z" fill="#22D3EE"/>
-    <path d="M -121 153 L 225 -47 L 400 400 L -400 400 Z" class="cut-b"/>
+    <!-- Mitad inferior del corte: #FFFFFF -->
+    <path d="M -121 153 L 225 -47 L 400 400 L -400 400 Z" fill="#FFFFFF"/>
   </g>
 </svg>
