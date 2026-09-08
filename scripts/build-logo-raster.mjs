@@ -118,6 +118,7 @@ const png = (size, color) => toPng(size, render(size, color));
 
 const targets = [
   ['favicon-48x48.png', 48, NAVY],
+  ['logo-mark-96.png', 96, NAVY],   // firma de correo (48 px en pantalla, 2x)
   ['apple-touch-icon.png', 180, NAVY],
   ['logo-mark-512.png', 512, NAVY],
   ['logo-mark-inverse-512.png', 512, WHITE],

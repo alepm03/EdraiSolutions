@@ -40,6 +40,7 @@ aguanta reducirse a 16 px sin perder nada.
 | `public/static/favicon.ico` | Fallback legacy, 16/32/48 px. |
 | `public/static/favicon-48x48.png`, `apple-touch-icon.png` | Iconos raster del navegador y iOS. |
 | `public/static/logo-mark-512.png` / `-inverse-512.png` / `logo-mark-1024.png` | Avatares y subidas a plataformas externas. |
+| `public/static/logo-mark-96.png` | Firma de correo (48 px en pantalla, 2x para retina). |
 | `components/Logo.tsx` | `<Logo size="nav" \| "footer" />` y `<LogoMark variant="inverse" \| "primary" />`. |
 
 Los PNG y el `.ico` se generan desde la misma geometría con:
@@ -65,7 +66,7 @@ node scripts/build-logo-raster.mjs
 - [ ] Instagram [@edraisolutions](https://www.instagram.com/edraisolutions/) — avatar
 - [ ] LinkedIn — página de empresa y/o perfil de Ricardo
 - [ ] GitHub — avatar de la organización / `alepm03`
-- [ ] Firma de correo (`@edraisolutions.es`)
+- [x] **Firma de correo** — plantilla en [`docs/firma-email.html`](firma-email.html)
 - [ ] WhatsApp Business — foto de perfil
 - [ ] Plantillas de propuesta y factura
 - [ ] Widget de chat embebido en clientes (Mercado del Barranco)
