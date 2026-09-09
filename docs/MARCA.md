@@ -43,6 +43,19 @@ aguanta reducirse a 16 px sin perder nada.
 | `public/static/logo-mark-96.png` | Firma de correo (48 px en pantalla, 2x para retina). |
 | `components/Logo.tsx` | `<Logo size="nav" \| "footer" />` y `<LogoMark variant="inverse" \| "primary" />`. |
 
+### Al cambiar cualquier icono: subir el `?v=`
+
+Los navegadores guardan los favicons en un almacén aparte del caché normal, que
+**no** se vacía con Ctrl+F5 ni borrando datos de navegación. Un icono nuevo en la
+misma URL puede tardar semanas en llegar a quien ya visitó el sitio.
+
+Por eso los `<link rel="icon">` de `index.html` llevan `?v=N`. **Cada vez que
+cambie un icono hay que subir ese número**, en los cuatro enlaces. Es lo único
+que garantiza que todo el mundo vea el cambio.
+
+Existe además una copia en `public/favicon.ico` (raíz del sitio): los crawlers y
+los previsualizadores de enlaces la piden a pelo, sin leer el HTML.
+
 Los PNG y el `.ico` se generan desde la misma geometría con:
 
 ```bash
