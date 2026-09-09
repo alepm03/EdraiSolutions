@@ -4,15 +4,18 @@
  * Secrets (store with wrangler secret put):
  *   GEMINI_API_KEY    — Google AI Studio key
  *   N8N_WEBHOOK_URL   — n8n webhook URL for sending lead emails via Gmail
+ *   POSTHOG_API_KEY   — PostHog Project API Key (analítica de servidor, opcional)
  *
  * Routes:
  *   POST /          → Gemini 2.5 Flash proxy
  *   POST /contact   → Forward lead to n8n webhook → Gmail send
+ *   ANY  /ph/*      → Reverse proxy de PostHog (esquiva bloqueadores)
  *
  * Deploy:
  *   npx wrangler deploy
  *   npx wrangler secret put GEMINI_API_KEY
  *   npx wrangler secret put N8N_WEBHOOK_URL
+ *   npx wrangler secret put POSTHOG_API_KEY
  */
 
 const GEMINI_API_URL =
@@ -41,6 +44,70 @@ function getCorsHeaders(requestOrigin) {
     "Access-Control-Max-Age": "86400",
     "Vary": "Origin",
   };
+}
+
+// ---------------------------------------------------------------------------
+// PostHog — analítica de servidor
+//
+// Los eventos de servidor son la verdad del embudo: el front puede fallar, tener
+// un bloqueador o cerrarse a mitad, pero si el lead llegó aquí, llegó. Se emiten
+// con distinct_id = email, el mismo identificador que usa `identifyLead()` en el
+// front, así el recorrido anónimo y el lead quedan unidos sin usar cookies.
+//
+// Secrets (npx wrangler secret put ...):
+//   POSTHOG_API_KEY   Project API Key (la pública, de solo escritura)
+//   POSTHOG_HOST      opcional, por defecto Cloud EU
+// ---------------------------------------------------------------------------
+
+const POSTHOG_DEFAULT_HOST = "https://eu.i.posthog.com";
+const POSTHOG_ASSET_HOST = "https://eu-assets.i.posthog.com";
+
+async function capture(env, { event, distinctId, properties = {} }) {
+  if (!env.POSTHOG_API_KEY || !distinctId) return;
+  const host = env.POSTHOG_HOST || POSTHOG_DEFAULT_HOST;
+  try {
+    await fetch(`${host}/i/v0/e/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        api_key: env.POSTHOG_API_KEY,
+        event,
+        distinct_id: distinctId,
+        properties: { ...properties, $lib: "edrai-cf-worker" },
+        timestamp: new Date().toISOString(),
+      }),
+    });
+  } catch (err) {
+    // La analítica nunca debe tumbar el envío de un lead.
+    console.error("[PostHog] capture error:", err);
+  }
+}
+
+/**
+ * Proxy inverso de PostHog bajo /ph/*. Sirviendo la ingesta desde el dominio del
+ * Worker, los bloqueadores de anuncios dejan de comerse entre un 10% y un 30% de
+ * los eventos. Se activa poniendo VITE_POSTHOG_HOST=<worker>/ph en el build del
+ * front; mientras no se ponga, esta ruta simplemente no se llama.
+ */
+async function handlePostHogProxy(request) {
+  const url = new URL(request.url);
+  const ruta = url.pathname.replace(/^\/ph/, "") || "/";
+  // Los estáticos (el propio script y la config del proyecto) los sirve el host
+  // de assets; la ingesta y las flags, el host de API.
+  const esEstatico = ruta.startsWith("/static/") || ruta.startsWith("/array/");
+  const destino = new URL(
+    ruta + url.search,
+    esEstatico ? POSTHOG_ASSET_HOST : POSTHOG_DEFAULT_HOST,
+  );
+
+  const cabeceras = new Headers(request.headers);
+  cabeceras.set("Host", destino.hostname);
+
+  return fetch(destino.toString(), {
+    method: request.method,
+    headers: cabeceras,
+    body: request.method === "GET" || request.method === "HEAD" ? undefined : request.body,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -100,7 +167,7 @@ function buildEmailHtml({ name, email, phone, message, source, date }) {
 // /contact handler
 // ---------------------------------------------------------------------------
 
-async function handleContact(request, env, corsHeaders) {
+async function handleContact(request, env, corsHeaders, ctx) {
   let body;
   try {
     body = await request.json();
@@ -111,7 +178,7 @@ async function handleContact(request, env, corsHeaders) {
     );
   }
 
-  const { name, email, phone, message, source = "web" } = body;
+  const { name, email, phone, message, source = "web", analytics_id } = body;
 
   if (!name || !email) {
     return new Response(
@@ -124,6 +191,28 @@ async function handleContact(request, env, corsHeaders) {
   const subject = `[Lead - ${source}] ${name} — ${date}`;
   const html = buildEmailHtml({ name, email, phone, message, source, date });
 
+  const idAnalitica = String(email).trim().toLowerCase();
+  const propiedadesLead = {
+    origen_lead: source,
+    tiene_telefono: Boolean(phone),
+    tiene_mensaje: Boolean(message && String(message).trim()),
+    visita_id: analytics_id || null,
+  };
+
+  ctx?.waitUntil(
+    capture(env, {
+      event: "lead_recibido",
+      distinctId: idAnalitica,
+      properties: {
+        ...propiedadesLead,
+        // $set puebla la ficha de la persona en PostHog. El nombre y el teléfono
+        // se guardan aquí porque ya se están tratando para contactar con el lead,
+        // con el consentimiento que dio en el formulario.
+        $set: { nombre: name, telefono: phone || null, origen_lead: source },
+      },
+    }),
+  );
+
   try {
     const n8nRes = await fetch(env.N8N_WEBHOOK_URL, {
       method: "POST",
@@ -134,11 +223,22 @@ async function handleContact(request, env, corsHeaders) {
     if (!n8nRes.ok) {
       const errText = await n8nRes.text();
       console.error("n8n webhook error:", n8nRes.status, errText);
+      ctx?.waitUntil(capture(env, {
+        event: "lead_email_fallido",
+        distinctId: idAnalitica,
+        properties: { ...propiedadesLead, estado: n8nRes.status },
+      }));
       return new Response(
         JSON.stringify({ error: "Email service error", status: n8nRes.status }),
         { status: 502, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
+
+    ctx?.waitUntil(capture(env, {
+      event: "lead_email_enviado",
+      distinctId: idAnalitica,
+      properties: propiedadesLead,
+    }));
 
     return new Response(
       JSON.stringify({ success: true }),
@@ -146,6 +246,11 @@ async function handleContact(request, env, corsHeaders) {
     );
   } catch (err) {
     console.error("Contact handler error:", err);
+    ctx?.waitUntil(capture(env, {
+      event: "lead_email_fallido",
+      distinctId: idAnalitica,
+      properties: { ...propiedadesLead, estado: "excepcion" },
+    }));
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -158,8 +263,14 @@ async function handleContact(request, env, corsHeaders) {
 // ---------------------------------------------------------------------------
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const corsHeaders = getCorsHeaders(request.headers.get("Origin") ?? "");
+
+    // Proxy de PostHog: se resuelve antes que nada porque necesita GET y sus
+    // propias cabeceras CORS, que vienen ya en la respuesta de PostHog.
+    if (new URL(request.url).pathname.startsWith("/ph")) {
+      return handlePostHogProxy(request);
+    }
 
     // Handle preflight
     if (request.method === "OPTIONS") {
@@ -173,7 +284,7 @@ export default {
     // Route by pathname
     const url = new URL(request.url);
     if (url.pathname === "/contact") {
-      return handleContact(request, env, corsHeaders);
+      return handleContact(request, env, corsHeaders, ctx);
     }
 
     // Default route: Gemini proxy

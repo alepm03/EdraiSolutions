@@ -12,6 +12,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { ChatMessage } from '../types';
+import { track, EV } from '../lib/analytics';
 
 const KNOWLEDGE_BASE = `
 Contexto de Edrai Solutions:
@@ -101,6 +102,12 @@ const ChatbotDemo: React.FC = () => {
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
     setIsTyping(true);
+    // Solo el turno y el agente: el texto del visitante no sale de aquí.
+    track(EV.demoMensaje, {
+      demo: 'agentes',
+      agente: selectedAgent.id,
+      turno: messages.filter(m => m.role === 'user').length + 1,
+    });
 
     try {
       const res = await fetch(process.env.WORKER_URL, {
@@ -124,6 +131,10 @@ const ChatbotDemo: React.FC = () => {
       setMessages(prev => [...prev, { role: 'model', text: aiText }]);
     } catch (error) {
       console.error('Gemini API Error:', error);
+      track(EV.demoError, {
+        demo: 'agentes',
+        motivo: error instanceof Error ? error.message : 'desconocido',
+      });
       setMessages(prev => [...prev, { role: 'model', text: 'Error de conexión. Estoy reconectando con los sistemas de Edrai...' }]);
     } finally {
       setIsTyping(false);
@@ -132,6 +143,7 @@ const ChatbotDemo: React.FC = () => {
 
   const changeAgent = (agent: typeof AGENTS[0]) => {
     if (selectedAgent.id === agent.id) return;
+    track(EV.demoAgente, { agente: agent.id });
     setSelectedAgent(agent);
     setMessages([
       { role: 'model', text: agent.greeting }

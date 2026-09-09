@@ -32,19 +32,25 @@ const PrivacidadContent: React.FC = () => (
         <li>Número de teléfono</li>
         <li>Mensaje o descripción de tu consulta</li>
       </ul>
+      <p className="mt-4">
+        Además, para saber cómo se usa esta web recogemos <strong className="text-white">datos de navegación anónimos</strong>: páginas y secciones que ves, clics en botones y enlaces, si abres el chat de demostración, tipo de dispositivo y navegador, y desde dónde llegas. Esta medición <strong className="text-white">no utiliza cookies ni almacena nada en tu dispositivo</strong>, y no permite identificarte. Tu dirección IP se trata únicamente para deducir el país de la visita.
+      </p>
     </section>
 
     <section>
       <h3 className="text-white font-black text-lg mb-3 uppercase tracking-tight">3. Finalidad del tratamiento</h3>
       <p>
-        Utilizamos tus datos exclusivamente para gestionar tu consulta comercial y contactar contigo en relación con los servicios de automatización con IA que ofrecemos. No utilizamos tus datos para ningún otro fin.
+        Utilizamos los datos del formulario exclusivamente para gestionar tu consulta comercial y contactar contigo en relación con los servicios de automatización con IA que ofrecemos. Los datos de navegación se usan solo para entender qué contenidos resultan útiles y mejorar la web. No utilizamos tus datos para ningún otro fin ni elaboramos perfiles publicitarios.
       </p>
     </section>
 
     <section>
       <h3 className="text-white font-black text-lg mb-3 uppercase tracking-tight">4. Base legal</h3>
       <p>
-        El tratamiento de tus datos se basa en el <strong className="text-white">consentimiento</strong> que nos otorgas al marcar la casilla de aceptación y enviar el formulario (Art. 6.1.a del Reglamento General de Protección de Datos — RGPD).
+        El tratamiento de los datos del formulario se basa en el <strong className="text-white">consentimiento</strong> que nos otorgas al marcar la casilla de aceptación y enviarlo (Art. 6.1.a del Reglamento General de Protección de Datos — RGPD).
+      </p>
+      <p className="mt-3">
+        La medición de uso de la web se basa en nuestro <strong className="text-white">interés legítimo</strong> (Art. 6.1.f RGPD) en conocer cómo funciona nuestro propio sitio. Al no usar cookies ni almacenamiento en tu dispositivo, es una medición mínima y no intrusiva. Puedes oponerte en cualquier momento: ver la política de cookies.
       </p>
     </section>
 
@@ -58,7 +64,15 @@ const PrivacidadContent: React.FC = () => (
     <section>
       <h3 className="text-white font-black text-lg mb-3 uppercase tracking-tight">6. Destinatarios</h3>
       <p>
-        Tus datos no se ceden a terceros, salvo obligación legal. No realizamos transferencias internacionales de datos.
+        No vendemos ni cedemos tus datos a terceros con fines comerciales. Para prestar el servicio nos apoyamos en los siguientes proveedores, que actúan como <strong className="text-white">encargados del tratamiento</strong> bajo contrato:
+      </p>
+      <ul className="list-disc list-inside mt-3 space-y-1 text-gray-400">
+        <li><strong className="text-white">Cloudflare</strong> — infraestructura y entrega de la web.</li>
+        <li><strong className="text-white">Google (Gmail)</strong> — envío y recepción de los emails de contacto.</li>
+        <li><strong className="text-white">PostHog</strong> — medición de uso de la web, con los datos alojados en servidores de la <strong className="text-white">Unión Europea</strong> (Alemania).</li>
+      </ul>
+      <p className="mt-3">
+        Algunos de estos proveedores son empresas con sede en Estados Unidos que pueden acceder a los datos desde allí. Dichas transferencias están amparadas por las cláusulas contractuales tipo aprobadas por la Comisión Europea y por los correspondientes contratos de encargo del tratamiento.
       </p>
     </section>
 
@@ -80,7 +94,7 @@ const PrivacidadContent: React.FC = () => (
     <section>
       <h3 className="text-white font-black text-lg mb-3 uppercase tracking-tight">8. Cambios en esta política</h3>
       <p>
-        Nos reservamos el derecho a actualizar esta política cuando sea necesario. Te notificaremos cualquier cambio relevante. Última actualización: marzo de 2026.
+        Nos reservamos el derecho a actualizar esta política cuando sea necesario. Te notificaremos cualquier cambio relevante. Última actualización: septiembre de 2026.
       </p>
     </section>
   </div>
@@ -110,13 +124,25 @@ const CookiesContent: React.FC = () => (
     <section>
       <h3 className="text-white font-black text-lg mb-3 uppercase tracking-tight">Lo que NO usamos</h3>
       <ul className="list-disc list-inside space-y-1 text-gray-400">
-        <li>Cookies de analítica (Google Analytics, Hotjar, etc.)</li>
+        <li>Cookies de analítica que te sigan entre visitas</li>
         <li>Cookies de publicidad o retargeting</li>
         <li>Cookies de redes sociales de terceros</li>
       </ul>
-      <p className="mt-3 text-gray-400 text-sm italic">
-        Nota: si en el futuro activamos herramientas de analítica, actualizaremos esta política y añadiremos un aviso de cookies.
+    </section>
+
+    <section>
+      <h3 className="text-white font-black text-lg mb-3 uppercase tracking-tight">Medimos el uso de la web sin cookies</h3>
+      <p>
+        Para saber qué contenidos resultan útiles utilizamos <strong className="text-white">PostHog</strong>, una herramienta de analítica de código abierto, configurada en <strong className="text-white">modo sin cookies</strong>: no escribe ni lee nada en tu dispositivo, no te asigna un identificador permanente y no puede reconocerte si vuelves otro día. Cada visita se mide de forma independiente y anónima.
       </p>
+      <p className="mt-3">
+        Por eso esta web no te muestra un aviso de cookies para la analítica: no hay nada que almacenar en tu equipo y, por tanto, no hay consentimiento que pedir (art. 22.2 de la LSSI). Los datos se alojan en servidores de la Unión Europea.
+      </p>
+      <div className="mt-4 p-4 bg-white/5 rounded-xl border border-white/10">
+        <p className="text-gray-400 text-sm">
+          <strong className="text-cyan-400">Cómo oponerte:</strong> respetamos la señal <em>Do Not Track</em>. Si la activas en tu navegador, no registramos ninguna medición de tu visita. También puedes bloquear la herramienta con cualquier extensión de bloqueo, sin que la web deje de funcionar.
+        </p>
+      </div>
     </section>
 
     <section>
@@ -183,7 +209,7 @@ const LegalModal: React.FC<LegalModalProps> = ({ type, onClose }) => {
 
         {/* Footer */}
         <div className="px-8 py-5 border-t border-white/10 shrink-0 flex items-center justify-between">
-          <p className="text-gray-500 text-[11px] font-bold uppercase tracking-widest">Última actualización: marzo 2026</p>
+          <p className="text-gray-500 text-[11px] font-bold uppercase tracking-widest">Última actualización: septiembre 2026</p>
           <button
             onClick={onClose}
             className="bg-cyan-400 text-black px-6 py-2.5 rounded-xl font-black text-sm hover:bg-cyan-300 transition-all"

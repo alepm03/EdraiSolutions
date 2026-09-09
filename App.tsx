@@ -29,6 +29,8 @@ import FloatingChatWidget from './components/FloatingChatWidget';
 import RealChatDemo from './components/RealChatDemo';
 import LegalModal from './components/LegalModal';
 import { useLandingAnimations } from './hooks/useLandingAnimations';
+import { usePageAnalytics } from './hooks/usePageAnalytics';
+import { track, identifyLead, getDistinctId, EV } from './lib/analytics';
 import HeroParticles from './components/HeroParticles';
 import SplineRobot from './components/SplineRobot';
 import SiteBackground from './components/SiteBackground';
@@ -89,6 +91,7 @@ const App: React.FC = () => {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useLandingAnimations(rootRef);
+  usePageAnalytics();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,7 +116,10 @@ const App: React.FC = () => {
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!contactForm.rgpd) return;
+    if (!contactForm.rgpd) {
+      track(EV.formularioSinRgpd);
+      return;
+    }
     setContactStatus('loading');
     try {
       const res = await fetch(`${import.meta.env.VITE_WORKER_URL}/contact`, {
@@ -125,13 +131,27 @@ const App: React.FC = () => {
           phone:   contactForm.phone,
           message: contactForm.message,
           source:  'formulario-web',
+          // Une el recorrido anónimo del front con los eventos de servidor sin
+          // necesidad de cookies (ver lib/analytics.ts).
+          analytics_id: getDistinctId(),
         }),
       });
       if (!res.ok) throw new Error(`Worker /contact responded ${res.status}`);
+      // El consentimiento de la casilla RGPD es la base para asociar la visita
+      // al email del lead.
+      identifyLead(contactForm.email, { origen_lead: 'formulario-web' });
+      track(EV.formularioEnviado, {
+        resultado: 'ok',
+        con_mensaje: contactForm.message.trim().length > 0,
+      });
       setContactStatus('success');
       setContactForm({ name: '', email: '', phone: '', message: '', rgpd: false });
     } catch (err) {
       console.error('[ContactForm] Error:', err);
+      track(EV.formularioEnviado, {
+        resultado: 'error',
+        motivo: err instanceof Error ? err.message : 'desconocido',
+      });
       setContactStatus('error');
     }
   };
@@ -709,7 +729,9 @@ const App: React.FC = () => {
 
             <div className="glass p-8 md:p-12 rounded-3xl border border-white/10 shadow-3xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-400/10 blur-[120px] -z-10"></div>
-              <form onSubmit={handleContactSubmit} className="space-y-8">
+              {/* ph-no-capture: PostHog ignora todo este subárbol, así ningún dato
+                  del formulario puede acabar en la analítica por accidente. */}
+              <form onSubmit={handleContactSubmit} className="space-y-8 ph-no-capture">
                 <div className="space-y-4">
                   <label htmlFor="contact-name" className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 ml-1">Nombre *</label>
                   <input id="contact-name" type="text" required autoComplete="name" placeholder="Tu nombre o el de tu empresa" value={contactForm.name} onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-6 text-sm text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-all placeholder:text-gray-600 font-bold" />
