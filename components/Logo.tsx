@@ -3,9 +3,12 @@ import React, { useId } from 'react';
 type MarkVariant = 'inverse' | 'primary';
 
 /**
- * Símbolo de marca «Corte» (propuesta 4b): el cuadrado del favicon seccionado
- * en diagonal y desplazado. El hueco del corte es transparente, así que el
- * fondo se ve a través de él.
+ * Símbolo de marca «Corte»: el cuadrado del favicon seccionado en diagonal,
+ * con la mitad superior desplazada. El hueco entre las dos mitades es parte
+ * de la marca — no cerrarlo ni reducirlo.
+ *
+ * Geometría exacta del paquete de marca oficial (Claude Design, viewBox
+ * `0 0 64 64`, clip `rx16` sobre un cuadrado de 56). No redibujar a mano.
  *
  * - `inverse`  → cian + blanco. Uso sobre fondos oscuros (toda la web).
  * - `primary`  → cian + navy.   Uso sobre fondos claros (documentos, facturas).
@@ -16,18 +19,18 @@ export const LogoMark: React.FC<{ className?: string; variant?: MarkVariant }> =
 }) => {
   const clipId = `edrai-cut-${useId()}`;
   return (
-    <svg viewBox="0 0 100 100" className={className} role="img" aria-label="Edrai Solutions">
+    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Edrai Solutions">
       <defs>
         <clipPath id={clipId}>
-          <rect x="4" y="4" width="92" height="92" rx="26" ry="26" />
+          <rect x="4" y="4" width="56" height="56" rx="16" />
         </clipPath>
       </defs>
       <g clipPath={`url(#${clipId})`}>
-        <path d="M -125 147 L 221 -53 L 400 -400 L -400 -400 Z" fill="#22D3EE" />
         <path
-          d="M -121 153 L 225 -47 L 400 400 L -400 400 Z"
+          d="M-4 50 L68 18 L68 68 L-4 68 Z"
           fill={variant === 'inverse' ? '#FFFFFF' : '#0D1B2A'}
         />
+        <path d="M2 38 L74 6 L74 -8 L2 -8 Z" fill="#22D3EE" />
       </g>
     </svg>
   );
@@ -50,12 +53,12 @@ export const Logo: React.FC<{ size?: 'nav' | 'footer'; className?: string }> = (
       />
       <div>
         <div
-          className={`${nav ? 'text-2xl' : 'text-4xl'} font-black tracking-tighter leading-none text-white`}
+          className={`${nav ? 'text-2xl' : 'text-4xl'} font-['Archivo'] font-extrabold tracking-tighter leading-none text-white`}
         >
           Edr<span className="text-cyan-400">AI</span>
         </div>
         <div
-          className={`flex items-center ${nav ? 'gap-2 mt-1' : 'gap-2.5 mt-2'} text-gray-400 font-bold uppercase ${
+          className={`flex items-center ${nav ? 'gap-2 mt-1' : 'gap-2.5 mt-2'} text-gray-400 font-['Archivo'] font-semibold uppercase ${
             nav ? 'text-[9px] tracking-[0.38em]' : 'text-[11px] tracking-[0.42em]'
           }`}
         >
