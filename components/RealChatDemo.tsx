@@ -9,6 +9,8 @@ import {
   Sparkles
 } from 'lucide-react';
 
+import { track, EV } from '../lib/analytics';
+
 interface Message {
   role: 'user' | 'bot';
   text: string;
@@ -81,6 +83,10 @@ const RealChatDemo: React.FC = () => {
     setError(null);
     setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
     setIsLoading(true);
+    track(EV.demoMensaje, {
+      demo: 'barranco',
+      turno: messages.filter(m => m.role === 'user').length + 1,
+    });
 
     try {
       const response = await fetch(BARRANCO_API_URL, {
@@ -97,6 +103,7 @@ const RealChatDemo: React.FC = () => {
       });
 
       if (response.status === 429) {
+        track(EV.demoError, { demo: 'barranco', motivo: 'rate_limit' });
         setError(DEMO_CONFIG.rateLimitError);
         setIsLoading(false);
         return;
@@ -109,6 +116,10 @@ const RealChatDemo: React.FC = () => {
       setMessages(prev => [...prev, { role: 'bot', text: botText }]);
     } catch (err) {
       console.error('Chat Error:', err);
+      track(EV.demoError, {
+        demo: 'barranco',
+        motivo: err instanceof Error ? err.message : 'desconocido',
+      });
       setError(DEMO_CONFIG.connectionError);
       setMessages(prev => [...prev, { role: 'bot', text: DEMO_CONFIG.fallbackReply }]);
     } finally {

@@ -35,6 +35,11 @@ jobs:
         env:
           VITE_WORKER_URL: ${{ secrets.VITE_WORKER_URL }}
           VITE_N8N_WEBHOOK_URL: ${{ secrets.VITE_N8N_WEBHOOK_URL }}
+          # Analitica PostHog. La project key es publica y de solo escritura;
+          # se guarda como secret solo para poder cambiarla sin tocar el codigo.
+          VITE_POSTHOG_KEY: ${{ secrets.VITE_POSTHOG_KEY }}
+          # Opcional: proxy /ph del Cloudflare Worker para esquivar bloqueadores.
+          VITE_POSTHOG_HOST: ${{ secrets.VITE_POSTHOG_HOST }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

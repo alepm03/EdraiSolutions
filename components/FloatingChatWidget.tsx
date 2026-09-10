@@ -9,6 +9,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { ChatMessage } from '../types';
+import { track, identifyLead, getDistinctId, EV } from '../lib/analytics';
 
 const FloatingChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +34,10 @@ const FloatingChatWidget: React.FC = () => {
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
     setIsTyping(true);
+    track(EV.demoMensaje, {
+      demo: 'widget',
+      turno: messages.filter(m => m.role === 'user').length + 1,
+    });
 
     try {
       const res = await fetch(process.env.WORKER_URL, {
@@ -81,8 +86,10 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
           fetch(`${process.env.WORKER_URL}/contact`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...leadData, source: 'chatbot' }),
+            body: JSON.stringify({ ...leadData, source: 'chatbot', analytics_id: getDistinctId() }),
           }).catch(err => console.error('[FloatingChat] Lead send error:', err));
+          if (leadData.email) identifyLead(leadData.email, { origen_lead: 'chatbot' });
+          track(EV.widgetLead, { turno: messages.filter(m => m.role === 'user').length + 1 });
         } catch (parseErr) {
           console.error('[FloatingChat] Lead parse error:', parseErr);
         }
@@ -94,6 +101,10 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
       }
     } catch (error) {
       console.error('Chat Widget Error:', error);
+      track(EV.demoError, {
+        demo: 'widget',
+        motivo: error instanceof Error ? error.message : 'desconocido',
+      });
       setMessages(prev => [...prev, { role: 'model', text: 'Lo siento, mi conexión es algo inestable ahora mismo. ¿En qué más puedo ayudarte?' }]);
     } finally {
       setIsTyping(false);
@@ -212,7 +223,10 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
           </>
         )}
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            track(isOpen ? EV.widgetCerrado : EV.widgetAbierto);
+            setIsOpen(!isOpen);
+          }}
           aria-label="Toggle Chat"
           className={`relative w-16 h-16 rounded-full flex items-center justify-center shadow-[0_10px_40px_rgba(0,0,0,0.5)] transition-all duration-500 transform hover:scale-110 active:scale-95 group ${
             isOpen 

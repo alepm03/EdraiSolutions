@@ -14,6 +14,7 @@
     "@splinetool/runtime": "^1.12.98",
     "gsap": "^3.15.0",
     "lucide-react": "^0.563.0",
+    "posthog-js": "^1.428.7",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
