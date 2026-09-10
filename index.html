@@ -145,10 +145,386 @@
         }
         .card-glow:hover::after { opacity: 1; }
 
+        /* ═══════════════════════════════════════════════════════════════
+           Hero «Flujo + Consola» (components/HeroFlowConsole.tsx)
+           Disparador → pulso por el cable → el símbolo late → la consola
+           reproduce la escena → resultado. Solo transform/opacity/filter.
+           ═══════════════════════════════════════════════════════════════ */
+
+        /* Disparadores y resultados */
+        .efc-trig,
+        .efc-out {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            padding: 9px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.055);
+            transition: background 0.4s ease, border-color 0.4s ease,
+                        color 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        .efc-trig svg,
+        .efc-out svg { color: #5d7085; transition: color 0.4s ease; }
+        .efc-trig-label,
+        .efc-out-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #5d7085;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.4s ease;
+        }
+        .efc-trig.live {
+            background: rgba(34, 211, 238, 0.10);
+            border-color: rgba(34, 211, 238, 0.42);
+            transform: translateY(-2px);
+        }
+        .efc-trig.live svg,
+        .efc-trig.live .efc-trig-label { color: #22d3ee; }
+        .efc-out.live {
+            background: rgba(52, 211, 153, 0.10);
+            border-color: rgba(52, 211, 153, 0.30);
+            transform: translateX(3px);
+        }
+        .efc-out.live svg,
+        .efc-out.live .efc-out-label { color: #a7ecd0; }
+
+        /* Cable y pulso */
+        .efc-hwire {
+            position: relative;
+            height: 2px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.055);
+            overflow: hidden;
+        }
+        .efc-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 38%;
+            transform: translateX(-130%);
+            background: linear-gradient(to right, transparent, #22d3ee, transparent);
+            box-shadow: 0 0 12px #22d3ee;
+            opacity: 0;
+        }
+        .efc-hwire.fire .efc-pulse {
+            animation: efc-travel 0.78s cubic-bezier(0.55, 0, 0.35, 1) forwards;
+        }
+        @keyframes efc-travel {
+            0%   { transform: translateX(-130%); opacity: 0; }
+            14%  { opacity: 1; }
+            86%  { opacity: 1; }
+            100% { transform: translateX(300%); opacity: 0; }
+        }
+
+        /* Cable vertical: mismo pulso, para la versión apilada de móvil. */
+        .efc-vwire {
+            position: relative;
+            width: 2px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.055);
+            overflow: hidden;
+        }
+        .efc-vwire .efc-pulse {
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 38%;
+            transform: translateY(-130%);
+            background: linear-gradient(to bottom, transparent, #22d3ee, transparent);
+        }
+        .efc-vwire.fire .efc-pulse {
+            animation: efc-travel-v 0.78s cubic-bezier(0.55, 0, 0.35, 1) forwards;
+        }
+        @keyframes efc-travel-v {
+            0%   { transform: translateY(-130%); opacity: 0; }
+            14%  { opacity: 1; }
+            86%  { opacity: 1; }
+            100% { transform: translateY(300%); opacity: 0; }
+        }
+
+        /* El motor: el símbolo de marca */
+        .efc-engine {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .efc-mark {
+            position: relative;
+            z-index: 2;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        .efc-engine.beat .efc-mark { transform: scale(1.09); }
+        .efc-ring {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            border-radius: 30%;
+            border: 1.5px solid #22d3ee;
+            opacity: 0;
+        }
+        .efc-engine.beat .efc-ring {
+            animation: efc-ripple 0.95s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+        }
+        @keyframes efc-ripple {
+            0%   { transform: scale(0.86); opacity: 0.85; }
+            100% { transform: scale(2.05); opacity: 0; }
+        }
+        .efc-halo {
+            position: absolute;
+            inset: -42%;
+            z-index: 0;
+            border-radius: 50%;
+            background: rgba(34, 211, 238, 0.22);
+            filter: blur(26px);
+            opacity: 0.35;
+            transition: opacity 0.5s ease;
+        }
+        .efc-engine.beat .efc-halo { opacity: 0.85; }
+        .efc-engine-caption {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 700;
+            font-size: 9.5px;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: #5d7085;
+        }
+
+        /* Cabecera de la consola */
+        .efc-dot {
+            width: 7px;
+            height: 7px;
+            flex: none;
+            border-radius: 50%;
+            background: #34d399;
+            animation: efc-soft 2.4s ease-in-out infinite;
+        }
+        @keyframes efc-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+        /* Los pasos entran desde un estado visible por defecto: nada queda
+           parado en opacity:0 esperando a un observer. */
+        .efc-step {
+            opacity: 0;
+            transform: translateY(9px);
+            transition: opacity 0.42s ease, transform 0.42s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        .efc-step.on { opacity: 1; transform: none; }
+
+        /* Chat */
+        .efc-bubble {
+            max-width: 84%;
+            padding: 9px 13px;
+            border-radius: 16px;
+            font-size: 12.5px;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+        .efc-bubble.them {
+            margin-left: auto;
+            background: rgba(34, 211, 238, 0.13);
+            border: 1px solid rgba(34, 211, 238, 0.22);
+            border-top-right-radius: 5px;
+        }
+        .efc-bubble.us {
+            color: #d3dde8;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-top-left-radius: 5px;
+        }
+        .efc-typing { display: inline-flex; gap: 4px; align-items: center; padding: 11px 14px; }
+        .efc-typing i {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #93a4b8;
+            animation: efc-blink 1.25s infinite;
+        }
+        .efc-typing i:nth-child(2) { animation-delay: 0.18s; }
+        .efc-typing i:nth-child(3) { animation-delay: 0.36s; }
+        @keyframes efc-blink {
+            0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+            30%           { opacity: 1;    transform: translateY(-3px); }
+        }
+
+        /* Agente de voz */
+        .efc-wave { display: flex; align-items: center; gap: 3px; height: 40px; }
+        .efc-wave i {
+            flex: 1;
+            min-width: 2px;
+            height: 18%;
+            border-radius: 2px;
+            background: #22d3ee;
+            opacity: 0.55;
+        }
+        .efc-wave.live i { animation: efc-bounce 1.05s ease-in-out infinite; }
+        @keyframes efc-bounce {
+            0%, 100% { height: 16%; opacity: 0.4; }
+            50%      { height: 88%; opacity: 1; }
+        }
+        .efc-line { display: flex; gap: 9px; font-size: 12.2px; line-height: 1.45; font-weight: 500; }
+        .efc-line .who {
+            flex: none;
+            width: 46px;
+            padding-top: 2px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: #5d7085;
+        }
+        .efc-line.agent .who { color: #22d3ee; }
+        .efc-line .said { color: #cfdae6; }
+
+        /* Formulario y cualificación */
+        .efc-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.055);
+        }
+        .efc-field .k {
+            width: 68px;
+            flex: none;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #5d7085;
+        }
+        .efc-field .v {
+            font-size: 12.4px;
+            font-weight: 600;
+            color: #e8eef5;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .efc-field .v::after {
+            content: '';
+            display: inline-block;
+            width: 1.5px;
+            height: 12px;
+            margin-left: 2px;
+            vertical-align: -2px;
+            background: #22d3ee;
+            animation: efc-caret 0.85s step-end infinite;
+        }
+        .efc-field.done .v::after { display: none; }
+        @keyframes efc-caret { 50% { opacity: 0; } }
+        .efc-meter-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #5d7085;
+        }
+        .efc-meter-top b { color: #34d399; letter-spacing: 0.06em; }
+        .efc-meter-track {
+            height: 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.07);
+            overflow: hidden;
+        }
+        .efc-meter-fill {
+            display: block;
+            height: 100%;
+            width: 0;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #22d3ee, #34d399);
+            transition: width 1.15s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+
+        /* Reseña */
+        .efc-stars { display: flex; gap: 5px; }
+        .efc-stars svg {
+            width: 20px;
+            height: 20px;
+            color: rgba(255, 255, 255, 0.13);
+            transition: color 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        .efc-stars svg.lit { color: #fbbf24; transform: scale(1.12); }
+        .efc-quote {
+            padding: 10px 13px;
+            border-radius: 10px;
+            font-size: 12.4px;
+            line-height: 1.55;
+            font-weight: 500;
+            color: #cfdae6;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.055);
+        }
+        .efc-quote cite {
+            display: block;
+            margin-top: 6px;
+            font-style: normal;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #5d7085;
+        }
+
+        /* El resultado */
+        .efc-result {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            padding: 12px 15px;
+            border-radius: 14px;
+            background: rgba(52, 211, 153, 0.09);
+            border: 1px solid rgba(52, 211, 153, 0.28);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.8, 0.3, 1);
+        }
+        .efc-result.on { opacity: 1; transform: none; }
+        .efc-result-text {
+            font-size: 12.4px;
+            font-weight: 700;
+            line-height: 1.35;
+            color: #c9f5e3;
+        }
+        .efc-result-text span {
+            display: block;
+            margin-top: 2px;
+            font-size: 11px;
+            font-weight: 500;
+            color: rgba(201, 245, 227, 0.6);
+        }
+
         /* Respect reduced-motion: kill ambient drift + smooth scroll */
         @media (prefers-reduced-motion: reduce) {
             body { scroll-behavior: auto; }
             [style*="aurora-drift"] { animation: none !important; }
+
+            /* La pieza del hero se queda en una escena completa y quieta. */
+            .efc-step,
+            .efc-result { opacity: 1 !important; transform: none !important; }
+            .efc-wave.live i,
+            .efc-typing i,
+            .efc-dot,
+            .efc-field .v::after { animation: none !important; }
+            .efc-hwire.fire .efc-pulse,
+            .efc-vwire.fire .efc-pulse { animation: none !important; opacity: 0 !important; }
+            .efc-trig,
+            .efc-out,
+            .efc-mark,
+            .efc-halo,
+            .efc-step,
+            .efc-result,
+            .efc-meter-fill,
+            .efc-stars svg { transition: none !important; }
         }
     </style>
 <script type="application/ld+json">

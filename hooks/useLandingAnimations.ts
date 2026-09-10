@@ -51,8 +51,9 @@ export function useLandingAnimations(scope: React.RefObject<HTMLElement | null>)
           });
         }
 
-        // Hero robot — slide de entrada. Sin float continuo: el robot debe
-        // quedar estático con los pies en la divisoria de la sección.
+        // Hero flujo + consola — slide de entrada, una sola vez. El movimiento
+        // continuo de la pieza lo lleva ella misma (HeroFlowConsole), así que
+        // aquí no hay float: solo la entrada.
         const mockup = scope.current?.querySelector<HTMLElement>('[data-hero-mockup]');
         if (mockup) {
           gsap.from(mockup, { x: 40, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.25 });

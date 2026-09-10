@@ -32,7 +32,7 @@ import { useLandingAnimations } from './hooks/useLandingAnimations';
 import { usePageAnalytics } from './hooks/usePageAnalytics';
 import { track, identifyLead, getDistinctId, EV } from './lib/analytics';
 import HeroParticles from './components/HeroParticles';
-import SplineRobot from './components/SplineRobot';
+import HeroFlowConsole from './components/HeroFlowConsole';
 import SiteBackground from './components/SiteBackground';
 import SectionDivider from './components/SectionDivider';
 import AnimatedCounter from './components/AnimatedCounter';
@@ -286,29 +286,17 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* ── Right: Robot 3D interactivo (sigue el cursor) ── */}
-            <div className="relative hidden lg:flex justify-center items-center">
-              {/* Altura y desplazamiento calibrados para que los pies del robot
-                  coincidan con la línea que separa la hero de la sección de stats. */}
-              <div data-hero-mockup className="relative w-full h-[740px] translate-y-[66px]">
-
-                {/* Ambient glow behind robot */}
-                <div className="absolute inset-8 bg-cyan-400/8 blur-[80px] rounded-full -z-10" />
-
-                {/* Spline robot — sin card, sobre el fondo propio de la hero */}
-                <SplineRobot className="w-full h-full" />
-
-                {/* Floating badge — top right */}
-                <div className="absolute top-6 right-0 bg-[#00101a] border border-white/15 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2.5 z-20 pointer-events-none animate-in slide-in-from-right-4 duration-1200">
-                  <span className="text-2xl font-black text-emerald-400 leading-none">↓80%</span>
-                  <span className="text-[11px] text-gray-400 font-bold leading-tight">tareas<br />manuales</span>
-                </div>
-
-                {/* Floating badge — bottom left */}
-                <div className="absolute bottom-10 left-0 bg-[#00101a] border border-white/15 rounded-2xl px-4 py-2.5 shadow-2xl flex items-center gap-2.5 z-20 pointer-events-none animate-in slide-in-from-left-4 duration-1200">
-                  <span className="text-2xl font-black text-cyan-400 leading-none">24/7</span>
-                  <span className="text-[11px] text-gray-400 font-bold leading-tight">sin<br />interrupciones</span>
-                </div>
+            {/* ── Right: flujo + consola ──
+                Disparador (WhatsApp, llamada, web, post-servicio) → pulso por
+                el cable → el símbolo late → la consola reproduce la escena →
+                resultado. A diferencia del robot que había antes, esto sí se
+                renderiza en móvil, en versión compacta.
+                Los badges flotantes de ↓80% y 24/7 se han retirado: repetían
+                literalmente dos de las cuatro cifras de la barra de stats que
+                viene justo debajo, y aquí taparían la columna de resultados. */}
+            <div className="relative flex justify-center items-center mt-2 lg:mt-0">
+              <div data-hero-mockup className="relative w-full">
+                <HeroFlowConsole compact={false} className="lg:max-w-[560px]" />
               </div>
             </div>
 
