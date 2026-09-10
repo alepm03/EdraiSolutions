@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { 
   Menu, 
   X, 
@@ -24,10 +24,14 @@ import {
   Code2
 } from 'lucide-react';
 import { SERVICES, UPCOMING_SERVICES, PROCESS, TEAM } from './constants';
-import ChatbotDemo from './components/ChatbotDemo';
-import FloatingChatWidget from './components/FloatingChatWidget';
-import RealChatDemo from './components/RealChatDemo';
-import LegalModal from './components/LegalModal';
+// Estos cuatro no hacen falta para pintar la parte alta de la página: los dos
+// demos viven muy por debajo del pliegue, el widget flotante puede aparecer un
+// instante después y el modal legal solo existe cuando se abre. Cargarlos en
+// diferido los saca del chunk inicial.
+const ChatbotDemo = lazy(() => import('./components/ChatbotDemo'));
+const FloatingChatWidget = lazy(() => import('./components/FloatingChatWidget'));
+const RealChatDemo = lazy(() => import('./components/RealChatDemo'));
+const LegalModal = lazy(() => import('./components/LegalModal'));
 import { useLandingAnimations } from './hooks/useLandingAnimations';
 import { usePageAnalytics } from './hooks/usePageAnalytics';
 import { track, identifyLead, getDistinctId, EV } from './lib/analytics';
@@ -564,7 +568,9 @@ const App: React.FC = () => {
              <div className="text-[#10b981] font-black text-sm uppercase tracking-[0.4em] mb-4">Demo en vivo</div>
              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">PRUEBA NUESTROS ASISTENTES</h2>
           </div>
-          <ChatbotDemo />
+          <Suspense fallback={<div className="min-h-[520px]" aria-hidden="true" />}>
+            <ChatbotDemo />
+          </Suspense>
         </section>
 
         <section id="demos-reales" className="container mx-auto px-6">
@@ -572,7 +578,9 @@ const App: React.FC = () => {
              <div className="text-[#10b981] font-black text-sm uppercase tracking-[0.4em] mb-4">Caso real · Mercado del Barranco</div>
              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">INTEGRACIÓN REAL<br /><span className="text-gradient">PRUÉBALA AHORA</span></h2>
           </div>
-          <RealChatDemo />
+          <Suspense fallback={<div className="min-h-[520px]" aria-hidden="true" />}>
+            <RealChatDemo />
+          </Suspense>
         </section>
       </div>
 
@@ -775,10 +783,16 @@ const App: React.FC = () => {
       </section>
 
       {/* Floating Chat Widget */}
-      <FloatingChatWidget />
+      <Suspense fallback={null}>
+        <FloatingChatWidget />
+      </Suspense>
 
       {/* Legal Modals */}
-      {legalModal && <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />}
+      {legalModal && (
+        <Suspense fallback={null}>
+          <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />
+        </Suspense>
+      )}
 
       {/* Footer */}
       <footer className="bg-[#050d17] pt-24 pb-16 border-t border-white/8">
