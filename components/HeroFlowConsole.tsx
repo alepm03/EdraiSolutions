@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MessageCircle, Phone, Globe, Star, Check, Calendar, Users, Database, Bell } from 'lucide-react';
 import { LogoMark } from './Logo';
 
@@ -224,56 +224,68 @@ const HeroFlowConsole: React.FC<{ className?: string; compact?: boolean }> = ({
   const engineRef = useRef<HTMLDivElement>(null);
   const wireRef = useRef<HTMLDivElement>(null);
   const vWireRef = useRef<HTMLDivElement>(null);
-  const resultRef = useRef<HTMLDivElement>(null);
 
   // El estado de React solo pinta lo declarativo (qué disparador y qué salida
   // están vivos, y el texto del resultado). Las escenas manipulan el DOM de la
   // consola directamente porque son secuencias temporales, no estado derivado.
-  const [active, setActive] = useState(0);
+  // Dos estados a propósito: el disparador se enciende al inicio del ciclo
+  // (es quien lanza el pulso), mientras que la cabecera, el reloj y el chip de
+  // resultado describen la escena que hay EN la consola y solo cambian cuando
+  // el pulso llega y se sustituye el contenido. Con un único estado la
+  // cabecera se adelantaba casi un segundo al cuerpo.
+  const [activeTrigger, setActiveTrigger] = useState(0);
+  const [activeScene, setActiveScene] = useState(0);
   const [resultOn, setResultOn] = useState(false);
-  const [tally, setTally] = useState(1248);
 
   const hoverRef = useRef(false);
-  const aliveRef = useRef(false);
-  const tokenRef = useRef(0);
-  const cleanupsRef = useRef<Array<() => void>>([]);
-
-  const runCleanups = useCallback(() => {
-    cleanupsRef.current.forEach((fn) => fn());
-    cleanupsRef.current = [];
-  }, []);
+  // Identidad de la ejecución actual del efecto. En StrictMode el efecto se
+  // monta dos veces: con un booleano compartido el primer bucle revivía al
+  // reactivarse la bandera y quedaban dos bucles peleándose por el mismo DOM.
+  // Con un objeto por ejecución, el bucle viejo no puede resucitar nunca.
+  const runRef = useRef<{ alive: boolean; cleanups: Array<() => void> } | null>(null);
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    aliveRef.current = true;
+    const run = { alive: true, cleanups: [] as Array<() => void> };
+    runRef.current = run;
 
-    const playScenario = async (i: number) => {
-      const myToken = ++tokenRef.current;
-      const dead = () => tokenRef.current !== myToken || !aliveRef.current;
+    const dead = () => !run.alive || runRef.current !== run;
+    const clean = () => {
+      run.cleanups.forEach((fn) => fn());
+      run.cleanups = [];
+    };
+
+    /**
+     * @param lead  Si es false, la consola se rellena de inmediato en vez de
+     *              esperar a que el pulso recorra el cable. Se usa en la
+     *              primera escena para que la página nunca abra con el panel
+     *              vacío; el pulso y el latido se lanzan igualmente, en
+     *              paralelo, para que la pieza se vea viva desde el primer
+     *              fotograma.
+     */
+    const playScenario = async (i: number, lead: boolean) => {
       const s = SCENARIOS[i];
       const body = bodyRef.current;
       const meta = metaRef.current;
       const title = titleRef.current;
       if (!body || !meta || !title) return;
 
-      runCleanups();
+      clean();
       setResultOn(false);
-      setActive(i);
+      setActiveTrigger(i);
 
       const ctx: SceneCtx = {
         body,
         meta,
-        onCleanup: (fn) => cleanupsRef.current.push(fn),
+        onCleanup: (fn) => run.cleanups.push(fn),
         wait: async (ms: number) => {
           if (!reduced) await sleep(ms);
           return dead();
         },
       };
 
-      // El pulso viaja con la escena anterior todavía en pantalla: así la
-      // consola nunca se queda un segundo en blanco entre escenario y
-      // escenario. El contenido se cambia justo cuando el símbolo late.
-      if (!reduced) {
+      const pulseAndBeat = async () => {
+        if (reduced) return;
         await sleep(260);
         if (dead()) return;
         if (wireRef.current) fire(wireRef.current);
@@ -283,13 +295,22 @@ const HeroFlowConsole: React.FC<{ className?: string; compact?: boolean }> = ({
         if (engineRef.current) {
           fire(engineRef.current, 'beat');
           const t = window.setTimeout(() => engineRef.current?.classList.remove('beat'), 950);
-          cleanupsRef.current.push(() => window.clearTimeout(t));
+          run.cleanups.push(() => window.clearTimeout(t));
         }
         await sleep(220);
+      };
+
+      // En las escenas encadenadas el pulso viaja con la escena anterior aún
+      // en pantalla, así la consola nunca se queda un segundo en blanco.
+      if (lead) {
+        await pulseAndBeat();
         if (dead()) return;
+      } else {
+        void pulseAndBeat();
       }
 
       body.replaceChildren();
+      setActiveScene(i);
       title.textContent = s.head;
       meta.textContent = s.meta;
 
@@ -299,36 +320,34 @@ const HeroFlowConsole: React.FC<{ className?: string; compact?: boolean }> = ({
       if (reduced) body.querySelectorAll('.efc-step').forEach((n) => n.classList.add('on'));
 
       setResultOn(true);
-      setTally((n) => n + 1);
       if (reduced) return;
       await sleep(CYCLE_PAUSE);
     };
 
-    const loop = async () => {
-      if (reduced) {
-        await playScenario(0);
-        return;
-      }
-      let i = 0;
-      while (aliveRef.current) {
-        await playScenario(i % SCENARIOS.length);
-        if (!aliveRef.current) return;
+    const start = async () => {
+      // Primera escena sin espera: al cargar, la consola ya tiene contenido.
+      await playScenario(0, false);
+      if (reduced || dead()) return;
+
+      let i = 1;
+      while (!dead()) {
         // Congela mientras el cursor esté encima o la pestaña esté oculta.
-        while (aliveRef.current && (hoverRef.current || document.hidden)) await sleep(220);
+        while (!dead() && (hoverRef.current || document.hidden)) await sleep(220);
+        if (dead()) return;
+        await playScenario(i % SCENARIOS.length, true);
         i++;
       }
     };
 
-    loop();
+    void start();
 
     return () => {
-      aliveRef.current = false;
-      tokenRef.current++;
-      runCleanups();
+      run.alive = false;
+      clean();
     };
-  }, [runCleanups]);
+  }, []);
 
-  const scenario = SCENARIOS[active];
+  const scenario = SCENARIOS[activeScene];
 
   return (
     <div
@@ -350,7 +369,7 @@ const HeroFlowConsole: React.FC<{ className?: string; compact?: boolean }> = ({
         {/* Disparadores */}
         <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:min-w-0 sm:flex-col">
           {SCENARIOS.map((s, i) => (
-            <div key={s.id} className={`efc-trig ${i === active ? 'live' : ''}`}>
+            <div key={s.id} className={`efc-trig ${i === activeTrigger ? 'live' : ''}`}>
               {s.trigger.icon}
               <span className="efc-trig-label">{s.trigger.label}</span>
             </div>
@@ -378,7 +397,7 @@ const HeroFlowConsole: React.FC<{ className?: string; compact?: boolean }> = ({
         {/* Resultados */}
         <div className="hidden min-w-0 flex-col gap-2 sm:flex">
           {SCENARIOS.map((s, i) => (
-            <div key={s.id} className={`efc-out ${i === active && resultOn ? 'live' : ''}`}>
+            <div key={s.id} className={`efc-out ${i === activeScene && resultOn ? 'live' : ''}`}>
               {s.out.icon}
               <span className="efc-out-label">{s.out.label}</span>
             </div>
@@ -412,13 +431,6 @@ const HeroFlowConsole: React.FC<{ className?: string; compact?: boolean }> = ({
         </div>
       </div>
 
-      {/* ── Contador acumulado ── */}
-      <div className="relative z-10 mt-3.5 flex items-baseline justify-center gap-2 text-[11px] font-semibold text-slate-500">
-        <b className="font-['Archivo'] text-[15px] font-extrabold text-white tabular-nums">
-          {tally.toLocaleString('es-ES')}
-        </b>
-        tareas resueltas sin tocar nada
-      </div>
     </div>
   );
 };

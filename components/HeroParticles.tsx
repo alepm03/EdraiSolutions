@@ -53,13 +53,19 @@ const HeroParticles: React.FC = () => {
     };
 
     const LINK = 150; // px distance to draw a connecting line
+    const LINK_SQ = LINK * LINK;
 
     const tick = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Glow so nodes pop against the near-black hero
+      // Glow so nodes pop against the near-black hero. Se pinta un único path
+      // con todas las partículas y un solo fill: shadowBlur es de las
+      // operaciones más caras del canvas y así se paga una vez por frame en
+      // lugar de una por partícula.
       ctx.shadowBlur = 8;
       ctx.shadowColor = 'rgba(34, 211, 238, 0.9)';
+      ctx.fillStyle = 'rgba(56, 224, 248, 0.85)';
+      ctx.beginPath();
 
       for (const p of particles) {
         // gentle pointer attraction
@@ -82,11 +88,10 @@ const HeroParticles: React.FC = () => {
         if (p.y < -20) p.y = height + 20;
         else if (p.y > height + 20) p.y = -20;
 
-        ctx.beginPath();
+        ctx.moveTo(p.x + 2.1, p.y);
         ctx.arc(p.x, p.y, 2.1, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(56, 224, 248, 0.85)';
-        ctx.fill();
       }
+      ctx.fill();
 
       // connecting lines (no glow — keeps the loop cheap)
       ctx.shadowBlur = 0;
@@ -96,8 +101,11 @@ const HeroParticles: React.FC = () => {
           const b = particles[j];
           const dx = a.x - b.x;
           const dy = a.y - b.y;
-          const d = Math.hypot(dx, dy);
-          if (d < LINK) {
+          // Se compara al cuadrado para no pagar una raíz por cada par
+          // (con 90 partículas son ~4.000 pares por frame).
+          const d2 = dx * dx + dy * dy;
+          if (d2 < LINK_SQ) {
+            const d = Math.sqrt(d2);
             const alpha = (1 - d / LINK) * 0.38;
             ctx.strokeStyle = `rgba(34, 211, 238, ${alpha})`;
             ctx.lineWidth = 1.1;
@@ -129,10 +137,21 @@ const HeroParticles: React.FC = () => {
       pointer.x = -9999;
       pointer.y = -9999;
     };
-    const onVisibility = () => (document.hidden ? stop() : start());
+    // `visible` = hero en pantalla; `awake` = pestaña al frente. El bucle solo
+    // corre cuando se cumplen las dos.
+    let visible = true;
+    let awake = !document.hidden;
+    const sync = () => (visible && awake ? start() : stop());
+    const onVisibility = () => { awake = !document.hidden; sync(); };
+
+    const io = new IntersectionObserver(
+      ([entry]) => { visible = entry.isIntersecting; sync(); },
+      { rootMargin: '120px' }
+    );
+    io.observe(canvas.parentElement!);
 
     build();
-    start();
+    sync();
     window.addEventListener('resize', onResize);
     const parent = canvas.parentElement!;
     parent.addEventListener('pointermove', onMove);
@@ -141,6 +160,7 @@ const HeroParticles: React.FC = () => {
 
     return () => {
       stop();
+      io.disconnect();
       window.removeEventListener('resize', onResize);
       parent.removeEventListener('pointermove', onMove);
       parent.removeEventListener('pointerleave', onLeave);

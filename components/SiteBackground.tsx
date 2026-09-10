@@ -33,6 +33,7 @@ const GRID_SIZE = 64; // px between grid lines (CSS px)
 const DRIFT_PERIOD = 26000; // ms for one full grid-cell drift cycle
 const MAX_BEAMS = 7; // a handful at a time, never a screensaver
 const DPR_CAP = 2;
+const FRAME_MS = 1000 / 30; // tope de fotogramas del fondo ambiental
 
 type Axis = 'h' | 'v';
 
@@ -88,6 +89,7 @@ const SiteBackground: React.FC = () => {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      glowStamp = -Infinity; // el lienzo de glows depende del tamaño
       if (reduceMotion) drawStaticGrid();
     };
 
@@ -116,19 +118,43 @@ const SiteBackground: React.FC = () => {
       drawGrid(0);
     };
 
-    const drawGlows = (time: number) => {
+    // Lienzo aparte con los glows ya pintados. Se recompone cada GLOW_TTL ms;
+    // el resto de frames es un solo drawImage en vez de N gradientes nuevos y
+    // N rellenos a pantalla completa.
+    const GLOW_TTL = 900;
+    let glowLayer: HTMLCanvasElement | null = null;
+    let glowStamp = -Infinity;
+
+    const composeGlows = (time: number) => {
+      if (!glowLayer) glowLayer = document.createElement('canvas');
+      const gw = Math.max(1, Math.round(width * dpr));
+      const gh = Math.max(1, Math.round(height * dpr));
+      if (glowLayer.width !== gw || glowLayer.height !== gh) {
+        glowLayer.width = gw;
+        glowLayer.height = gh;
+      }
+      const g2 = glowLayer.getContext('2d');
+      if (!g2) return;
+      g2.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g2.clearRect(0, 0, width, height);
+      const t = time / 1000;
+      const drift = 0.04; // gentle wander, fraction of viewport
       for (const g of glows) {
-        const t = time / 1000;
-        const drift = 0.04; // gentle wander, fraction of viewport
         const cx = (g.baseX + Math.sin(t * 0.05 + g.phase) * drift) * width;
         const cy = (g.baseY + Math.cos(t * 0.04 + g.phase) * drift) * height;
         const radius = g.r * Math.max(width, height);
-        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+        const grad = g2.createRadialGradient(cx, cy, 0, cx, cy, radius);
         grad.addColorStop(0, `rgba(${g.hue}, 0.05)`);
         grad.addColorStop(1, `rgba(${g.hue}, 0)`);
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, width, height);
+        g2.fillStyle = grad;
+        g2.fillRect(0, 0, width, height);
       }
+      glowStamp = time;
+    };
+
+    const drawGlows = (time: number) => {
+      if (!glowLayer || time - glowStamp > GLOW_TTL) composeGlows(time);
+      if (glowLayer) ctx.drawImage(glowLayer, 0, 0, width, height);
     };
 
     const spawnBeam = (now: number): Beam => {
@@ -206,6 +232,13 @@ const SiteBackground: React.FC = () => {
 
     const frame = (now: number) => {
       if (!running) return;
+      // Tope de fotogramas: el fondo es una deriva lenta con haces
+      // esporádicos, así que a 30 fps se ve idéntico y deja la mitad del
+      // presupuesto de frame al contenido y al scroll.
+      if (lastTime && now - lastTime < FRAME_MS) {
+        rafId = requestAnimationFrame(frame);
+        return;
+      }
       if (!startTime) startTime = now;
       const dt = lastTime ? Math.min(now - lastTime, 50) : 16; // clamp big gaps
       lastTime = now;

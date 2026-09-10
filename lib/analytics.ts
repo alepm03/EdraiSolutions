@@ -24,7 +24,20 @@
  *                      proxy del Cloudflare Worker para esquivar bloqueadores.
  *   VITE_POSTHOG_MODE  'cookieless' (por defecto) | 'consent'
  */
-import posthog from 'posthog-js';
+// PostHog se carga en diferido: son ~285 KB de fuente (el 20 % del bundle) que
+// no deben competir con el primer pintado. `initAnalytics()` programa la carga
+// para cuando el navegador esté ocioso; hasta entonces los eventos se encolan y
+// se envían en cuanto el SDK está listo, así no se pierde ninguno.
+type PostHog = typeof import('posthog-js').default;
+
+let posthog: PostHog | null = null;
+let pending: Array<(ph: PostHog) => void> = [];
+
+/** Encola una acción hasta que el SDK esté cargado e inicializado. */
+function whenReady(fn: (ph: PostHog) => void): void {
+  if (posthog && ready) fn(posthog);
+  else pending.push(fn);
+}
 
 type ConsentMode = 'cookieless' | 'consent';
 
@@ -33,13 +46,35 @@ const HOST = (import.meta.env.VITE_POSTHOG_HOST as string | undefined) || 'https
 const MODE = ((import.meta.env.VITE_POSTHOG_MODE as ConsentMode | undefined) || 'cookieless');
 
 let ready = false;
+let loading = false;
 
 export const isCookieless = () => MODE === 'cookieless';
 
 export function initAnalytics(): void {
-  if (ready || !KEY || typeof window === 'undefined') return;
+  if (loading || ready || !KEY || typeof window === 'undefined') return;
+  loading = true;
 
-  posthog.init(KEY, {
+  const boot = () => {
+    void import('posthog-js').then(({ default: ph }) => {
+      posthog = ph;
+      initSdk(ph);
+      const queued = pending;
+      pending = [];
+      queued.forEach((fn) => fn(ph));
+    });
+  };
+
+  // Fuera del camino crítico: se espera a que el navegador esté ocioso, con un
+  // tope para que no se quede sin cargar en pestañas que nunca llegan a estarlo.
+  const ric = (window as unknown as {
+    requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => void;
+  }).requestIdleCallback;
+  if (ric) ric(boot, { timeout: 3000 });
+  else window.setTimeout(boot, 1200);
+}
+
+function initSdk(posthog: PostHog): void {
+  posthog.init(KEY!, {
     api_host: HOST,
     ui_host: 'https://eu.posthog.com',
 
@@ -71,8 +106,8 @@ export function initAnalytics(): void {
 
 /** Registra un evento. No-op si PostHog no está configurado. */
 export function track(event: string, props?: Record<string, unknown>): void {
-  if (!KEY || !ready) return;
-  posthog.capture(event, props);
+  if (!KEY) return;
+  whenReady((ph) => ph.capture(event, props));
 }
 
 /**
@@ -80,7 +115,7 @@ export function track(event: string, props?: Record<string, unknown>): void {
  * poder unir el recorrido del front con los eventos de servidor sin cookies.
  */
 export function getDistinctId(): string | undefined {
-  if (!KEY || !ready) return undefined;
+  if (!KEY || !ready || !posthog) return undefined;
   try { return posthog.get_distinct_id(); } catch { return undefined; }
 }
 
@@ -89,19 +124,21 @@ export function getDistinctId(): string | undefined {
  * consentimiento explícito que el usuario marca en la casilla RGPD.
  */
 export function identifyLead(email: string, props?: Record<string, unknown>): void {
-  if (!KEY || !ready || !email) return;
-  posthog.identify(email.trim().toLowerCase(), props);
+  if (!KEY || !email) return;
+  whenReady((ph) => ph.identify(email.trim().toLowerCase(), props));
 }
 
 /** Interruptor para el futuro banner de consentimiento (modo 'consent'). */
 export function setConsent(granted: boolean): void {
-  if (!KEY || !ready) return;
-  if (granted) {
-    posthog.opt_in_capturing();
-    posthog.startSessionRecording?.();
-  } else {
-    posthog.opt_out_capturing();
-  }
+  if (!KEY) return;
+  whenReady((ph) => {
+    if (granted) {
+      ph.opt_in_capturing();
+      ph.startSessionRecording?.();
+    } else {
+      ph.opt_out_capturing();
+    }
+  });
 }
 
 /** Nombres de evento en un solo sitio para que no se dupliquen escritos distintos. */
