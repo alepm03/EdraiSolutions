@@ -175,7 +175,7 @@ const App: React.FC = () => {
             <Logo size="nav" />
           </a>
 
-          <div className="hidden md:flex items-center space-x-10 text-[13px] font-bold uppercase tracking-widest text-gray-400">
+          <div className="hidden lg:flex items-center space-x-10 text-[13px] font-bold uppercase tracking-widest text-gray-400">
             <a href="#servicios" className="hover:text-white transition-colors">Servicios</a>
             <a href="#proceso" className="hover:text-white transition-colors">Proceso</a>
             <a href="#sectores" className="hover:text-white transition-colors">Sectores</a>
@@ -187,14 +187,14 @@ const App: React.FC = () => {
             </a>
           </div>
 
-          <button className="md:hidden text-white p-2 glass rounded-lg" aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button className="lg:hidden text-white p-2 glass rounded-lg" aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden glass fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 animate-in fade-in duration-300 px-10">
+          <div className="lg:hidden glass fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 animate-in fade-in duration-300 px-10">
             <button className="absolute top-6 right-6 text-white" onClick={() => setIsMenuOpen(false)}><X className="w-8 h-8" /></button>
             <a href="#servicios" className="block text-lg" onClick={() => setIsMenuOpen(false)}>Servicios</a>
             <a href="#proceso" className="block text-lg" onClick={() => setIsMenuOpen(false)}>Proceso</a>
