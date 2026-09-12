@@ -359,12 +359,15 @@ const App: React.FC = () => {
               'md:col-span-3',
             ];
             // Subtle top-border accent per card
+            // Variación tonal dentro de la familia cian (cyan-300/400/500),
+            // igual que --brand / --brand-strong en design_v3.md: mismo
+            // acento de marca, distinta profundidad por tarjeta.
             const cardAccents = [
-              'before:from-cyan-400/60 before:to-blue-500/40',
-              'before:from-blue-400/40 before:to-cyan-400/20',
-              'before:from-violet-400/70 before:to-cyan-400/50',
-              'before:from-amber-400/40 before:to-yellow-400/20',
-              'before:from-cyan-400/80 before:to-violet-500/60',
+              'before:from-cyan-400/70 before:to-cyan-500/30',
+              'before:from-cyan-300/50 before:to-cyan-400/20',
+              'before:from-cyan-400/80 before:to-cyan-300/40',
+              'before:from-cyan-300/40 before:to-cyan-400/15',
+              'before:from-cyan-400/85 before:to-cyan-500/45',
             ];
             const isVoice = (idx: number) => idx === 2;
             return (
@@ -390,8 +393,8 @@ const App: React.FC = () => {
 
                       {/* Voice badge */}
                       {isVoiceCard && (
-                        <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-violet-500/15 border border-violet-400/30 text-violet-300 text-[10px] font-black uppercase tracking-[0.3em] px-3 py-1 rounded-full z-10">
-                          <span className="w-1.5 h-1.5 bg-violet-400 rounded-full animate-pulse" />
+                        <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 text-[10px] font-black uppercase tracking-[0.3em] px-3 py-1 rounded-full z-10">
+                          <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
                           Destacado
                         </div>
                       )}
@@ -399,7 +402,7 @@ const App: React.FC = () => {
                       {/* Icon block — minimal glyph */}
                       <div className={`shrink-0 ${isFeatured ? 'pr-2' : 'h-12 mb-5'} flex items-center group-hover:translate-x-0.5 transition-transform relative z-10`}>
                         {React.cloneElement(service.icon as React.ReactElement, {
-                          className: `w-9 h-9 ${isVoiceCard ? 'text-violet-300' : 'text-cyan-300'}`,
+                          className: 'w-9 h-9 text-cyan-300',
                           strokeWidth: 1.5,
                         })}
                       </div>
@@ -413,8 +416,8 @@ const App: React.FC = () => {
                         <ul className={`${isFeatured ? 'flex flex-wrap gap-x-7 gap-y-2.5' : 'space-y-2.5 mt-auto'} pt-5 border-t border-white/5`}>
                           {service.features.map((feature, fIdx) => (
                             <li key={fIdx} className="flex items-start space-x-3 text-[13px] font-bold text-gray-300">
-                              <div className={`w-5 h-5 ${isVoiceCard ? 'bg-violet-400/15' : 'bg-cyan-400/15'} rounded-full flex items-center justify-center shrink-0 mt-0.5`}>
-                                <CheckCircle2 className={`w-3 h-3 ${isVoiceCard ? 'text-violet-400' : 'text-cyan-400'}`} />
+                              <div className="w-5 h-5 bg-cyan-400/15 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                                <CheckCircle2 className="w-3 h-3 text-cyan-400" />
                               </div>
                               <span>{feature}</span>
                             </li>
@@ -476,7 +479,7 @@ const App: React.FC = () => {
       <section id="proceso" className="py-20 bg-transparent relative overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="text-center mb-24">
-            <div className="text-[#3b82f6] font-black text-sm uppercase tracking-[0.4em] mb-4">Nuestro proceso</div>
+            <div className="text-[#22d3ee] font-black text-sm uppercase tracking-[0.4em] mb-4">Nuestro proceso</div>
             <h2 className="text-4xl md:text-6xl font-black leading-none tracking-tighter">CÓMO <br />TRABAJAMOS</h2>
           </div>
 
@@ -487,8 +490,8 @@ const App: React.FC = () => {
                   <div className="text-[140px] font-black text-white/[0.02] absolute -top-20 left-0 transition-colors group-hover:text-cyan-400/5 pointer-events-none select-none">
                     {step.number}
                   </div>
-                  <div className="glass p-8 rounded-3xl border border-white/5 hover:border-[#3b82f6]/50 transition-all h-full flex flex-col pt-10 group-hover:-translate-y-3 duration-700 shadow-2xl">
-                    <div className="w-14 h-14 bg-[#3b82f6] text-black rounded-2xl flex items-center justify-center mb-6 shadow-2xl shadow-[0_8px_30px_rgba(59,130,246,0.35)] group-hover:rotate-6 transition-transform">
+                  <div className="glass p-8 rounded-3xl border border-white/5 hover:border-[#22d3ee]/50 transition-all h-full flex flex-col pt-10 group-hover:-translate-y-3 duration-700 shadow-2xl">
+                    <div className="w-14 h-14 bg-[#22d3ee] text-black rounded-2xl flex items-center justify-center mb-6 shadow-2xl shadow-[0_8px_30px_rgba(34,211,238,0.35)] group-hover:rotate-6 transition-transform">
                       {step.icon}
                     </div>
                     <h3 className="text-xl font-black mb-6 uppercase tracking-tight">{step.title}</h3>
@@ -521,7 +524,7 @@ const App: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-20 gap-8 text-center md:text-left max-w-7xl mx-auto">
             <div className="max-w-2xl">
-              <div className="text-[#8b5cf6] font-black text-sm uppercase tracking-[0.4em] mb-4">Sectores</div>
+              <div className="text-[#22d3ee] font-black text-sm uppercase tracking-[0.4em] mb-4">Sectores</div>
               <h2 className="text-4xl md:text-6xl font-black leading-tight tracking-tighter">EN QUÉ SECTORES NOS <span className="text-gradient">ESPECIALIZAMOS</span></h2>
             </div>
             {/* Divider Line on Desktop */}
@@ -538,8 +541,8 @@ const App: React.FC = () => {
               { icon: <Dumbbell className="w-7 h-7" strokeWidth={2} />, title: 'Gimnasios y centros deportivos', desc: 'Reservas de clases sin saturar recepción, atención automática a leads de Instagram y campañas de reactivación para socios inactivos.' },
               { icon: <Building2 className="w-7 h-7" strokeWidth={2} />, title: 'Inmobiliarias', desc: 'Cualificación automática de compradores, coordinación de visitas con tu agenda y seguimiento post-visita sin que se enfríe el lead.' }
             ].map((sector, idx) => (
-              <div key={idx} data-tilt className="gsap-reveal card-glow glass p-8 rounded-[28px] border border-white/5 hover:border-[#8b5cf6]/40 transition-colors group text-center flex flex-col items-center">
-                <div className="mb-7 w-16 h-16 rounded-2xl bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 flex items-center justify-center text-[#a78bfa] group-hover:bg-[#8b5cf6]/20 transition-all shadow-[0_0_30px_-12px_rgba(139,92,246,0.6)]">
+              <div key={idx} data-tilt className="gsap-reveal card-glow glass p-8 rounded-[28px] border border-white/5 hover:border-[#22d3ee]/40 transition-colors group text-center flex flex-col items-center">
+                <div className="mb-7 w-16 h-16 rounded-2xl bg-[#22d3ee]/10 border border-[#22d3ee]/30 flex items-center justify-center text-[#67e8f9] group-hover:bg-[#22d3ee]/20 transition-all shadow-[0_0_30px_-12px_rgba(34,211,238,0.6)]">
                   {sector.icon}
                 </div>
                 <h3 className="text-[15px] font-black group-hover:text-white transition-colors leading-tight uppercase tracking-tight min-h-[44px] flex items-center justify-center">
@@ -565,7 +568,7 @@ const App: React.FC = () => {
       <div id="demos" className="bg-[#020617]/40 py-20 space-y-28">
         <section className="container mx-auto px-6">
           <div className="text-center mb-24">
-             <div className="text-[#10b981] font-black text-sm uppercase tracking-[0.4em] mb-4">Demo en vivo</div>
+             <div className="text-[#22d3ee] font-black text-sm uppercase tracking-[0.4em] mb-4">Demo en vivo</div>
              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">PRUEBA NUESTROS ASISTENTES</h2>
           </div>
           <Suspense fallback={<div className="min-h-[520px]" aria-hidden="true" />}>
@@ -575,7 +578,7 @@ const App: React.FC = () => {
 
         <section id="demos-reales" className="container mx-auto px-6">
           <div className="text-center mb-24">
-             <div className="text-[#10b981] font-black text-sm uppercase tracking-[0.4em] mb-4">Caso real · Mercado del Barranco</div>
+             <div className="text-[#22d3ee] font-black text-sm uppercase tracking-[0.4em] mb-4">Caso real · Mercado del Barranco</div>
              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">INTEGRACIÓN REAL<br /><span className="text-gradient">PRUÉBALA AHORA</span></h2>
           </div>
           <Suspense fallback={<div className="min-h-[520px]" aria-hidden="true" />}>
@@ -640,7 +643,7 @@ const App: React.FC = () => {
       <section id="faq" className="py-16 bg-[#020617]/40">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-16">
-            <div className="text-[#3b82f6] font-black text-sm uppercase tracking-[0.4em] mb-4">FAQ</div>
+            <div className="text-[#22d3ee] font-black text-sm uppercase tracking-[0.4em] mb-4">FAQ</div>
             <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Preguntas <span className="text-gradient">frecuentes</span></h2>
             <p className="text-gray-400 text-xl font-medium">Las preguntas que más nos hacen antes de empezar.</p>
           </div>

@@ -1,7 +1,13 @@
 /**
  * Per-section visual identity map.
- * Each entry provides an accent color + ready-to-use Tailwind class strings
- * so every section can have its own chromatic identity while staying on-brand.
+ *
+ * Históricamente cada sección tenía su propio color (azul, morado, esmeralda),
+ * pese al comentario de abajo que decía "staying on-brand" — no lo estaba: la
+ * guía de marca (design_v3.md) documenta un único acento, cian `#22d3ee`
+ * (con una variante más profunda, `--brand-strong` `#0ea5e9`, para dar
+ * profundidad sin cambiar de tono). Unificado 2026-09 — todas las entradas
+ * usan la familia cian de Tailwind (`cyan-300/400/500`); la diferenciación
+ * entre secciones viene ahora de la tipografía y el layout, no del color.
  *
  * Usage:
  *   import { getSectionTheme } from '../lib/sectionTheme';
@@ -37,36 +43,36 @@ const themes: Record<string, SectionTheme> = {
   },
 
   proceso: {
-    accent: '#3b82f6',
-    accentRgb: '59, 130, 246',
+    accent: '#22d3ee',
+    accentRgb: '34, 211, 238',
     eyebrow:
-      'text-[#3b82f6] text-xs font-semibold uppercase tracking-[0.2em]',
-    glow: 'shadow-[0_0_30px_rgba(59,130,246,0.25)]',
+      'text-[#22d3ee] text-xs font-semibold uppercase tracking-[0.2em]',
+    glow: 'shadow-[0_0_30px_rgba(34,211,238,0.25)]',
     border:
-      'border border-transparent hover:border-[#3b82f6] transition-colors duration-200',
-    chip: 'bg-[rgba(59,130,246,0.08)] border border-[rgba(59,130,246,0.25)] text-[#3b82f6] text-xs px-2 py-0.5 rounded-full',
+      'border border-transparent hover:border-[#22d3ee] transition-colors duration-200',
+    chip: 'bg-[rgba(34,211,238,0.08)] border border-[rgba(34,211,238,0.25)] text-[#22d3ee] text-xs px-2 py-0.5 rounded-full',
   },
 
   sectores: {
-    accent: '#8b5cf6',
-    accentRgb: '139, 92, 246',
+    accent: '#22d3ee',
+    accentRgb: '34, 211, 238',
     eyebrow:
-      'text-[#8b5cf6] text-xs font-semibold uppercase tracking-[0.2em]',
-    glow: 'shadow-[0_0_30px_rgba(139,92,246,0.25)]',
+      'text-[#22d3ee] text-xs font-semibold uppercase tracking-[0.2em]',
+    glow: 'shadow-[0_0_30px_rgba(34,211,238,0.25)]',
     border:
-      'border border-transparent hover:border-[#8b5cf6] transition-colors duration-200',
-    chip: 'bg-[rgba(139,92,246,0.08)] border border-[rgba(139,92,246,0.25)] text-[#8b5cf6] text-xs px-2 py-0.5 rounded-full',
+      'border border-transparent hover:border-[#22d3ee] transition-colors duration-200',
+    chip: 'bg-[rgba(34,211,238,0.08)] border border-[rgba(34,211,238,0.25)] text-[#22d3ee] text-xs px-2 py-0.5 rounded-full',
   },
 
   demos: {
-    accent: '#10b981',
-    accentRgb: '16, 185, 129',
+    accent: '#22d3ee',
+    accentRgb: '34, 211, 238',
     eyebrow:
-      'text-[#10b981] text-xs font-semibold uppercase tracking-[0.2em]',
-    glow: 'shadow-[0_0_30px_rgba(16,185,129,0.25)]',
+      'text-[#22d3ee] text-xs font-semibold uppercase tracking-[0.2em]',
+    glow: 'shadow-[0_0_30px_rgba(34,211,238,0.25)]',
     border:
-      'border border-transparent hover:border-[#10b981] transition-colors duration-200',
-    chip: 'bg-[rgba(16,185,129,0.08)] border border-[rgba(16,185,129,0.25)] text-[#10b981] text-xs px-2 py-0.5 rounded-full',
+      'border border-transparent hover:border-[#22d3ee] transition-colors duration-200',
+    chip: 'bg-[rgba(34,211,238,0.08)] border border-[rgba(34,211,238,0.25)] text-[#22d3ee] text-xs px-2 py-0.5 rounded-full',
   },
 
   equipo: {
@@ -81,14 +87,14 @@ const themes: Record<string, SectionTheme> = {
   },
 
   faq: {
-    accent: '#3b82f6',
-    accentRgb: '59, 130, 246',
+    accent: '#22d3ee',
+    accentRgb: '34, 211, 238',
     eyebrow:
-      'text-[#3b82f6] text-xs font-semibold uppercase tracking-[0.2em]',
-    glow: 'shadow-[0_0_30px_rgba(59,130,246,0.25)]',
+      'text-[#22d3ee] text-xs font-semibold uppercase tracking-[0.2em]',
+    glow: 'shadow-[0_0_30px_rgba(34,211,238,0.25)]',
     border:
-      'border border-transparent hover:border-[#3b82f6] transition-colors duration-200',
-    chip: 'bg-[rgba(59,130,246,0.08)] border border-[rgba(59,130,246,0.25)] text-[#3b82f6] text-xs px-2 py-0.5 rounded-full',
+      'border border-transparent hover:border-[#22d3ee] transition-colors duration-200',
+    chip: 'bg-[rgba(34,211,238,0.08)] border border-[rgba(34,211,238,0.25)] text-[#22d3ee] text-xs px-2 py-0.5 rounded-full',
   },
 
   contacto: {
