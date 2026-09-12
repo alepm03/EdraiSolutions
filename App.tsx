@@ -453,8 +453,8 @@ const App: React.FC = () => {
                  },
                  {
                    icon: <Code2 className="w-6 h-6" />,
-                   title: 'App de gestión de gastos con IA',
-                   result: 'El equipo de administración procesa los tickets de gastos en segundos, no en horas.'
+                   title: 'Centro de actividades con sistema operativo propio',
+                   result: 'Reservas, agenda diaria, caja y finanzas reunidos en una sola app, sin hojas de cálculo ni WhatsApp sueltos.'
                  }
                ].map((caso, idx) => (
                  <div key={idx} className="gsap-reveal group">

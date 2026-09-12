@@ -45,9 +45,9 @@ export const SERVICES: Service[] = [
   {
     id: 'software',
     title: 'Software a medida con IA',
-    description: 'Desarrollamos aplicaciones internas que automatizan procesos únicos de tu negocio: gestión de gastos con OCR, dashboards de datos, herramientas de análisis. Todo integrado con tus sistemas actuales.',
+    description: 'Construimos aplicaciones web a medida para lo que ningún software genérico resuelve. Desde digitalizar gastos y documentos con IA hasta sistemas operativos completos, con reservas, finanzas y paneles de control en tiempo real. Si tu negocio tiene un proceso manual y repetitivo, lo convertimos en herramienta propia, conectada con lo que ya usas.',
     icon: <Code2 className="w-6 h-6" />,
-    features: ['Apps web listas en 4-8 semanas', 'Integración con tus herramientas actuales', 'Soporte y evolución incluidos']
+    features: ['Desde apps sencillas hasta plataformas operativas completas', 'Integración con tus herramientas actuales', 'Soporte y evolución incluidos']
   }
 ];
 
