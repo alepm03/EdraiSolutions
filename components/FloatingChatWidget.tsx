@@ -1,15 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  MessageSquare, 
-  X, 
-  Send, 
-  Bot, 
+import {
+  X,
+  Send,
   User,
   Minus,
   Sparkles
 } from 'lucide-react';
 import { ChatMessage } from '../types';
 import { track, identifyLead, getDistinctId, EV } from '../lib/analytics';
+import { LogoMark } from './Logo';
 
 const FloatingChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -122,8 +121,12 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
             <div className="absolute inset-0 bg-white/5 opacity-20 pointer-events-none"></div>
             <div className="flex items-center space-x-4 relative z-10">
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center text-black shadow-lg shadow-cyan-500/20">
-                  <Bot className="w-6 h-6" />
+                {/* Símbolo Edrai sobre caja navy sólida — la guía prohíbe colocarlo
+                    directamente sobre cian ("navy + navy 45%" es la única variante
+                    válida ahí, no implementada; más simple y ya usado en toda la
+                    web: caja navy + variante inverse). */}
+                <div className="w-10 h-10 bg-[#0D1B2A] rounded-xl flex items-center justify-center p-2 shadow-lg shadow-cyan-500/20">
+                  <LogoMark variant="inverse" className="w-full h-full" />
                 </div>
                 <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-gray-900 rounded-full animate-pulse"></div>
               </div>
@@ -158,7 +161,7 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
                 <div className={`flex max-w-[85%] space-x-3 ${msg.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                   {msg.role === 'model' && (
                     <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-1">
-                      <Bot className="w-4 h-4 text-cyan-400" />
+                      <LogoMark variant="inverse" className="w-5 h-5" />
                     </div>
                   )}
                   <div className={`relative px-4 py-3 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
@@ -178,7 +181,7 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
               <div className="flex justify-start animate-pulse">
                 <div className="flex space-x-3">
                   <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                    <Bot className="w-4 h-4 text-cyan-400" />
+                    <LogoMark variant="inverse" className="w-5 h-5" />
                   </div>
                   <div className="px-4 py-3 bg-white/5 border border-white/10 rounded-2xl rounded-tl-none flex items-center space-x-1.5">
                     <div className="w-1.5 h-1.5 bg-cyan-400/60 rounded-full animate-bounce"></div>
@@ -229,17 +232,19 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
           }}
           aria-label="Toggle Chat"
           className={`relative w-16 h-16 rounded-full flex items-center justify-center shadow-[0_10px_40px_rgba(0,0,0,0.5)] transition-all duration-500 transform hover:scale-110 active:scale-95 group ${
-            isOpen 
-              ? 'bg-gray-800 text-white border border-white/20' 
-              : 'bg-gradient-to-tr from-cyan-400 to-blue-500 text-black'
+            isOpen
+              ? 'bg-gray-800 text-white border border-white/20'
+              : 'bg-[#0D1B2A] border border-cyan-400/20'
           }`}
         >
           {isOpen ? (
             <X className="w-7 h-7" />
           ) : (
-            <div className="relative">
-              <MessageSquare className="w-7 h-7 group-hover:rotate-6 transition-transform" />
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full flex items-center justify-center">
+            <div className="relative w-8 h-8">
+              {/* Sin rotate en hover: la guía de marca prohíbe rotar el símbolo
+                  ("el corte es siempre horizontal"). Solo escala uniforme. */}
+              <LogoMark variant="inverse" className="w-full h-full group-hover:scale-105 transition-transform" />
+              <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full flex items-center justify-center">
                 <span className="block w-1 h-1 bg-white rounded-full animate-pulse"></span>
               </span>
             </div>
