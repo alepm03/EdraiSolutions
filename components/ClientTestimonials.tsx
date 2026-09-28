@@ -66,7 +66,7 @@ const ClientTestimonials: React.FC = () => (
         <figure className="gsap-reveal glass flex flex-col p-8 rounded-[28px] border border-white/10">
           <QuoteMark />
           <blockquote className="text-lg font-semibold leading-relaxed text-slate-200 tracking-tight mb-7">
-            Reservas, caja y finanzas estaban repartidas entre hojas de cálculo y WhatsApp. Ahora todo el equipo ve lo mismo, al momento, desde el aeródromo.
+            Todas las reservas y las cuentas las llevábamos en papel y en Excel. Ahora todo el equipo ve lo mismo, al momento, desde el aeródromo.
           </blockquote>
           <figcaption className="mt-auto flex items-center gap-3">
             <img src="/static/cliente-ijump.webp" alt="Logo de I Jump Skydive" width={46} height={46} loading="lazy" className="w-[46px] h-[46px] rounded-xl border border-white/15" />
@@ -80,24 +80,24 @@ const ClientTestimonials: React.FC = () => (
           </p>
         </figure>
 
-        {/* Illustrative example, clearly labelled as not a client */}
-        <figure className="gsap-reveal flex flex-col p-8 rounded-[28px] border border-dashed border-white/10">
-          <div className="self-start mb-5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500 border border-white/10 rounded-full px-2.5 py-1">
-            Ejemplo ilustrativo, no es un cliente
-          </div>
+        {/* Law firm: real client, name withheld for confidentiality */}
+        <figure className="gsap-reveal glass flex flex-col p-8 rounded-[28px] border border-white/10">
           <QuoteMark />
           <blockquote className="text-lg font-semibold leading-relaxed text-slate-200 tracking-tight mb-7">
-            La IA clasifica las consultas y responde lo administrativo, citas, documentación, estado del caso, y prepara borradores. El equipo solo entra en lo que de verdad requiere criterio legal.
+            Cada encargo exige bases legales, contratos y correos que tienen que cuadrar entre sí. Ahora la IA prepara los borradores, localiza precedentes reales y detecta incoherencias entre documentos. Nosotros revisamos y decidimos.
           </blockquote>
           <figcaption className="mt-auto flex items-center gap-3">
-            <div className="w-[46px] h-[46px] rounded-xl border border-dashed border-slate-400/35 bg-slate-400/10 flex items-center justify-center text-slate-400">
+            <div className="w-[46px] h-[46px] rounded-xl border border-white/15 bg-cyan-400/10 flex items-center justify-center text-cyan-400">
               <Scale className="w-5 h-5" />
             </div>
             <div>
               <div className="text-[14.5px] font-extrabold">Despacho de abogados</div>
-              <div className="text-[12.5px] font-medium text-slate-400">Automatización de correo</div>
+              <div className="text-[12.5px] font-medium text-slate-400">Nombre omitido por confidencialidad</div>
             </div>
           </figcaption>
+          <p className="text-[12.5px] text-slate-500 mt-5 pt-4 border-t border-white/10 leading-relaxed">
+            Redacción y gestión documental con IA: bases legales, contratos, investigación de precedentes y respuestas a consultas del cliente.
+          </p>
         </figure>
       </div>
     </div>
