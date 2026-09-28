@@ -41,6 +41,7 @@ import SiteBackground from './components/SiteBackground';
 import SectionDivider from './components/SectionDivider';
 import AnimatedCounter from './components/AnimatedCounter';
 import LogoMarquee from './components/LogoMarquee';
+import ClientTestimonials from './components/ClientTestimonials';
 import Logo from './components/Logo';
 import { getSectionTheme } from './lib/sectionTheme';
 
@@ -586,6 +587,11 @@ const App: React.FC = () => {
           </Suspense>
         </section>
       </div>
+
+      <SectionDivider accentRgb={getSectionTheme('demos').accentRgb} />
+
+      {/* Client testimonials */}
+      <ClientTestimonials />
 
       <SectionDivider accentRgb={getSectionTheme('equipo').accentRgb} />
 
