@@ -73,7 +73,7 @@ export const PROCESS: ProcessStep[] = [
   {
     number: '01',
     title: 'Diagnóstico gratuito',
-    description: 'En una llamada de 30 minutos analizamos tu negocio y te mostramos exactamente dónde puedes ahorrar tiempo y dinero con automatización.',
+    description: 'En una llamada de 15 minutos conocemos tu negocio y lo analizamos gratis.',
     icon: <Search className="w-5 h-5" />
   },
   {
