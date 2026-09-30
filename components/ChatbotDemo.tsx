@@ -22,7 +22,7 @@ Contexto de Edrai Solutions:
   2. Reservas Automáticas: Gestión de citas sin intervención humana, recordatorios por WhatsApp/SMS, sincronización con agendas.
   3. Gestión de Reseñas: Invitación automática tras el servicio, detección de sentimiento negativo antes de publicar, aumento de nota en Google.
 - Proceso: 
-  1. Diagnóstico gratuito (30 min).
+  1. Diagnóstico gratuito (15 min).
   2. Propuesta a medida (coste cerrado).
   3. Implementación (2-4 semanas).
   4. Soporte continuo.
