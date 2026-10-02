@@ -31,14 +31,14 @@ export const SERVICES: Service[] = [
   {
     id: 'voice',
     title: 'Agentes de voz IA',
-    description: 'Un agente de voz entrenado con toda la información de tu negocio: precios, servicios, horarios y casuísticas. Atiende llamadas las 24 horas, resuelve consultas, agenda citas y transfiere a tu equipo cuando el caso lo requiere. Sin tiempos de espera, sin llamadas perdidas.',
+    description: 'Un agente de voz entrenado con toda la información de tu negocio: precios, servicios, horarios y casuísticas. Atiende llamadas las 24 horas, resuelve consultas, agenda citas y transfiere a tu equipo cuando el caso lo requiere. Disponible también en los picos de llamadas.',
     icon: <Mic className="w-6 h-6" />,
     features: ['Atiende llamadas sin intervención humana', 'Agenda citas y resuelve consultas habituales', 'Transfiere a tu equipo cuando el caso lo requiere']
   },
   {
     id: 'reviews',
     title: 'Más reseñas en Google, automáticamente',
-    description: 'Después de cada servicio, tu cliente recibe una invitación para dejar una reseña. Las reseñas negativas se detectan a tiempo para que puedas actuar antes de que se publiquen.',
+    description: 'Después de cada servicio, tu cliente recibe una invitación para dejar una reseña. Te avisamos al momento de cada reseña negativa para que puedas responder.',
     icon: <Star className="w-6 h-6" />,
     features: ['Invitación automática tras cada servicio', 'Alertas inmediatas de reseñas negativas', 'Respuestas sugeridas por IA']
   },
