@@ -20,7 +20,7 @@ Contexto de Edrai Solutions:
 - Servicios: 
   1. Chatbots Propios (WhatsApp, Web, Redes): Atención 24/7, entienden contexto, escalan a humanos.
   2. Reservas Automáticas: Gestión de citas sin intervención humana, recordatorios por WhatsApp/SMS, sincronización con agendas.
-  3. Gestión de Reseñas: Invitación automática tras el servicio, detección de sentimiento negativo antes de publicar, aumento de nota en Google.
+  3. Gestión de Reseñas: Invitación automática tras el servicio, aviso inmediato de cada reseña negativa para poder responder, más reseñas en Google.
 - Proceso: 
   1. Diagnóstico gratuito (15 min).
   2. Propuesta a medida (coste cerrado).
@@ -37,7 +37,7 @@ const AGENTS = [
     description: 'Expertos en chatbots para WhatsApp y Web.',
     icon: <MessageSquare className="w-5 h-5" />,
     color: 'bg-cyan-500',
-    greeting: '¡Hola! Soy el experto en atención automatizada de Edrai. ¿Te imaginas a tu negocio respondiendo clientes por WhatsApp mientras duermes? ¿Qué dudas tienes sobre cómo lo implementamos?',
+    greeting: '¡Hola! Soy un asistente virtual (IA) de Edrai, especializado en atención al cliente. ¿Te imaginas a tu negocio respondiendo clientes por WhatsApp mientras duermes? ¿Qué dudas tienes sobre cómo lo implementamos?',
     systemPrompt: `${KNOWLEDGE_BASE}
     Eres el Especialista en Chatbots de Edrai Solutions. 
     Tu objetivo es convencer al usuario de la potencia de tener un asistente 24/7.
@@ -53,7 +53,7 @@ const AGENTS = [
     description: 'Automatización de citas y recordatorios.',
     icon: <Calendar className="w-5 h-5" />,
     color: 'bg-blue-600',
-    greeting: 'Hola, un placer. Soy el gestor de logística de Edrai. ¿Cansado de perder tiempo confirmando citas por teléfono? Te cuento cómo podemos automatizar toda tu agenda hoy mismo.',
+    greeting: 'Hola, un placer. Soy un asistente virtual (IA) de Edrai, especializado en reservas y citas. ¿Cansado de perder tiempo confirmando citas por teléfono? Te cuento cómo podemos automatizar toda tu agenda hoy mismo.',
     systemPrompt: `${KNOWLEDGE_BASE}
     Eres el Gestor de Reservas de Edrai Solutions.
     Tu objetivo es explicar la eficiencia de los recordatorios automáticos y la gestión de citas.
@@ -68,7 +68,7 @@ const AGENTS = [
     description: 'Más reseñas en Google automáticamente.',
     icon: <Star className="w-5 h-5" />,
     color: 'bg-amber-500',
-    greeting: '¡Hola! Soy el analista de reseñas de Edrai. ¿Sabías que podemos pedirle una reseña a tus clientes de forma automática justo cuando están más contentos? ¿Hablamos de cómo subir tu nota en Google?',
+    greeting: '¡Hola! Soy un asistente virtual (IA) de Edrai, especializado en reseñas. ¿Sabías que podemos pedirle una reseña a tus clientes de forma automática justo cuando están más contentos? ¿Hablamos de cómo conseguir más reseñas en Google?',
     systemPrompt: `${KNOWLEDGE_BASE}
     Eres el Especialista en Reputación de Edrai Solutions.
     Tu objetivo es mostrar cómo la IA ayuda a conseguir más reseñas de 5 estrellas.
