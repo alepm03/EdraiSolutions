@@ -1,0 +1,30 @@
+---
+import { TEAM } from '../data/site';
+---
+<div class="team">
+  {TEAM.map((p, i) => (
+    <figure class="card person" data-reveal={String(i)}>
+      <img src={p.image} alt={p.name} width="400" height="400" loading="lazy" />
+      <figcaption>
+        <div class="who"><b>{p.name}</b><span>{p.role}</span></div>
+        <p>{p.bio}</p>
+        <a class="li" href={p.linkedin} target="_blank" rel="noopener" aria-label={`LinkedIn de ${p.name}`}><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.5h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.75v5.7h-4v-5.05c0-1.2-.02-2.75-1.73-2.75-1.73 0-2 1.3-2 2.66v5.14h-4v-11Z"/></svg> LinkedIn</a>
+      </figcaption>
+    </figure>
+  ))}
+</div>
+
+<style>
+  .team { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .person { display: grid; grid-template-columns: 168px 1fr; gap: 24px; padding: 20px; align-items: start; }
+  .person img { width: 168px; height: 196px; object-fit: cover; object-position: center 22%; border-radius: 14px; }
+  .person figcaption { display: grid; gap: 12px; padding-top: 4px; }
+  .who b { display: block; font: 800 20px/1.2 var(--font-display); letter-spacing: -0.02em; }
+  .who span { font-size: 13.5px; color: var(--brand); font-weight: 600; }
+  .person p { font-size: 14.5px; color: var(--text-2); line-height: 1.55; }
+  .li { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: var(--text-2); width: fit-content; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line-strong); transition: color 0.2s, border-color 0.2s; }
+  .li:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.25); }
+  .li :global(svg) { width: 14px; height: 14px; }
+  @media (max-width: 960px) { .team { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .person { grid-template-columns: 1fr; } .person img { width: 100%; height: 260px; } }
+</style>

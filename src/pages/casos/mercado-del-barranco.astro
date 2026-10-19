@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cases from '../../components/Cases.astro';
+import RealChatDemo from '../../components/react/RealChatDemo';
+import ContactSection from '../../components/ContactSection.astro';
+import { ArrowLeft } from '@lucide/astro';
+import { MONTHLY } from '../../data/site';
+---
+<Base title="Mercado del Barranco · Caso real · Edrai Solutions" description={`El agente de IA del Mercado del Barranco atiende a sus clientes en su web desde junio de 2026. En ${MONTHLY.month}: ${MONTHLY.conversations} conversaciones y el ${MONTHLY.resolvedPct} % resueltas sin pasar al equipo.`}>
+  <section class="page-hero">
+    <div class="wrap">
+      <a class="back" href="/casos"><ArrowLeft /> Casos</a>
+      <h1 class="display page-h1">Mercado del Barranco.</h1>
+      <p class="lede page-lede">Mercado gastronómico en Sevilla. Su agente de IA atiende el chat de su web desde junio de 2026: horarios, carta, cómo llegar y peticiones de grupos y eventos, en el idioma de cada turista.</p>
+    </div>
+  </section>
+  <section class="section section-tight"><div class="wrap"><Cases compact /></div></section>
+  <section class="section section-tight">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="h2">Habla con su agente.</h2><p class="lede">Es el mismo que usan sus clientes, en producción. Pregúntale lo que preguntaría un turista.</p></div>
+      <RealChatDemo client:visible />
+    </div>
+  </section>
+  <section class="section"><div class="wrap"><ContactSection /></div></section>
+</Base>
+
+<style>
+  .back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .back:hover { color: var(--text); }
+  .back :global(svg) { width: 15px; height: 15px; }
+</style>

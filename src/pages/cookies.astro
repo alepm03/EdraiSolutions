@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { CookiesContent } from '../components/react/LegalModal';
+---
+<Base title="Política de cookies · Edrai Solutions" description="Política de cookies de edraisolutions.es.">
+  <section class="page-hero">
+    <div class="wrap legal">
+      <h1 class="display page-h1">Política de cookies</h1>
+      <div class="legal-body"><CookiesContent /></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .legal { max-width: 820px; }
+  .legal-body { margin-top: 32px; color: var(--text-2); font-size: 15.5px; line-height: 1.7; }
+  .legal-body :global(a) { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+  .legal-body :global(ul) { list-style: disc; padding-left: 20px; }
+</style>

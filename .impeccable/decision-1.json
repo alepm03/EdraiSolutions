@@ -1,0 +1,204 @@
+{
+  "title": "Elige la dirección visual de la nueva home",
+  "question": "La tirada asignó el Plano de metro. Quédatelo, elige otra o vuelve a tirar. Abre cada boceto en vivo desde la carpeta sketches/.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Plano de metro",
+      "kicker": "THE ROLL",
+      "lineage": "Plano de Metro de Madrid y señalética de andén",
+      "thesis": "Cada servicio es una línea y cada herramienta una estación: el mensaje del cliente viaja hasta su destino.",
+      "palette": [
+        "#060a12",
+        "#22d3ee",
+        "#eef3f8",
+        "#8a97a8"
+      ],
+      "materials": [
+        "trazado octolineal",
+        "señalética condensada (Archivo estrecha)",
+        "pantallas de andén = vídeos"
+      ],
+      "viewport": "Titular de señalética a la izquierda; el plano ocupa la pantalla, un tren recorre L1 y la pantalla del andén WhatsApp reproduce el clip real del Mercado.",
+      "risk": "Las redes de nodos son un tópico de IA (también vuestro hero y el de paperfree); solo funciona con rigor de plano real.",
+      "raised": [
+        {
+          "from": "challenger-jackfield",
+          "raise": "Las líneas se distinguen por trazo (sólido, doble, discontinuo), nunca por color: todo cian, como pide la marca."
+        },
+        {
+          "from": "challenger-darkroom",
+          "raise": "Cada destino se revela al llegar el tren: el resultado (reserva, factura) aparece, no se anuncia."
+        },
+        {
+          "from": "challenger-film",
+          "raise": "Cada clip lleva su código de hora (23:41, 09:14) como numeración de fotograma."
+        },
+        {
+          "from": "challenger-cloud",
+          "raise": "El color vive solo en las líneas; el texto es acromático."
+        }
+      ],
+      "comp": ".impeccable/mocks/decision/a-metro.png"
+    },
+    {
+      "id": "model-pick",
+      "label": "El cuadrante del día",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Cuadrante de turnos de cualquier pyme",
+      "thesis": "El agente es una columna más del cuadrante de turnos: al hacer scroll avanza el reloj de un día real del negocio.",
+      "palette": [
+        "#e9edf1",
+        "#0b1622",
+        "#22d3ee",
+        "#0ea5e9"
+      ],
+      "materials": [
+        "rejilla de horas",
+        "reloj grande tabular",
+        "columna del agente en oscuro"
+      ],
+      "viewport": "Reloj 09:14 gigante y titular a la izquierda; a la derecha el cuadrante Tú / Tu equipo / Agente Edrai con un clip en la franja actual.",
+      "risk": "Es la traducción más literal de tu brief y la más esperable; el fondo claro rompe con la web actual.",
+      "comp": ".impeccable/mocks/decision/b-cuadrante.png"
+    },
+    {
+      "id": "challenger-jackfield",
+      "label": "Jackfield (panel de conexiones)",
+      "verdict": "declined",
+      "lineage": "paneles de normalización de estudio",
+      "thesis": "Configuración como carriles numerados con líneas de enlace.",
+      "palette": [
+        "#0a0a0a",
+        "#f5a524"
+      ],
+      "materials": [
+        "vidrio negro",
+        "trazo ámbar"
+      ],
+      "viewport": "Carriles 01 a 48 con líneas de estado.",
+      "risk": "El dueño de pyme no reconoce el objeto.",
+      "case": "Se fusiona mal: nula identificación del público.",
+      "kept": "Estado por patrón de trazo, no por color.",
+      "hero": "https://impeccable.style/worlds/cards/operate-b-normalled-jackfield-hero.webp"
+    },
+    {
+      "id": "challenger-darkroom",
+      "label": "Cuarto oscuro",
+      "verdict": "declined",
+      "lineage": "laboratorio fotográfico",
+      "thesis": "Estaciones irreversibles bajo luz ámbar.",
+      "palette": [
+        "#d97706",
+        "#1c1c1c",
+        "#f2f2f2"
+      ],
+      "materials": [
+        "luz de seguridad",
+        "copias húmedas"
+      ],
+      "viewport": "La imagen emerge en la cubeta.",
+      "risk": "Ámbar contradice el cian de marca.",
+      "case": "Pierde en claridad y en identificación.",
+      "kept": "La revelación del resultado como un único momento.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay-hero.webp"
+    },
+    {
+      "id": "challenger-film",
+      "label": "Película de 16 mm",
+      "verdict": "declined",
+      "lineage": "película procesada a mano",
+      "thesis": "Los clips como fotogramas de una tira.",
+      "palette": [
+        "#111111",
+        "#9a9a9a",
+        "#f97316"
+      ],
+      "materials": [
+        "perforaciones",
+        "códigos de borde"
+      ],
+      "viewport": "Tira de fotogramas con fuga de luz.",
+      "risk": "Estética nostálgica, no de producto.",
+      "case": "Encaja con el vídeo pero no explica el servicio.",
+      "kept": "Código de tiempo en cada clip.",
+      "hero": "https://impeccable.style/worlds/cards/cinema-cinematography-editing-hand-processed-film-bloom-hero.webp"
+    },
+    {
+      "id": "challenger-cloud",
+      "label": "Borde iridiscente",
+      "verdict": "declined",
+      "lineage": "nubes iridiscentes",
+      "thesis": "Color solo en un filo fino.",
+      "palette": [
+        "#ffffff",
+        "#64748b",
+        "#a78bfa"
+      ],
+      "materials": [
+        "blanco nube",
+        "franja espectral"
+      ],
+      "viewport": "Campo blanco con borde de color.",
+      "risk": "Sin relación con el negocio.",
+      "case": "Pierde en ambos ejes.",
+      "kept": "Color confinado a las líneas.",
+      "hero": "https://impeccable.style/worlds/cards/clouds-storms-auroras-iridescent-cloud-edge-hero.webp"
+    },
+    {
+      "id": "challenger-mook",
+      "label": "Revista con anotaciones",
+      "verdict": "declined",
+      "lineage": "mook japonés de moda",
+      "thesis": "Cintas dibujadas nombran cada prenda.",
+      "palette": [
+        "#0a0a0a",
+        "#9f1239",
+        "#f5efe6"
+      ],
+      "materials": [
+        "encaje impreso",
+        "cintas a mano"
+      ],
+      "viewport": "Fotos solapadas con anotaciones.",
+      "risk": "Registro totalmente ajeno.",
+      "case": "Pierde en ambos ejes.",
+      "kept": "Anotar cada parte del producto dentro de los clips.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-gothic-lolita-mook-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "canon": true,
+  "canonCard": {
+    "label": "El estándar de las startups de IA",
+    "thesis": "Titular centrado y vídeo de producto en un marco de ventana, como Linear, Decagon o Sierra.",
+    "palette": [
+      "#05070c",
+      "#f4f7fb",
+      "#22d3ee"
+    ],
+    "materials": [
+      "marco de app",
+      "brillo cian",
+      "botón ver demo"
+    ],
+    "viewport": "Titular centrado, dos botones y debajo la interfaz del producto en un marco de navegador.",
+    "risk": "Pulido y probado, pero indistinguible de la competencia.",
+    "comp": ".impeccable/mocks/decision/c-canon.png"
+  },
+  "steer": true,
+  "buildPath": {
+    "value": "code",
+    "toggle": false
+  },
+  "seedKey": "a8a8418d",
+  "resolved": {
+    "chosen": "canon",
+    "by": "Ricardo, chat 2026-10-13"
+  }
+}

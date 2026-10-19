@@ -1,0 +1,93 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import '../styles/flow-console.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import FloatingChatWidget from '../components/react/FloatingChatWidget';
+
+import { FAQ, EMAIL } from '../data/site';
+
+interface Props { title: string; description: string; faq?: boolean }
+const { title, description, faq = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://edraisolutions.es').href;
+const ogImage = new URL('/static/og-image.jpg', Astro.site ?? 'https://edraisolutions.es').href;
+
+// Structured data: the organization on every page, the FAQ where it is shown.
+const org = {
+  '@type': 'Organization',
+  name: 'Edrai Solutions',
+  url: 'https://edraisolutions.es',
+  email: EMAIL,
+  telephone: '+34654954602',
+  address: { '@type': 'PostalAddress', addressLocality: 'Madrid', addressCountry: 'ES' },
+  sameAs: ['https://www.instagram.com/edraisolutions/', 'https://www.linkedin.com/company/edrai-solutions'],
+  description: 'Agencia de IA en Madrid: agentes de IA para WhatsApp, web y teléfono, software a medida y automatización para pymes de servicios.',
+};
+const graph: object[] = [org];
+if (faq) graph.push({
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+
+// Page change: the old page lifts and fades, the new one rises in. Reduced motion
+// is handled by Astro (it skips the animation entirely).
+const page = {
+  forwards: {
+    old: { name: 'vtOut', duration: '0.32s', easing: 'cubic-bezier(0.4, 0, 1, 1)', fillMode: 'both' },
+    new: { name: 'vtIn', duration: '0.6s', easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fillMode: 'both' },
+  },
+  backwards: {
+    old: { name: 'vtOutBack', duration: '0.32s', easing: 'cubic-bezier(0.4, 0, 1, 1)', fillMode: 'both' },
+    new: { name: 'vtInBack', duration: '0.6s', easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fillMode: 'both' },
+  },
+};
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#05070b" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Edrai Solutions" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico?v=2" />
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg?v=2" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/static/favicon-48x48.png?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png?v=2" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline type="application/ld+json" set:html={jsonLd} />
+    <ClientRouter fallback="animate" />
+    <script is:inline>
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-motion');
+    </script>
+  </head>
+  <body>
+    <a class="sr-only" href="#contenido">Saltar al contenido</a>
+    <div style="display: contents" transition:persist="site-nav"><Nav /></div>
+    <main id="contenido" transition:animate={page}><slot /></main>
+    <Footer />
+    <FloatingChatWidget client:idle transition:persist="site-chat" />
+    <script>
+      import { initMotion } from '../scripts/motion';
+      import { initAnalytics } from '../lib/analytics';
+      // Cookieless analytics (see lib/analytics.ts): inert without PUBLIC_POSTHOG_KEY.
+      initAnalytics();
+      initMotion();
+    </script>
+  </body>
+</html>

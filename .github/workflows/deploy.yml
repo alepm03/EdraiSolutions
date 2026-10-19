@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "npm"
 
       - name: Install
@@ -33,13 +33,14 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_WORKER_URL: ${{ secrets.VITE_WORKER_URL }}
-          VITE_N8N_WEBHOOK_URL: ${{ secrets.VITE_N8N_WEBHOOK_URL }}
-          # Analitica PostHog. La project key es publica y de solo escritura;
-          # se guarda como secret solo para poder cambiarla sin tocar el codigo.
-          VITE_POSTHOG_KEY: ${{ secrets.VITE_POSTHOG_KEY }}
-          # Opcional: proxy /ph del Cloudflare Worker para esquivar bloqueadores.
-          VITE_POSTHOG_HOST: ${{ secrets.VITE_POSTHOG_HOST }}
+          # Astro exposes only PUBLIC_* variables to the browser. They are fed
+          # from the existing repository secrets, so no secret has to change.
+          PUBLIC_WORKER_URL: ${{ secrets.VITE_WORKER_URL }}
+          # PostHog analytics. The project key is public and write-only; it is
+          # kept as a secret only so it can change without touching the code.
+          PUBLIC_POSTHOG_KEY: ${{ secrets.VITE_POSTHOG_KEY }}
+          # Optional: the Cloudflare Worker /ph proxy to get past blockers.
+          PUBLIC_POSTHOG_HOST: ${{ secrets.VITE_POSTHOG_HOST }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

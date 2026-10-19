@@ -1,0 +1,157 @@
+---
+// Services as a bento: production's rich cards (icon tile, three features,
+// cursor glow) carrying the prototype's live vignettes. Each title shares a
+// transition:name with its service page hero, so it morphs on navigation.
+import { Bot, Code, Workflow, ScanSearch, Check, ArrowRight, CalendarDays, Users, Receipt, Star } from '@lucide/astro';
+import { pillar } from '../data/site';
+
+const agents = pillar('agentes-ia');
+const soft = pillar('software-a-medida');
+const auto = pillar('automatizacion');
+const consult = pillar('consultoria-ia');
+---
+<div class="bento">
+  <a class="card card-glow b-agents" href="/agentes-ia" data-reveal>
+    <div class="b-viz b-video" aria-hidden="true">
+      <video data-loop muted loop playsinline preload="none" poster="/video/edrai-bucle-poster.webp" width="1920" height="1080">
+        <source src="/video/edrai-bucle.webm" type="video/webm" />
+        <source src="/video/edrai-bucle.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="b-copy">
+      <span class="icon-tile" transition:name="pillar-icon-agentes-ia"><Bot /></span>
+      <h3 transition:name="pillar-title-agentes-ia">{agents.title}</h3>
+      <p>{agents.short} {agents.description}</p>
+      <ul class="checks">{agents.features.map((f) => <li><Check />{f}</li>)}</ul>
+      <span class="link-arrow">Ver agentes de IA <ArrowRight /></span>
+    </div>
+  </a>
+
+  <a class="card card-glow b-soft" href="/software-a-medida" data-reveal="1">
+    <div class="b-viz b-fin" aria-hidden="true">
+      <div class="fin-head"><b>Cuenta de resultados · octubre</b><span>Datos de ejemplo</span></div>
+      <dl class="fin-rows">
+        <div><dt>Ingresos</dt><dd class="tabular">48.250 €</dd></div>
+        <div><dt>Gastos</dt><dd class="tabular neg">−33.620 €</dd></div>
+        <div class="tot"><dt>Resultado</dt><dd class="tabular">14.630 €</dd></div>
+      </dl>
+      <svg class="fin-line" viewBox="0 0 300 70" preserveAspectRatio="none">
+        <path d="M0 52 C 30 48, 45 58, 70 44 S 110 34, 130 38 S 160 28, 180 30" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" />
+        <path d="M180 30 C 205 28, 220 18, 245 24 S 280 12, 300 10" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-dasharray="2 6" stroke-linecap="round" />
+        <line x1="180" y1="0" x2="180" y2="70" stroke="rgba(255,255,255,.25)" stroke-dasharray="3 4" />
+      </svg>
+      <div class="fin-foot"><span>Tesorería</span><span>Hoy · previsión 90 días</span></div>
+    </div>
+    <div class="b-copy">
+      <span class="icon-tile" transition:name="pillar-icon-software-a-medida"><Code /></span>
+      <h3 transition:name="pillar-title-software-a-medida">{soft.title}</h3>
+      <p>{soft.short}</p>
+      <ul class="checks">{soft.features.map((f) => <li><Check />{f}</li>)}</ul>
+      <span class="link-arrow">Ver software a medida <ArrowRight /></span>
+    </div>
+  </a>
+
+  <a class="card card-glow b-auto" href="/automatizacion" data-reveal="2">
+    <div class="b-viz b-flow" aria-hidden="true">
+      <div class="node"><span class="ic"><CalendarDays /></span><b>Nueva cita</b><span>Agenda</span></div>
+      <div class="node"><span class="ic"><Users /></span><b>Ficha actualizada</b><span>CRM</span></div>
+      <div class="node"><span class="ic"><Receipt /></span><b>Factura emitida</b><span>Facturación</span></div>
+      <div class="node"><span class="ic"><Star /></span><b>Reseña pedida</b><span>Google</span></div>
+    </div>
+    <div class="b-copy">
+      <span class="icon-tile" transition:name="pillar-icon-automatizacion"><Workflow /></span>
+      <h3 transition:name="pillar-title-automatizacion">{auto.title}</h3>
+      <p>{auto.short}</p>
+      <ul class="checks">{auto.features.map((f) => <li><Check />{f}</li>)}</ul>
+      <span class="link-arrow">Ver automatización <ArrowRight /></span>
+    </div>
+  </a>
+
+  <a class="card card-glow b-consult" href="/consultoria-ia" data-reveal>
+    <div class="b-copy">
+      <span class="icon-tile" transition:name="pillar-icon-consultoria-ia"><ScanSearch /></span>
+      <h3 transition:name="pillar-title-consultoria-ia">{consult.short}</h3>
+      <p>{consult.description}</p>
+      <span class="link-arrow">Ver consultoría de IA <ArrowRight /></span>
+    </div>
+    <div class="plan" aria-hidden="true">
+      <div class="plan-h"><span>Proceso</span><span>Impacto</span><span>Esfuerzo</span></div>
+      <div><span>Atención por WhatsApp</span><b>Alto</b><span>Bajo</span></div>
+      <div><span>Facturación manual</span><b>Alto</b><span>Medio</span></div>
+      <div><span>Informe semanal</span><span>Medio</span><span>Bajo</span></div>
+      <p class="plan-note">Ejemplo de plan priorizado</p>
+    </div>
+  </a>
+</div>
+
+<style>
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .b-agents { grid-column: span 6; display: grid; grid-template-columns: 1fr 1.25fr; }
+  .b-soft, .b-auto { grid-column: span 3; display: flex; flex-direction: column; }
+  .b-consult { grid-column: span 6; display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding: 32px; }
+
+  .b-copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 14px; padding: 28px; }
+  .b-agents .b-copy { padding: 40px; justify-content: center; }
+  .b-consult .b-copy { padding: 0; }
+  .b-copy h3 { font: 800 clamp(1.35rem, 1.1rem + 0.7vw, 1.75rem)/1.12 var(--font-display); font-stretch: 96%; letter-spacing: -0.03em; }
+  .b-copy p { color: var(--text-2); font-size: 15.5px; line-height: 1.6; max-width: 52ch; }
+  .b-copy .link-arrow { margin-top: auto; padding-top: 8px; color: var(--brand); }
+  .card:hover .link-arrow :global(svg) { transform: translateX(3px); }
+
+  .b-viz { position: relative; z-index: 1; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.02); }
+  .b-video { order: 2; border-bottom: 0; border-left: 1px solid var(--line); min-height: 340px; background: #050608 url('/video/edrai-bucle-poster.webp') center / cover no-repeat; }
+  .b-video video { width: 100%; height: 100%; object-fit: cover; }
+  
+
+  .b-fin { padding: 22px 24px; display: grid; gap: 12px; font-size: 13px; }
+  .fin-head, .fin-foot { display: flex; justify-content: space-between; gap: 12px; }
+  .fin-head b { font-weight: 600; }
+  .fin-head span, .fin-foot span { color: var(--muted); font-size: 12px; }
+  .fin-rows { margin: 0; display: grid; }
+  .fin-rows div { display: flex; justify-content: space-between; padding: 7px 0; border-top: 1px solid var(--line); }
+  .fin-rows div:first-child { border-top: 0; }
+  .fin-rows dt { color: var(--text-2); }
+  .fin-rows dd { margin: 0; font-weight: 600; }
+  .fin-rows .neg { color: var(--muted); }
+  .fin-rows .tot { border-top: 1px solid var(--line-strong); }
+  .fin-rows .tot dt { color: var(--text); font-weight: 600; }
+  .fin-rows .tot dd { color: var(--ok); font: 800 17px/1 var(--font-display); }
+  .fin-line { width: 100%; height: 64px; }
+
+  .b-flow { padding: 18px 24px; display: grid; font-size: 13.5px; }
+  .node { position: relative; display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 12px; padding: 8px 0; }
+  .node:not(:last-child)::after { content: ''; position: absolute; left: 14.5px; top: 38px; height: calc(100% - 22px); width: 1px; background: var(--line-strong); }
+  .node b { font-weight: 550; }
+  .node > span:last-child { font-size: 12px; color: var(--muted); }
+  .ic { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--surface-3); color: var(--text-2); }
+  .ic :global(svg) { width: 15px; height: 15px; }
+  .node:first-child .ic { color: var(--brand); background: var(--brand-tint); }
+
+  .plan { position: relative; z-index: 1; font-size: 14px; border: 1px solid var(--line); border-radius: 14px; padding: 6px 18px; background: rgba(255, 255, 255, 0.02); }
+  .plan > div { display: grid; grid-template-columns: 1.6fr 0.7fr 0.7fr; padding: 12px 0; border-top: 1px solid var(--line); color: var(--text-2); }
+  .plan > div:first-child { border-top: 0; }
+  .plan-h { color: var(--muted) !important; font-size: 12px; }
+  .plan b { font-weight: 600; color: var(--brand); }
+  .plan-note { padding: 10px 0 6px; border-top: 1px solid var(--line); font-size: 12px; color: var(--faint); }
+
+  .js-motion .card.is-in .node { animation: rise 0.6s var(--ease-out) both; }
+  .js-motion .card.is-in .node:nth-child(2) { animation-delay: 0.3s; }
+  .js-motion .card.is-in .node:nth-child(3) { animation-delay: 0.55s; }
+  .js-motion .card.is-in .node:nth-child(4) { animation-delay: 0.8s; }
+  .js-motion .card.is-in .fin-line path { stroke-dasharray: 400; animation: draw 1.6s var(--ease-out) both 0.3s; }
+  .js-motion .card.is-in .fin-line path + path { stroke-dasharray: 2 6; animation: fadeIn 0.8s ease both 1.4s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes draw { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+  @keyframes fadeIn { from { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .b-video video { display: none; } }
+
+  @media (max-width: 960px) {
+    .b-agents { grid-template-columns: 1fr; }
+    .b-video { order: 0; border-left: 0; border-bottom: 1px solid var(--line); min-height: 0; aspect-ratio: 16 / 9; }
+    .b-agents .b-copy { padding: 28px; }
+    .b-consult { grid-template-columns: 1fr; padding: 28px; }
+  }
+  @media (max-width: 720px) {
+    .b-soft, .b-auto { grid-column: span 6; }
+  }
+</style>

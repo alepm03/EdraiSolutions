@@ -1,0 +1,32 @@
+---
+// Sectors as an editorial list (two columns of hairline rows), not a grid of
+// identical cards.
+import { Stethoscope, Utensils, Dumbbell, Building } from '@lucide/astro';
+import { SECTORS } from '../data/site';
+const icons = { stethoscope: Stethoscope, utensils: Utensils, dumbbell: Dumbbell, building: Building };
+---
+<ul class="sectors">
+  {SECTORS.map((s, i) => {
+    const Icon = icons[s.icon];
+    return (
+      <li data-reveal={String(i % 2)}>
+        <span class="s-ic"><Icon /></span>
+        <h3>{s.title}</h3>
+        <p>{s.text}</p>
+      </li>
+    );
+  })}
+</ul>
+<p class="sectors-more">¿No ves tu sector? <a href="/contacto">Cuéntanoslo</a>: lo más probable es que ya hayamos resuelto algo parecido.</p>
+
+<style>
+  .sectors { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(32px, 5vw, 72px); border-bottom: 1px solid var(--line); }
+  .sectors li { display: grid; grid-template-columns: 40px 1fr; column-gap: 18px; row-gap: 6px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .s-ic { grid-row: span 2; width: 40px; height: 40px; display: grid; place-items: center; color: var(--brand); }
+  .s-ic :global(svg) { width: 26px; height: 26px; stroke-width: 1.6; }
+  .sectors h3 { font: 800 clamp(1.2rem, 1rem + 0.6vw, 1.5rem)/1.15 var(--font-display); letter-spacing: -0.025em; }
+  .sectors p { font-size: 15.5px; color: var(--text-2); line-height: 1.55; max-width: 46ch; }
+  .sectors-more { margin-top: 24px; color: var(--muted); font-size: 14.5px; }
+  .sectors-more a { color: var(--brand); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(34, 211, 238, 0.4); }
+  @media (max-width: 760px) { .sectors { grid-template-columns: 1fr; } }
+</style>

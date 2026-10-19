@@ -1,0 +1,152 @@
+---
+// Vertical 9:16 reel in a sticky phone frame beside three steps. The steps light
+// up from the reel's own timeline (measured on the E1 export) and seek it on
+// click; the phone stays put while the text scrolls past on desktop.
+import { MessageSquare, Repeat, Sparkles, Search, UserRound, Volume2, VolumeX } from '@lucide/astro';
+
+interface Step { from: number; icon: 'chat' | 'repeat' | 'spark' | 'search' | 'person'; title: string; text: string }
+interface Props {
+  title: string;
+  lede: string;
+  src: string; // base path without extension
+  steps: Step[];
+  rule?: string;
+}
+const { title, lede, src, steps, rule } = Astro.props;
+const icons = { chat: MessageSquare, repeat: Repeat, spark: Sparkles, search: Search, person: UserRound };
+---
+<div class="reel" data-reel>
+  <div class="reel-copy">
+    <h2 class="h2">{title}</h2>
+    <p class="lede">{lede}</p>
+    <ol class="reel-steps">
+      {steps.map((s, i) => {
+        const Icon = icons[s.icon];
+        return (
+          <li>
+            <button type="button" class="reel-step" data-reel-step={s.from} data-idx={i} aria-current={i === 0 ? 'true' : 'false'}>
+              <span class="icon-tile"><Icon /></span>
+              <span class="reel-step-copy"><b>{s.title}</b><span>{s.text}</span></span>
+              <span class="reel-step-bar" aria-hidden="true"><i></i></span>
+            </button>
+          </li>
+        );
+      })}
+    </ol>
+    {rule && <p class="reel-rule">{rule}</p>}
+  </div>
+
+  <div class="reel-phone-col">
+    <div class="reel-phone">
+      <video data-reel-video muted playsinline loop preload="none" poster={`${src}-poster.webp`} width="720" height="1280" aria-label={title}>
+        <source src={`${src}.webm`} type="video/webm" />
+        <source src={`${src}.mp4`} type="video/mp4" />
+      </video>
+      <button class="reel-mute" type="button" data-reel-mute aria-pressed="false">
+        <VolumeX class="i-off" /><Volume2 class="i-on" /><span>Sonido</span>
+      </button>
+    </div>
+    <p class="reel-note">Pieza de nuestro Instagram · @edraisolutions</p>
+  </div>
+</div>
+
+<style>
+  .reel { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .reel-copy { display: grid; gap: 18px; align-content: start; padding-top: 8px; }
+  .reel-steps { display: grid; gap: 10px; margin-top: 18px; }
+  .reel-step {
+    position: relative; width: 100%; text-align: left; display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;
+    padding: 18px 20px 22px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.015);
+    transition: border-color 0.3s, background 0.3s, opacity 0.3s; opacity: 0.62;
+  }
+  .reel-step:hover { opacity: 0.9; }
+  .reel-step[aria-current='true'] { opacity: 1; border-color: rgba(34, 211, 238, 0.35); background: rgba(34, 211, 238, 0.05); }
+  .reel-step-copy { display: grid; gap: 4px; }
+  .reel-step-copy b { font: 800 19px/1.2 var(--font-display); letter-spacing: -0.02em; }
+  .reel-step-copy span { color: var(--text-2); font-size: 15px; line-height: 1.5; }
+  .reel-step-bar { position: absolute; left: 20px; right: 20px; bottom: 9px; height: 2px; border-radius: 2px; background: transparent; overflow: hidden; }
+  .reel-step[aria-current='true'] .reel-step-bar { background: rgba(255, 255, 255, 0.08); }
+  .reel-step-bar i { display: block; width: 100%; height: 100%; background: var(--brand); transform-origin: left; transform: scaleX(0); }
+  .reel-rule { margin-top: 6px; color: var(--muted); font-size: 14.5px; max-width: 52ch; }
+
+  .reel-phone-col { position: sticky; top: 96px; display: grid; justify-items: center; gap: 12px; }
+  .reel-phone {
+    position: relative; width: min(340px, 100%); border-radius: 46px; padding: 10px;
+    background: linear-gradient(160deg, #1c2027, #0b0d11 55%); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 60px 120px -40px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .reel-phone video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 37px; background: #050608; }
+  .reel-mute {
+    position: absolute; right: 22px; bottom: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border-radius: 999px;
+    background: rgba(5, 7, 11, 0.7); border: 1px solid rgba(255, 255, 255, 0.14); font: 600 12.5px/1 var(--font-body); color: #fff;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  }
+  .reel-mute svg { width: 14px; height: 14px; }
+  .reel-mute .i-on, .reel-mute[aria-pressed='true'] .i-off { display: none; }
+  .reel-mute[aria-pressed='true'] .i-on { display: block; }
+  .reel-note { font-size: 12.5px; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .reel { grid-template-columns: 1fr; gap: 18px; }
+    .reel-copy { display: contents; }
+    .reel-copy > :global(h2) { order: 1; }
+    .reel-copy > .lede { order: 2; }
+    .reel-phone-col { position: relative; top: 0; order: 3; margin-top: 6px; }
+    .reel-steps { order: 4; margin-top: 4px; gap: 8px; }
+    .reel-rule { order: 5; }
+    .reel-phone { width: min(230px, 62vw); border-radius: 36px; padding: 8px; }
+    .reel-phone video { border-radius: 29px; }
+    .reel-note { display: none; }
+    .reel-step { padding: 14px 16px 18px; grid-template-columns: 36px 1fr; gap: 12px; }
+    .reel-step :global(.icon-tile) { width: 36px; height: 36px; }
+    .reel-step-copy b { font-size: 16.5px; }
+    .reel-step-copy span { font-size: 14px; }
+  }
+</style>
+
+<script>
+  import { onPage, motionAllowed } from '../scripts/motion';
+
+  onPage(() => {
+    const cleanups: Array<() => void> = [];
+    document.querySelectorAll<HTMLElement>('[data-reel]').forEach((root) => {
+      const video = root.querySelector<HTMLVideoElement>('[data-reel-video]')!;
+      const steps = [...root.querySelectorAll<HTMLButtonElement>('[data-reel-step]')];
+      const mute = root.querySelector<HTMLButtonElement>('[data-reel-mute]')!;
+      const starts = steps.map((s) => Number(s.dataset.reelStep));
+
+      const sync = () => {
+        const t = video.currentTime;
+        let idx = 0;
+        starts.forEach((s, i) => { if (t >= s) idx = i; });
+        steps.forEach((s, i) => {
+          s.setAttribute('aria-current', String(i === idx));
+          const end = starts[i + 1] ?? (video.duration || starts[i] + 1);
+          const p = i === idx ? Math.min(1, Math.max(0, (t - starts[i]) / (end - starts[i]))) : 0;
+          s.querySelector<HTMLElement>('.reel-step-bar i')!.style.transform = `scaleX(${p})`;
+        });
+      };
+      video.addEventListener('timeupdate', sync);
+      steps.forEach((s) => s.addEventListener('click', () => {
+        video.currentTime = Number(s.dataset.reelStep) + 0.05;
+        video.play().catch(() => {});
+        sync();
+      }));
+      mute.addEventListener('click', () => {
+        video.muted = !video.muted;
+        mute.setAttribute('aria-pressed', String(!video.muted));
+        if (!video.muted) video.play().catch(() => {});
+      });
+
+      if (motionAllowed() && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(([e]) => {
+          if (e.isIntersecting) video.play().catch(() => {});
+          else { video.pause(); if (!video.muted) { video.muted = true; mute.setAttribute('aria-pressed', 'false'); } }
+        }, { threshold: 0.4 });
+        io.observe(video);
+        cleanups.push(() => io.disconnect());
+      }
+      cleanups.push(() => video.pause());
+    });
+    return () => cleanups.forEach((c) => c());
+  });
+</script>

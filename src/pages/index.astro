@@ -1,0 +1,191 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroFlowConsole from '../components/react/HeroFlowConsole';
+import FilmScroll from '../components/FilmScroll.astro';
+import ServicesBento from '../components/ServicesBento.astro';
+import ReelSticky from '../components/ReelSticky.astro';
+import DemoTabs from '../components/DemoTabs.astro';
+import Cases from '../components/Cases.astro';
+import Sectors from '../components/Sectors.astro';
+import Process from '../components/Process.astro';
+import Team from '../components/Team.astro';
+import Faq from '../components/Faq.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { ArrowRight, MessageCircle } from '@lucide/astro';
+import { WA_URL, MONTHLY } from '../data/site';
+---
+<Base faq
+  title="Edrai Solutions · Agentes de IA, software y automatización para tu negocio"
+  description="Agentes de IA que atienden por WhatsApp, teléfono y web, software a medida y automatizaciones para pymes en España. Diagnóstico gratuito de 15 minutos."
+>
+  <!-- HERO: the claim on the left, production's Flow + Console on the right -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="display hero-h1 rise" style="--d:0">La IA que atiende, organiza y trabaja por tu&nbsp;negocio.</h1>
+        <p class="lede hero-lede rise" style="--d:1">Agentes que responden a tus clientes por WhatsApp, teléfono y web. Software a medida y automatizaciones que quitan el trabajo manual. En producción en 2&nbsp;a&nbsp;4&nbsp;semanas.</p>
+        <div class="hero-actions rise" style="--d:2">
+          <a class="btn btn-primary btn-lg" href="/contacto">Pedir diagnóstico gratuito <ArrowRight /></a>
+          <a class="btn btn-quiet btn-lg" href={WA_URL} target="_blank" rel="noopener"><MessageCircle /> WhatsApp</a>
+        </div>
+        <p class="hero-note rise" style="--d:3">Diagnóstico de 15 minutos · Presupuesto cerrado · Respuesta en menos de 24 h</p>
+      </div>
+      <div class="hero-demo rise" style="--d:2">
+        <HeroFlowConsole client:load />
+        <span class="tag-demo hero-tag">Demo ilustrativa</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF: one real, dated monthly figure + named clients -->
+  <section class="proof" aria-label="Clientes y métrica del último mes">
+    <div class="wrap proof-row">
+      <a class="proof-metric" href="#casos">
+        <span class="proof-month"><span class="dot" aria-hidden="true"></span>{MONTHLY.monthShort}</span>
+        <span>El agente del Mercado del Barranco atendió <b class="tabular">{MONTHLY.conversations} conversaciones</b>; el <b class="tabular brand">{MONTHLY.resolvedPct}&nbsp;%</b> sin pasar al equipo.</span>
+      </a>
+      <div class="proof-logos">
+        <span class="proof-label">En producción en</span>
+        <span class="proof-item"><img src="/static/cliente-barranco.webp" alt="" width="28" height="28" /> Mercado del Barranco</span>
+        <span class="proof-item"><img src="/static/cliente-ijump.webp" alt="" width="28" height="28" /> I Jump Skydive</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE FILM: inline, scroll-expand -->
+  <FilmScroll />
+
+  <!-- SERVICES -->
+  <section class="section" id="servicios">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2" data-reveal>Tres formas de poner la IA a trabajar en tu negocio.</h2>
+        <p class="lede" data-reveal="1">Lo construimos de punta a punta para tu negocio: el agente, el software y las conexiones entre tus herramientas. Con precio cerrado y soporte después.</p>
+      </div>
+      <ServicesBento />
+    </div>
+  </section>
+
+  <!-- VERTICAL REEL beside the three-way explanation -->
+  <section class="section section-tight">
+    <div class="wrap">
+      <ReelSticky
+        title="¿Chatbot, automatización o agente?"
+        lede="No son lo mismo y no cuestan lo mismo. Así sabes qué necesita tu negocio."
+        src="/video/reel-chatbot-automatizacion-agente"
+        steps={[
+          { from: 0, icon: 'chat', title: 'Chatbot: responde lo que te preguntan', text: 'Horarios, dirección, cómo pedir cita. Para las preguntas de siempre.' },
+          { from: 8.6, icon: 'repeat', title: 'Automatización: mismos pasos, cada vez', text: 'Avisos, recordatorios y datos que pasan solos de una herramienta a otra.' },
+          { from: 14.6, icon: 'spark', title: 'Agente: decide y actúa, con permisos', text: 'Mira tus reservas y tus normas, actúa y pasa a una persona lo que no le toca.' },
+        ]}
+        rule="La regla en una frase: si solo responde, chatbot; si repite pasos, automatización; si decide, agente."
+      />
+    </div>
+  </section>
+
+  <!-- DEMOS -->
+  <section class="section" id="demos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2" data-reveal>No te lo contamos. Pruébalo.</h2>
+        <p class="lede" data-reveal="1">El primero es el agente real del Mercado del Barranco, en producción. Pregúntale lo que preguntaría un turista.</p>
+      </div>
+      <DemoTabs />
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="section" id="casos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2" data-reveal>Negocios reales, con su nombre y sus números.</h2>
+        <p class="lede" data-reveal="1">Las cifras salen de la base de datos de cada agente y se actualizan cada mes.</p>
+      </div>
+      <Cases />
+    </div>
+  </section>
+
+  <!-- SECTORS -->
+  <section class="section section-tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2" data-reveal>Para negocios que viven de atender bien.</h2>
+        <p class="lede" data-reveal="1">Pymes de servicios de 5 a 50 personas. Estos son los sectores donde más lo notan.</p>
+      </div>
+      <Sectors />
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2" data-reveal>De la primera llamada a producción.</h2>
+        <p class="lede" data-reveal="1">Validas cada paso antes de lanzar nada. Si algo falla después, nos ocupamos nosotros.</p>
+      </div>
+      <Process />
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section section-tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2" data-reveal>Hablas con quien lo construye.</h2>
+        <p class="lede" data-reveal="1">Somos un equipo pequeño y técnico. Quien hace el diagnóstico es quien después diseña y programa tu solución.</p>
+      </div>
+      <Team />
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-tight">
+    <div class="wrap faq-wrap">
+      <h2 class="h2" data-reveal>Lo que nos preguntan antes de empezar.</h2>
+      <Faq />
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="diagnostico">
+    <div class="wrap"><ContactSection /></div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding-top: clamp(28px, 7vh, 96px); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+  .hero-copy { display: grid; gap: 24px; }
+  .hero-h1 { font-size: clamp(2.5rem, min(1rem + 4.6vw, 9vh), 5rem); max-width: 14ch; }
+  .hero-lede { max-width: 40ch; }
+  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  :global(.btn-lg) { height: 52px; padding: 0 24px; font-size: 16px; }
+  .hero-note { font-size: 13.5px; color: var(--muted); }
+  .hero-demo { position: relative; }
+  .hero-tag { position: absolute; right: 0; bottom: -34px; }
+
+  .proof { margin-top: clamp(56px, 9vh, 104px); }
+  .proof-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; padding: 18px 22px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.02); }
+  .proof-metric { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; color: var(--text-2); font-size: 15.5px; }
+  .proof-metric b { color: var(--text); font-weight: 750; }
+  .proof-metric b.brand { color: var(--brand); }
+  .proof-metric:hover > span:last-child { color: var(--text); }
+  .proof-month { display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--brand-line); background: var(--brand-tint); color: var(--brand); font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+  .proof-logos { display: flex; align-items: center; gap: 12px 22px; flex-wrap: wrap; font-size: 14.5px; font-weight: 600; color: var(--text-2); }
+  .proof-label { color: var(--faint); font-weight: 500; font-size: 13.5px; }
+  .proof-item { display: inline-flex; align-items: center; gap: 9px; }
+  .proof-item img { width: 28px; height: 28px; border-radius: 8px; }
+
+  .faq-wrap { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
+
+  @media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-h1 { max-width: 16ch; }
+    .faq-wrap { grid-template-columns: 1fr; gap: 24px; }
+  }
+  @media (max-width: 640px) {
+    .hero-actions :global(.btn) { flex: 1 1 auto; }
+    .proof-row { padding: 16px; }
+  }
+</style>

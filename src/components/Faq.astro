@@ -1,0 +1,23 @@
+---
+import { ChevronDown } from '@lucide/astro';
+import { FAQ } from '../data/site';
+---
+<div class="faq">
+  {FAQ.map((f) => (
+    <details class="card" data-reveal>
+      <summary>{f.q}<ChevronDown /></summary>
+      <p>{f.a}</p>
+    </details>
+  ))}
+</div>
+
+<style>
+  .faq { display: grid; gap: 10px; max-width: 860px; }
+  details { border-radius: 16px; }
+  summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; font: 700 17px/1.35 var(--font-body); transition: color 0.2s; }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { color: var(--brand); }
+  summary :global(svg) { width: 18px; height: 18px; flex: none; color: var(--muted); transition: transform 0.35s var(--ease-out); }
+  details[open] summary :global(svg) { transform: rotate(180deg); color: var(--brand); }
+  details p { padding: 0 24px 22px; color: var(--text-2); font-size: 15.5px; line-height: 1.6; max-width: 70ch; }
+</style>

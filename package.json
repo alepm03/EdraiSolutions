@@ -1,27 +1,32 @@
 {
-  "name": "edrai-solutions---ai-agency-landing-page",
-  "private": true,
-  "version": "0.0.0",
+  "name": "edraisolutions-web",
   "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@gsap/react": "^2.1.2",
+    "@astrojs/react": "^7.1.0",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@lucide/astro": "^1.56.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "astro": "^7.3.8",
     "gsap": "^3.15.0",
-    "lucide-react": "^0.563.0",
-    "posthog-js": "^1.428.7",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
-  },
-  "devDependencies": {
-    "@tailwindcss/vite": "^4.2.2",
-    "@types/node": "^22.14.0",
-    "@vitejs/plugin-react": "^5.0.0",
-    "tailwindcss": "^4.2.2",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "lenis": "^1.3.26",
+    "lucide-react": "^1.59.0",
+    "posthog-js": "^1.438.12",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3"
   }
 }

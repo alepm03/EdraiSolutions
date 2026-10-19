@@ -1,0 +1,28 @@
+---
+// Production's process cards (icon tile, connector) in the hybrid language.
+import { Search, PenTool, Rocket, LifeBuoy } from '@lucide/astro';
+import { PROCESS } from '../data/site';
+const icons = [Search, PenTool, Rocket, LifeBuoy];
+---
+<ol class="process">
+  {PROCESS.map((s, i) => {
+    const Icon = icons[i];
+    return (
+      <li class="card" data-reveal={String(i)}>
+        <span class={`icon-tile ${i === 0 ? 'solid' : ''}`}><Icon /></span>
+        <h3>{s.title}</h3>
+        <p>{s.text}</p>
+      </li>
+    );
+  })}
+</ol>
+
+<style>
+  .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; }
+  .process::before { content: ''; position: absolute; left: 6%; right: 6%; top: 50px; height: 1px; background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.35), transparent); }
+  .process li { display: grid; gap: 14px; align-content: start; padding: 28px 24px; }
+  .process h3 { font: 800 19px/1.2 var(--font-display); letter-spacing: -0.02em; }
+  .process p { font-size: 15px; color: var(--text-2); line-height: 1.55; }
+  @media (max-width: 960px) { .process { grid-template-columns: 1fr 1fr; } .process::before { display: none; } }
+  @media (max-width: 560px) { .process { grid-template-columns: 1fr; } }
+</style>
