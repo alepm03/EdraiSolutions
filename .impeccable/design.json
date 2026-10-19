@@ -1,0 +1,494 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-19T16:24:58+00:00",
+  "title": "Design System: Edrai Solutions",
+  "extensions": {
+    "colorMeta": {
+      "agent-cyan": {
+        "role": "primary",
+        "displayName": "Agent Cyan",
+        "canonical": "#22d3ee",
+        "tonalRamp": [
+          "#043239",
+          "#085b68",
+          "#0c8598",
+          "#0fafc7",
+          "#2ad5ef",
+          "#67e1f3",
+          "#a0ecf8",
+          "#d9f7fc"
+        ]
+      },
+      "cyan-deep": {
+        "role": "primary",
+        "displayName": "Deep Sky",
+        "canonical": "#0ea5e9",
+        "tonalRamp": [
+          "#03293a",
+          "#064b6a",
+          "#096d9a",
+          "#0c8fca",
+          "#27b3f2",
+          "#65c9f6",
+          "#9fddf9",
+          "#d9f1fd"
+        ]
+      },
+      "cyan-bright": {
+        "role": "primary",
+        "displayName": "Bright Cyan",
+        "canonical": "#67e8f9",
+        "tonalRamp": [
+          "#02343b",
+          "#04606c",
+          "#068b9d",
+          "#08b7ce",
+          "#22def6",
+          "#62e7f9",
+          "#9df0fb",
+          "#d8f9fd"
+        ]
+      },
+      "cyan-ink": {
+        "role": "primary",
+        "displayName": "Cyan Ink",
+        "canonical": "#03161c",
+        "tonalRamp": [
+          "#062b37",
+          "#0b5065",
+          "#107493",
+          "#1598c1",
+          "#30bce9",
+          "#6cd0ef",
+          "#a3e1f5",
+          "#daf3fb"
+        ]
+      },
+      "ink-ground": {
+        "role": "neutral",
+        "displayName": "Navy Ink Ground",
+        "canonical": "#05070b",
+        "tonalRamp": [
+          "#131b2a",
+          "#23314d",
+          "#334770",
+          "#435e93",
+          "#617eb7",
+          "#8fa3cc",
+          "#b9c6df",
+          "#e3e8f2"
+        ]
+      },
+      "surface-1": {
+        "role": "neutral",
+        "displayName": "Surface 1",
+        "canonical": "#0e0f12",
+        "tonalRamp": [
+          "#1b1d22",
+          "#31353f",
+          "#474c5c",
+          "#5e6478",
+          "#7e859b",
+          "#a3a8b8",
+          "#c6c9d2",
+          "#e8e9ed"
+        ]
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Surface 2",
+        "canonical": "#14161a",
+        "tonalRamp": [
+          "#1b1d23",
+          "#31363f",
+          "#474e5c",
+          "#5d6679",
+          "#7d879b",
+          "#a3aab8",
+          "#c5cad3",
+          "#e8eaed"
+        ]
+      },
+      "surface-3": {
+        "role": "neutral",
+        "displayName": "Surface 3",
+        "canonical": "#1b1e23",
+        "tonalRamp": [
+          "#1b1e23",
+          "#31363f",
+          "#474f5c",
+          "#5d6879",
+          "#7d899b",
+          "#a3abb8",
+          "#c5cad3",
+          "#e8eaed"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Text",
+        "canonical": "#f5f6f7",
+        "tonalRamp": [
+          "#1b1f22",
+          "#32383e",
+          "#49525b",
+          "#5f6b77",
+          "#808c99",
+          "#a4adb6",
+          "#c6ccd2",
+          "#e8ebed"
+        ]
+      },
+      "text-2": {
+        "role": "neutral",
+        "displayName": "Text 2",
+        "canonical": "#b4b9c1",
+        "tonalRamp": [
+          "#1c1e22",
+          "#33373d",
+          "#4a5059",
+          "#616975",
+          "#818a97",
+          "#a6acb5",
+          "#c7cbd1",
+          "#e9eaed"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#8b9099",
+        "tonalRamp": [
+          "#1d1e21",
+          "#34373c",
+          "#4c5057",
+          "#646972",
+          "#858a94",
+          "#a8acb3",
+          "#c9cbcf",
+          "#e9eaec"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Faint",
+        "canonical": "#7d838c",
+        "tonalRamp": [
+          "#1d1e20",
+          "#35373c",
+          "#4d5157",
+          "#656a72",
+          "#858b93",
+          "#a8acb2",
+          "#c9cbcf",
+          "#e9eaec"
+        ]
+      },
+      "live-green": {
+        "role": "tertiary",
+        "displayName": "Live Green",
+        "canonical": "#4ade80",
+        "tonalRamp": [
+          "#093419",
+          "#115f2e",
+          "#198a42",
+          "#21b557",
+          "#3ddc77",
+          "#75e69e",
+          "#a9efc2",
+          "#dcf9e7"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgba(255, 255, 255, 0.07)"
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "rgba(255, 255, 255, 0.12)"
+      },
+      "glass-line": {
+        "role": "neutral",
+        "displayName": "Glass Line",
+        "canonical": "rgba(255, 255, 255, 0.09)"
+      },
+      "cyan-tint": {
+        "role": "primary",
+        "displayName": "Cyan Tint",
+        "canonical": "rgba(34, 211, 238, 0.1)"
+      },
+      "cyan-line": {
+        "role": "primary",
+        "displayName": "Cyan Line",
+        "canonical": "rgba(34, 211, 238, 0.35)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home H1 only; Archivo 850 at 96% width, sentence case, max 14ch."
+      },
+      "display-page": {
+        "displayName": "Display page",
+        "purpose": "Inner page and service hero titles; service titles reach 5.6rem."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section heads, paired with a right-aligned lede."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card and step titles."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "One paragraph under a heading, Text 2, 46 to 58ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running copy with Inter cv11 and ss01."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons and arrow links."
+      }
+    },
+    "shadows": [
+      {
+        "name": "glass-edge",
+        "value": "inset 0 1px 0 rgba(255, 255, 255, 0.07)",
+        "purpose": "Top highlight on every glass surface."
+      },
+      {
+        "name": "card-lift",
+        "value": "inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 24px 48px -32px rgba(0, 0, 0, 0.8)",
+        "purpose": "Cards at rest."
+      },
+      {
+        "name": "stage-drop",
+        "value": "0 50px 120px -40px rgba(0, 0, 0, 0.9)",
+        "purpose": "Film frame, service clip frame, phone."
+      },
+      {
+        "name": "cursor-glow",
+        "value": "radial-gradient(220px circle at var(--glow-x) var(--glow-y), rgba(34, 211, 238, 0.12), transparent 60%)",
+        "purpose": "Card overlay following the pointer on hover-capable devices; fades in over 0.4s."
+      },
+      {
+        "name": "glass-blur",
+        "value": "blur(18px) saturate(1.35)",
+        "purpose": "Backdrop filter for glass panels; the nav uses saturate(1.4) blur(14px)."
+      },
+      {
+        "name": "body-light-fields",
+        "value": "radial-gradient(900px 600px at 82% -4%, rgba(34,211,238,0.13), transparent 62%), radial-gradient(800px 700px at -8% 34%, rgba(14,165,233,0.08), transparent 60%), radial-gradient(900px 700px at 105% 62%, rgba(34,211,238,0.07), transparent 62%), radial-gradient(1000px 600px at 30% 96%, rgba(14,165,233,0.08), transparent 60%)",
+        "purpose": "The only atmosphere in the world, painted once on the body."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Expo-out curve for reveals, entrances, button press, link arrows and incoming page transitions."
+      },
+      {
+        "name": "ease-in-exit",
+        "value": "cubic-bezier(0.4, 0, 1, 1)",
+        "purpose": "Outgoing page content."
+      },
+      {
+        "name": "reveal",
+        "value": "opacity 0 to 1, translateY(14px) to 0, 0.7s ease-out, once, 80ms stagger per data-reveal step, rootMargin -8%",
+        "purpose": "Scroll reveals; content visible by default without JS or with reduced motion."
+      },
+      {
+        "name": "rise",
+        "value": "opacity 0, translateY(18px), blur(6px) to rest, 0.9s ease-out, delay 60ms + 110ms per step",
+        "purpose": "First-viewport entrance in pure CSS, never waits on JS."
+      },
+      {
+        "name": "vt-out",
+        "value": "0.32s ease-in-exit: opacity 0, translateY(-14px), blur(4px)",
+        "purpose": "Leaving page; vtOutBack mirrors to +14px on back navigation."
+      },
+      {
+        "name": "vt-in",
+        "value": "0.6s ease-out: from opacity 0, translateY(22px), blur(6px)",
+        "purpose": "Arriving page; vtInBack mirrors from -22px. Shared elements pillar-title-<slug> and pillar-icon-<slug> morph over 0.55s."
+      },
+      {
+        "name": "film-expand",
+        "value": "ScrollTrigger pin, scrub 0.6, scale 0.72 to 1, radius 28 to 14px, min-width 900px",
+        "purpose": "Signature scroll-expand film."
+      },
+      {
+        "name": "reel-sync",
+        "value": "active step follows video timeupdate; step click seeks",
+        "purpose": "Sticky phone reel."
+      },
+      {
+        "name": "smooth-scroll",
+        "value": "Lenis duration 1.1, anchors offset -80px",
+        "purpose": "Site-wide scroll feeding ScrollTrigger; off under reduced motion."
+      },
+      {
+        "name": "press",
+        "value": "scale(0.98), 0.2s ease-out",
+        "purpose": "Button active state."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "nav-cta-hide",
+        "value": "520px"
+      },
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "head-stack",
+        "value": "860px"
+      },
+      {
+        "name": "film-pin",
+        "value": "900px"
+      },
+      {
+        "name": "nav-burger",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The diagnosis action. Cyan pill with Cyan Ink label; brightens on hover.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Pedir diagnóstico gratuito <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ":root{--bg:#05070b;--surface-2:#14161a;--line-strong:rgba(255,255,255,0.12);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-primary{background:var(--brand);color:var(--brand-ink);} .ds-btn-primary:hover{background:#67e8f9;}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Secondary action: outlined pill on the dark ground.",
+      "html": "<button class=\"ds-btn ds-btn-quiet\">Escríbenos por WhatsApp</button>",
+      "css": ":root{--bg:#05070b;--surface-2:#14161a;--line-strong:rgba(255,255,255,0.12);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-quiet{background:transparent;color:var(--text);border:1px solid var(--line-strong);} .ds-btn-quiet:hover{background:var(--surface-2);border-color:rgba(255,255,255,0.2);}"
+    },
+    {
+      "name": "Light Button",
+      "kind": "button",
+      "refersTo": "button-light",
+      "description": "Second action over a dark media panel.",
+      "html": "<button class=\"ds-btn ds-btn-light\">Ver el caso</button>",
+      "css": ":root{--bg:#05070b;--surface-2:#14161a;--line-strong:rgba(255,255,255,0.12);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-light{background:var(--text);color:var(--bg);} .ds-btn-light:hover{background:#fff;}"
+    },
+    {
+      "name": "Pillar Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Glass card with icon tile, Archivo title, check list and arrow link; cursor glow and cyan border on hover.",
+      "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-tile\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 8V4H8\"/><rect width=\"16\" height=\"12\" x=\"4\" y=\"8\" rx=\"2\"/><path d=\"M2 14h2\"/><path d=\"M20 14h2\"/><path d=\"M15 13v2\"/><path d=\"M9 13v2\"/></svg></span><h3 class=\"ds-card-h\">Agentes de IA</h3><ul class=\"ds-checks\"><li><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg>Atiende WhatsApp, web y teléfono</li><li><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg>Reserva y recuerda citas</li></ul><span class=\"ds-link\">Ver agentes de IA <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a>",
+      "css": ":root{--bg:#05070b;--surface-2:#14161a;--line-strong:rgba(255,255,255,0.12);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-card{position:relative;display:grid;gap:14px;max-width:360px;padding:28px;border-radius:20px;overflow:hidden;color:var(--text);text-decoration:none;font-family:var(--font-body);background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.018)),#05070b;border:1px solid var(--glass-line);box-shadow:var(--glass-edge),0 24px 48px -32px rgba(0,0,0,0.8);transition:border-color .35s,background .35s;} .ds-card::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(220px circle at 30% 0%,rgba(34,211,238,0.12),transparent 60%);opacity:0;transition:opacity .4s ease;pointer-events:none;} .ds-card:hover{border-color:rgba(34,211,238,0.32);} .ds-card:hover::after{opacity:1;} .ds-card:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-tile{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.28);color:#67e8f9;} .ds-card-h{margin:0;font:800 22px/1.15 var(--font-display);letter-spacing:-0.02em;} .ds-checks{list-style:none;margin:0;padding:0;display:grid;gap:10px;} .ds-checks li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45;color:var(--text-2);} .ds-checks svg{flex:none;margin-top:2px;color:var(--brand);} .ds-link{display:inline-flex;align-items:center;gap:6px;font-weight:550;font-size:15px;} .ds-link svg{width:15px;height:15px;transition:transform .25s var(--ease-out);} .ds-card:hover .ds-link svg{transform:translateX(3px);}"
+    },
+    {
+      "name": "Icon Tile",
+      "kind": "custom",
+      "refersTo": "icon-tile",
+      "description": "44px tile carrying a pillar glyph; outlined cyan tint by default, solid cyan for emphasis.",
+      "html": "<span class=\"ds-tile\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 8V4H8\"/><rect width=\"16\" height=\"12\" x=\"4\" y=\"8\" rx=\"2\"/><path d=\"M2 14h2\"/><path d=\"M20 14h2\"/><path d=\"M15 13v2\"/><path d=\"M9 13v2\"/></svg></span> <span class=\"ds-tile ds-tile-solid\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 8V4H8\"/><rect width=\"16\" height=\"12\" x=\"4\" y=\"8\" rx=\"2\"/><path d=\"M2 14h2\"/><path d=\"M20 14h2\"/><path d=\"M15 13v2\"/><path d=\"M9 13v2\"/></svg></span>",
+      "css": ".ds-tile{display:inline-grid;width:44px;height:44px;border-radius:12px;place-items:center;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.28);color:#67e8f9;margin-right:8px;} .ds-tile-solid{background:#22d3ee;border-color:#22d3ee;color:#03161c;}"
+    },
+    {
+      "name": "Demo Tag",
+      "kind": "chip",
+      "refersTo": "tag-demo",
+      "description": "Dashed pill that labels illustrative footage or example data.",
+      "html": "<span class=\"ds-tag\">Datos de ejemplo</span>",
+      "css": ".ds-tag{display:inline-flex;align-items:center;gap:6px;font:400 12px/1.4 'Inter Variable','Inter',system-ui,sans-serif;color:#8b9099;padding:4px 9px;border-radius:999px;border:1px dashed rgba(255,255,255,0.12);}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Contact form field: faint white fill, hairline border, cyan border on focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"Tu nombre o el de tu negocio\">",
+      "css": ".ds-input{width:100%;max-width:360px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);padding:14px 16px;font:400 15px/1.4 'Inter Variable','Inter',system-ui,sans-serif;color:#fff;caret-color:#22d3ee;transition:border-color .15s,background-color .15s;} .ds-input::placeholder{color:#64748b;} .ds-input:focus{outline:none;border-color:#22d3ee;background:rgba(255,255,255,0.07);}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sticky glass bar; Text 2 links in 8px hit areas, current page on Surface 2 with an inset cyan underline.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Agentes de IA</a><a href=\"#\" aria-current=\"page\">Software a medida</a><a href=\"#\">Casos</a><button class=\"ds-nav-cta\">Diagnóstico gratuito</button></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:4px;height:68px;padding:0 16px;background:rgba(5,7,11,0.72);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(255,255,255,0.07);font-family:'Inter Variable','Inter',system-ui,sans-serif;} .ds-nav a{display:block;padding:8px 12px;border-radius:8px;font-size:14px;color:#b4b9c1;text-decoration:none;transition:color .2s,background .2s;} .ds-nav a:hover{color:#f5f6f7;background:#14161a;} .ds-nav a[aria-current='page']{color:#f5f6f7;background:#14161a;box-shadow:inset 0 -2px 0 #22d3ee;} .ds-nav a:focus-visible,.ds-nav-cta:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-nav-cta{margin-left:auto;height:38px;padding:0 16px;border:0;border-radius:999px;background:#22d3ee;color:#03161c;font-weight:550;font-size:14px;cursor:pointer;} .ds-nav-cta:hover{background:#67e8f9;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lit Control Room",
+    "overview": "A near-black stage with a navy cast where the product works in plain sight. The page is dark and quiet so that the things that are alive (the agent console, the film, the reel, the live chat) carry the light. Cyan is the colour of the agent itself: it marks the one action to take, the live state and the thin lines that connect things, and nothing else. The craft bar is the category standard at full finish (linear.app, sierra.ai, decagon.ai): restrained, product-led, legible.\n\nSurfaces are glass cards floating over four very soft cyan and sky radial light fields painted on the body. Depth comes from translucency, a hairline top edge and long, low, black ambient shadows, never from colour fills. Motion is part of the world: content rises once as it enters, the film pins and grows as you scroll, the reel follows the video, and navigating between the home and a service page morphs the pillar title and icon in place.\n\nThis world is a user-pinned hybrid: the production site's rich components inside the multi-page prototype's restraint. It explicitly refuses production's noise (particles, aurora, canvas beams, marquee, uppercase black headings).",
+    "keyCharacteristics": [
+      "Near-black navy ground with three greyscale surfaces and hairline white borders.",
+      "One accent, cyan, used as a signal and never as a field.",
+      "Archivo heavy, slightly condensed, sentence case, tight negative tracking; Inter for everything you read.",
+      "Glass cards (20px radius) with a cursor-following cyan glow on hover.",
+      "Motion that explains: expo-out reveals once, scroll-pinned film, video-synced reel, shared-element page transitions.",
+      "Illustrative data is always labelled; real figures come from one monthly source."
+    ],
+    "rules": [
+      {
+        "name": "The Signal, Not Field Rule",
+        "body": "Cyan is an accent: primary action, icon tiles, live state, progress and connecting lines. It is never a full-bleed or section background (owner decision, 19 Oct 2026). The largest permitted cyan area is a button or the film's \"Ver con sonido\" control.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Cyan Action Rule",
+        "body": "A cyan-filled button always means one thing: request the free diagnosis (the nav CTA and the hero CTA are the same action). Every other action uses the quiet (outlined) or light button.",
+        "section": "colors"
+      },
+      {
+        "name": "The Light Fields Rule",
+        "body": "Atmosphere comes only from the four fixed radial gradients on the body (cyan and sky at 7 to 13% opacity). Do not add per-section glows, auroras or particle layers.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sentence Case Rule",
+        "body": "Headings are sentence case in Archivo 800 to 850 with negative tracking. No uppercase headings, no tracked-out labels above headings. The only uppercase, tracked text in the system is the \"SOLUTIONS\" line of the logo lockup, which is a brand asset.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Any figure that can change (monthly numbers, money in demos) uses tabular numerals.",
+        "section": "typography"
+      },
+      {
+        "name": "The Lift By Light Rule",
+        "body": "A card responds to the pointer with light, not movement: its border warms to cyan at 32% and the cursor glow fades in. Cards do not jump or scale on hover.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the ground at Navy Ink with only the four body light fields for atmosphere.",
+      "Do use Agent Cyan for the diagnosis action, icon tiles, live state, progress and lines, and Cyan Ink for anything sitting on it.",
+      "Do set headings in Archivo 800 to 850, sentence case, negative tracking, balanced wrap.",
+      "Do build containers as glass cards: 20px radius, hairline glass border, inset top highlight, long soft black drop, cursor glow on hover.",
+      "Do use the expo-out curve (cubic-bezier(0.16, 1, 0.3, 1)) for reveals, entrances and transitions; reveal content once, staggered by 80ms, and enter the first viewport with the CSS rise (110ms stagger) so it never waits on JavaScript.",
+      "Do keep everything visible without JavaScript and with reduced motion: reveals, rise, film pin and reel sync switch off, and muted loops keep their poster.",
+      "Do label every illustrative video or example figure with the dashed demo tag, and pull real results from the single monthly figures source, naming the month.",
+      "Do write copy without the em dash character."
+    ],
+    "donts": [
+      "Don't use cyan as a full-bleed, section or hero background.",
+      "Don't set headings in uppercase or Archivo black, and don't put tracked uppercase labels above headings.",
+      "Don't add particles, aurora layers, canvas beams, marquees or per-section glows.",
+      "Don't move or scale cards on hover; respond with border colour and the cursor glow.",
+      "Don't put video behind a modal; it plays inline.",
+      "Don't use hard, offset or coloured drop shadows on surfaces.",
+      "Don't show an unlabelled demo number or a business figure without a source."
+    ]
+  }
+}

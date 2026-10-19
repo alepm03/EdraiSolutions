@@ -1,0 +1,286 @@
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  X,
+  Send,
+  User,
+  Minus,
+  Sparkles
+} from 'lucide-react';
+import type { ChatMessage } from './types';
+import { WORKER_URL } from "../../lib/env";
+import { track, identifyLead, getDistinctId, EV } from '../../lib/analytics';
+import { LogoMark } from './Logo';
+
+const FloatingChatWidget: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: 'model', text: '¡Hola! Soy el asistente virtual de Edrai Solutions. ¿Cómo puedo ayudarte hoy con la automatización de tu negocio?' }
+  ]);
+  const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
+
+  const handleSend = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!input.trim() || isTyping) return;
+
+    const userMessage = input.trim();
+    setInput('');
+    setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
+    setIsTyping(true);
+    track(EV.demoMensaje, {
+      demo: 'widget',
+      turno: messages.filter(m => m.role === 'user').length + 1,
+    });
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [...messages, { role: 'user', text: userMessage }],
+          systemInstruction: `Eres el asistente virtual de Edrai Solutions en edraisolutions.es, agencia española de automatización e inteligencia artificial para negocios. Tu misión: que cualquier visitante entienda en 2-3 mensajes qué hacemos, si encaja con su negocio, y salga con ganas de hablar con nosotros.
+
+COMPORTAMIENTO:
+- Conversa de forma natural y fluida, como lo haría un consultor humano senior, no un script.
+- Antes de listar servicios, pregunta a qué se dedica el usuario o qué proceso le quita tiempo. Adapta la respuesta a eso, no recites el catálogo entero.
+- Respuestas cortas (máximo 3-4 líneas). Nunca listas largas en los primeros mensajes. Una idea concreta por respuesta, no un volcado de información.
+- Tono: cálido, profesional, seguro, cercano. Tuteo (igual que toda la web). Nunca agresivo ni repetitivo. Nunca uses la raya (la raya larga, U+2014) en tus respuestas: usa comas o puntos.
+- Si no sabes algo con certeza (precio exacto, plazo exacto de un caso concreto, disponibilidad), no lo inventes: ofrece la respuesta más cercana de la lista de abajo y propone la llamada de diagnóstico para concretarlo.
+
+QUÉ HACE EDRAI SOLUTIONS: tres pilares y una puerta de entrada:
+1. Agentes de IA: atienden a los clientes por WhatsApp, chat web y teléfono (voz) a cualquier hora, con la información real del negocio (precios, servicios, horarios). Reservan en la agenda, envían recordatorios y pasan a una persona lo que lo necesita, con el resumen y los datos de contacto.
+2. Software a medida: herramientas propias para lo que ningún programa genérico resuelve, desde una app que digitaliza gastos con IA hasta la plataforma que reúne reservas, cobros, finanzas y clientes, con la cuenta de resultados y la tesorería (y su previsión a 90 días) al día.
+3. Automatización e integraciones: conectamos agenda, CRM, facturación, email y hojas de cálculo para que los datos pasen solos. Ejemplos: leads del formulario directos al CRM con propuesta de llamada, invitación a reseña de Google tras cada visita con aviso de reseñas negativas, informes semanales automáticos.
+4. Consultoría y auditoría de IA (puerta de entrada): diagnóstico gratuito de 15 minutos, revisión de procesos y herramientas, plan priorizado con coste estimado y formación del equipo.
+
+SECTORES en los que estamos especializados: clínicas y centros de salud, hostelería y restauración, gimnasios y centros deportivos, inmobiliarias. Si el usuario es de otro sector, no lo descartes: dile que probablemente ya tengamos una solución aplicable y que lo mejor es hablarlo en la llamada de diagnóstico.
+
+CÓMO TRABAJAMOS (proceso en 4 pasos):
+1. Diagnóstico gratuito: llamada de 15 minutos en la que conocemos el negocio y lo analizamos gratis.
+2. Propuesta a medida: plan con coste cerrado, plazos claros y resultados esperados, sin letra pequeña.
+3. Implementación: 2-4 semanas normalmente; un chatbot básico puede estar listo en 1 semana. El cliente valida en cada paso antes de lanzar nada.
+4. Soporte continuo: monitorizamos, resolvemos incidencias y optimizamos. La automatización mejora con el tiempo.
+
+PREGUNTAS FRECUENTES (usa estas respuestas, no inventes otras):
+- ¿Necesito conocimientos técnicos? No. Edrai se encarga de toda la parte técnica; el cliente recibe un sistema funcionando y formación para su equipo.
+- ¿Cuánto tarda? Entre 2 y 4 semanas desde que se aprueba el plan; un chatbot básico puede estar en 1 semana.
+- ¿Cuánto cuesta? Depende del servicio y la complejidad. No des cifras: el diagnóstico inicial es gratuito y ahí se da un presupuesto cerrado sin sorpresas.
+- ¿Y si no convence el resultado? Se valida en cada fase antes de lanzar, y hay un período de ajuste post-lanzamiento incluido.
+- ¿Y si ya tengo web o CRM? Edrai se integra con las herramientas que el negocio ya usa, no hace falta migrar nada.
+- ¿Los datos están seguros? Se cumple el RGPD, con datos procesados en servidores europeos.
+
+REGLAS DE MARCA (no romper nunca):
+- No menciones nombres reales de clientes de Edrai, aunque el usuario pregunte por referencias concretas. Si pide ejemplos, descríbelos por sector, en genérico ("un centro de actividades con reservas y finanzas en una sola app", "un restaurante con reservas por WhatsApp"), nunca por nombre de empresa.
+- No prometas fechas ni precios exactos fuera de los rangos de este documento.
+- Edrai opera principalmente en España.
+
+CUÁNDO PEDIR DATOS DE CONTACTO:
+- Solo cuando el usuario muestre interés claro en avanzar (pregunta por precios, disponibilidad, cómo empezar).
+- Pide nombre, teléfono y email de forma natural, integrado en la conversación.
+- NUNCA en los primeros 1-2 mensajes ni de forma repetida si el usuario ya los dio.
+- Si el usuario pide información, dásela primero; pide datos solo cuando sea el momento natural.
+
+MARCADOR DE LEAD (SOLO PARA EL SISTEMA: NO LO MENCIONES AL USUARIO):
+Cuando ya tengas nombre + teléfono + email del usuario Y contexto de su problema, añade EXACTAMENTE esto al final de tu respuesta (sin explicación):
+[LEAD:{"name":"NOMBRE","phone":"TELEFONO","email":"EMAIL","context":"BREVE_RESUMEN_DEL_PROBLEMA"}]
+Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
+          temperature: 0.7,
+        }),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({}));
+        console.error('[FloatingChat] Worker error:', res.status, errBody);
+        throw new Error(`Worker responded with ${res.status}`);
+      }
+
+      const data = await res.json();
+      const aiText = data.text || 'Entendido. ¿En qué más puedo ayudarte?';
+
+      // Detect lead marker embedded by Gemini when it has collected all contact data
+      const leadMatch = aiText.match(/\[LEAD:(\{.*?\})\]/s);
+      if (leadMatch) {
+        try {
+          const leadData = JSON.parse(leadMatch[1]);
+          // Fire-and-forget: send lead to Worker /contact endpoint
+          fetch(`${WORKER_URL}/contact`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...leadData, source: 'chatbot', analytics_id: getDistinctId() }),
+          }).catch(err => console.error('[FloatingChat] Lead send error:', err));
+          if (leadData.email) identifyLead(leadData.email, { origen_lead: 'chatbot' });
+          track(EV.widgetLead, { turno: messages.filter(m => m.role === 'user').length + 1 });
+        } catch (parseErr) {
+          console.error('[FloatingChat] Lead parse error:', parseErr);
+        }
+        // Strip the marker from the text shown to the user
+        const cleanText = aiText.replace(/\[LEAD:\{.*?\}\]/s, '').trim();
+        setMessages(prev => [...prev, { role: 'model', text: cleanText }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'model', text: aiText }]);
+      }
+    } catch (error) {
+      console.error('Chat Widget Error:', error);
+      track(EV.demoError, {
+        demo: 'widget',
+        motivo: error instanceof Error ? error.message : 'desconocido',
+      });
+      setMessages(prev => [...prev, { role: 'model', text: 'Lo siento, mi conexión es algo inestable ahora mismo. ¿En qué más puedo ayudarte?' }]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end font-sans">
+      {/* Chat Window */}
+      {isOpen && (
+        <div className="mb-6 w-[380px] sm:w-[420px] h-[600px] bg-gray-950/80 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-white/10 animate-in slide-in-from-bottom-8 fade-in duration-500">
+          
+          {/* Header */}
+          <div className="relative bg-white/[0.04] px-6 py-5 flex items-center justify-between border-b border-white/10">
+            <div className="absolute inset-0 bg-white/5 opacity-20 pointer-events-none"></div>
+            <div className="flex items-center space-x-4 relative z-10">
+              <div className="relative">
+                {/* Símbolo Edrai sobre caja navy sólida: la guía prohíbe colocarlo
+                    directamente sobre cian ("navy + navy 45%" es la única variante
+                    válida ahí, no implementada; más simple y ya usado en toda la
+                    web: caja navy + variante inverse). */}
+                <div className="w-10 h-10 bg-[#0D1B2A] rounded-xl flex items-center justify-center p-2 shadow-lg shadow-cyan-500/20">
+                  <LogoMark variant="inverse" className="w-full h-full" />
+                </div>
+                <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-gray-900 rounded-full animate-pulse"></div>
+              </div>
+              <div>
+                <h4 className="font-bold text-white tracking-tight flex items-center gap-1">
+                  Edrai <span className="text-cyan-400">Assistant</span>
+                </h4>
+                <div className="flex items-center space-x-1.5">
+                  <span className="text-[10px] text-cyan-400/80 font-bold flex items-center gap-1">
+                    <Sparkles className="w-2.5 h-2.5" /> IA Activa
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-1 relative z-10">
+              <button onClick={() => setIsOpen(false)} className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">
+                <Minus className="w-5 h-5" />
+              </button>
+              <button onClick={() => setIsOpen(false)} className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-all">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Messages Container */}
+          <div 
+            ref={scrollRef}
+            className="flex-1 overflow-y-auto p-6 space-y-5 bg-gradient-to-b from-transparent to-black/20 scrollbar-thin scrollbar-thumb-white/10"
+          >
+            {messages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
+                <div className={`flex max-w-[85%] space-x-3 ${msg.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
+                  {msg.role === 'model' && (
+                    <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-1">
+                      <LogoMark variant="inverse" className="w-5 h-5" />
+                    </div>
+                  )}
+                  <div className={`relative px-4 py-3 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
+                    msg.role === 'user' 
+                      ? 'bg-cyan-400/15 border border-cyan-400/35 text-cyan-50 rounded-tr-none' 
+                      : 'bg-white/5 text-gray-100 border border-white/10 rounded-tl-none backdrop-blur-md'
+                  }`}>
+                    {msg.text.split('**').map((part, index) => 
+                      index % 2 === 1 ? <strong key={index} className="text-cyan-400 font-bold">{part}</strong> : part
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {isTyping && (
+              <div className="flex justify-start animate-pulse">
+                <div className="flex space-x-3">
+                  <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                    <LogoMark variant="inverse" className="w-5 h-5" />
+                  </div>
+                  <div className="px-4 py-3 bg-white/5 border border-white/10 rounded-2xl rounded-tl-none flex items-center space-x-1.5">
+                    <div className="w-1.5 h-1.5 bg-cyan-400/60 rounded-full animate-pulse"></div>
+                    <div className="w-1.5 h-1.5 bg-cyan-400/60 rounded-full animate-pulse [animation-delay:0.2s]"></div>
+                    <div className="w-1.5 h-1.5 bg-cyan-400/60 rounded-full animate-pulse [animation-delay:0.4s]"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Input Area */}
+          <div className="p-5 bg-black/40 border-t border-white/10 backdrop-blur-xl">
+            <form onSubmit={handleSend} className="relative flex items-center gap-2 group">
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Describe tu proyecto o consulta..."
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+                />
+              </div>
+              <button 
+                type="submit" 
+                disabled={isTyping || !input.trim()}
+                className="p-4 bg-cyan-400 text-[#03161c] rounded-2xl hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all disabled:opacity-40 disabled:cursor-not-allowed transform active:scale-95 flex-shrink-0"
+              >
+                <Send className="w-5 h-5" />
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Toggle Button */}
+      <div className="relative">
+        {!isOpen && (
+          <>
+            <div className="absolute inset-0 bg-cyan-400 rounded-full blur-xl opacity-20 animate-pulse"></div>
+            <div className="absolute inset-0 scale-150 bg-cyan-400/10 rounded-full animate-ping [animation-duration:3s]"></div>
+          </>
+        )}
+        <button
+          onClick={() => {
+            track(isOpen ? EV.widgetCerrado : EV.widgetAbierto);
+            setIsOpen(!isOpen);
+          }}
+          aria-label="Toggle Chat"
+          className={`relative w-16 h-16 rounded-full flex items-center justify-center shadow-[0_10px_40px_rgba(0,0,0,0.5)] transition-all duration-500 transform hover:scale-110 active:scale-95 group ${
+            isOpen
+              ? 'bg-gray-800 text-white border border-white/20'
+              : 'bg-[#0D1B2A] border border-cyan-400/20'
+          }`}
+        >
+          {isOpen ? (
+            <X className="w-7 h-7" />
+          ) : (
+            <div className="relative w-8 h-8">
+              {/* Sin rotate en hover: la guía de marca prohíbe rotar el símbolo
+                  ("el corte es siempre horizontal"). Solo escala uniforme. */}
+              <LogoMark variant="inverse" className="w-full h-full group-hover:scale-105 transition-transform" />
+              <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full flex items-center justify-center">
+                <span className="block w-1 h-1 bg-white rounded-full animate-pulse"></span>
+              </span>
+            </div>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default FloatingChatWidget;

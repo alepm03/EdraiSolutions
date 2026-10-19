@@ -1,0 +1,41 @@
+---
+import { CalendarCheck, FileCheck, Wrench } from '@lucide/astro';
+import ContactForm from './react/ContactForm';
+import Logo from './Logo.astro';
+
+interface Props { heading?: 'h1' | 'h2' }
+const { heading = 'h2' } = Astro.props;
+const H = heading;
+const points = [
+  { icon: CalendarCheck, t: 'Diagnóstico gratuito de 15 minutos', d: 'Conocemos tu negocio y te decimos dónde la IA te ahorra tiempo.' },
+  { icon: FileCheck, t: 'Propuesta con precio cerrado', d: 'Plazos claros y resultados esperados. Sin letra pequeña.' },
+  { icon: Wrench, t: 'Todo incluido', d: 'Diseño, implementación y mantenimiento. Tú ves resultados.' },
+];
+---
+<div class="contact" id="contacto">
+  <div class="contact-copy" data-reveal>
+    <Logo size={40} />
+    <H class="display contact-h">Cuéntanos qué te quita tiempo.</H>
+    <p class="lede">En 15 minutos te decimos si la IA lo resuelve y cuánto costaría. Gratis y sin compromiso.</p>
+    <ul class="contact-points">
+      {points.map((p) => (
+        <li><span class="icon-tile"><p.icon /></span><div><b>{p.t}</b><span>{p.d}</span></div></li>
+      ))}
+    </ul>
+  </div>
+  <div class="card contact-form" data-reveal="1">
+    <ContactForm client:visible />
+  </div>
+</div>
+
+<style>
+  .contact { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
+  .contact-copy { display: grid; gap: 20px; align-content: start; }
+  .contact-h { font-size: clamp(2.4rem, 1.4rem + 3.4vw, 4.2rem); max-width: 13ch; }
+  .contact-points { display: grid; gap: 18px; margin-top: 12px; }
+  .contact-points li { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; }
+  .contact-points b { display: block; font-weight: 700; font-size: 16px; }
+  .contact-points span:not(.icon-tile) { color: var(--text-2); font-size: 14.5px; }
+  .contact-form { padding: clamp(24px, 3.5vw, 40px); }
+  @media (max-width: 960px) { .contact { grid-template-columns: 1fr; } }
+</style>

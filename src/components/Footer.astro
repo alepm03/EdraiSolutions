@@ -1,0 +1,40 @@
+---
+import Logo from './Logo.astro';
+const cols = [
+  { title: 'Servicios', links: [['Agentes de IA', '/agentes-ia'], ['Software a medida', '/software-a-medida'], ['Automatización', '/automatizacion'], ['Consultoría de IA', '/consultoria-ia']] },
+  { title: 'Empresa', links: [['Casos', '/casos'], ['Sobre nosotros', '/sobre-nosotros'], ['Contacto', '/contacto']] },
+  { title: 'Contacto', links: [['ricardopichardo@edraisolutions.es', 'mailto:ricardopichardo@edraisolutions.es'], ['+34 654 954 602', 'tel:+34654954602'], ['WhatsApp', 'https://wa.me/34654954602'], ['Instagram', 'https://www.instagram.com/edraisolutions/'], ['LinkedIn', 'https://www.linkedin.com/in/ricardopichardo']] },
+];
+---
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <Logo wordmark size={30} />
+        <p>Agentes de IA, software a medida y automatización para negocios en España. Madrid.</p>
+      </div>
+      {cols.map((c) => (
+        <nav aria-label={c.title}>
+          <h2>{c.title}</h2>
+          <ul>{c.links.map(([l, h]) => <li><a href={h}>{l}</a></li>)}</ul>
+        </nav>
+      ))}
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Edrai Solutions · edraisolutions.es</span>
+      <span><a href="/privacidad">Privacidad</a> · <a href="/cookies">Cookies</a></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot { border-top: 1px solid var(--line); padding: 64px 0 32px; margin-top: var(--section); }
+  .foot-top { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 40px; }
+  .foot-brand p { margin-top: 16px; max-width: 30ch; color: var(--muted); font-size: 14px; }
+  .foot h2 { font: 600 13px/1 var(--font-body); color: var(--text); margin-bottom: 16px; }
+  .foot ul { display: grid; gap: 10px; }
+  .foot a { color: var(--muted); font-size: 14px; transition: color 0.2s; overflow-wrap: anywhere; }
+  .foot a:hover { color: var(--text); }
+  .foot-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13px; color: var(--faint); }
+  @media (max-width: 860px) { .foot-top { grid-template-columns: 1fr 1fr; } .foot-brand { grid-column: 1 / -1; } }
+</style>

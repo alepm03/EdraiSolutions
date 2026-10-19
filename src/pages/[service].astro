@@ -1,0 +1,217 @@
+---
+// One template for the four service pages. The icon and title share a
+// transition:name with the home bento card, so they morph on navigation.
+import Base from '../layouts/Base.astro';
+import ReelSticky from '../components/ReelSticky.astro';
+import DemoTabs from '../components/DemoTabs.astro';
+import Cases from '../components/Cases.astro';
+import Process from '../components/Process.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { Bot, Code, Workflow, ScanSearch, Check, ArrowRight, X, ArrowLeft } from '@lucide/astro';
+import { PILLARS, TESTIMONIALS, type Pillar } from '../data/site';
+
+export function getStaticPaths() {
+  return PILLARS.map((p) => ({ params: { service: p.slug }, props: { p } }));
+}
+interface Props { p: Pillar }
+const { p } = Astro.props;
+const Icon = { 'agentes-ia': Bot, 'software-a-medida': Code, automatizacion: Workflow, 'consultoria-ia': ScanSearch }[p.slug];
+const others = PILLARS.filter((o) => o.slug !== p.slug);
+const clip = { 'software-a-medida': 'clip-organiza', automatizacion: 'clip-trabaja' }[p.slug as string];
+---
+<Base title={`${p.title} · Edrai Solutions`} description={`${p.short} ${p.description}`}>
+  <section class="svc-hero">
+    <div class="wrap">
+      <a class="back" href="/#servicios"><ArrowLeft /> Servicios</a>
+      <div class="svc-head">
+        <span class="icon-tile svc-icon" transition:name={`pillar-icon-${p.slug}`}><Icon /></span>
+        <h1 class="display svc-title" transition:name={`pillar-title-${p.slug}`}>{p.title}</h1>
+      </div>
+      <p class="svc-claim rise" style="--d:1">{p.hero}</p>
+      <p class="lede svc-lede rise" style="--d:2">{p.short} {p.description}</p>
+      <div class="svc-actions rise" style="--d:3">
+        <a class="btn btn-primary btn-lg" href="#contacto">Pedir diagnóstico gratuito <ArrowRight /></a>
+        <ul class="checks svc-feats">{p.features.map((f) => <li><Check />{f}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  {clip && (
+    <section class="section-media">
+      <div class="wrap">
+        <figure class="clip-frame" data-reveal>
+          <video data-loop muted loop playsinline preload="none" poster={`/video/${clip}-poster.webp`} width="1280" height="720">
+            <source src={`/video/${clip}.webm`} type="video/webm" />
+            <source src={`/video/${clip}.mp4`} type="video/mp4" />
+          </video>
+          <figcaption><span class="tag-demo">Datos de ejemplo</span> Fragmento de nuestro vídeo de presentación</figcaption>
+        </figure>
+      </div>
+    </section>
+  )}
+
+  {p.slug === 'agentes-ia' && (
+    <section class="section">
+      <div class="wrap">
+        <ReelSticky
+          title="¿De dónde saca las respuestas?"
+          lede="De tu información, no de internet. Y lo que no sabe, no se lo inventa: lo pasa a tu equipo."
+          src="/video/reel-de-donde-saca-las-respuestas"
+          steps={[
+            { from: 0, icon: 'chat', title: 'Llega una pregunta', text: 'Por WhatsApp, por tu web o desde un portal, a cualquier hora.' },
+            { from: 5.6, icon: 'search', title: 'Busca en tu información', text: 'Tus fichas, horarios y normas. Solo lo que tú le das.' },
+            { from: 10.6, icon: 'spark', title: 'Contesta con eso', text: 'Al momento y en el idioma del cliente, con tus datos.' },
+            { from: 14.6, icon: 'person', title: 'Lo que no sabe, a una persona', text: 'Pasa a tu equipo la conversación con el resumen y el contacto.' },
+          ]}
+        />
+      </div>
+    </section>
+  )}
+
+  {p.slug === 'consultoria-ia' && (
+    <section class="section-media">
+      <div class="wrap">
+        <div class="card plan-big" data-reveal>
+          <div class="plan-h"><span>Proceso</span><span>Impacto</span><span>Esfuerzo</span><span>Primer paso</span></div>
+          <div><span>Atención por WhatsApp</span><b>Alto</b><span>Bajo</span><span>Agente de IA</span></div>
+          <div><span>Facturación manual</span><b>Alto</b><span>Medio</span><span>Software a medida</span></div>
+          <div><span>Reseñas tras cada visita</span><span>Medio</span><span>Bajo</span><span>Automatización</span></div>
+          <div><span>Informe semanal</span><span>Medio</span><span>Bajo</span><span>Automatización</span></div>
+          <p class="plan-note">Ejemplo de plan priorizado. El tuyo sale del diagnóstico.</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <h2 class="h2" data-reveal>Si esto te suena, lo resolvemos.</h2>
+          <p class="lede split-lede" data-reveal="1">Situaciones que vemos cada semana en pymes de servicios.</p>
+        </div>
+        <ul class="problems">
+          {p.problems.map((t, i) => <li data-reveal={String(i)}><span class="x"><X /></span><p>{t}</p></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="h2" data-reveal>Cómo funciona.</h2>
+        <p class="lede" data-reveal="1">Ejemplos: {p.examples.join(' · ')}.</p>
+      </div>
+      <ol class="how">
+        {p.how.map((h, i) => (
+          <li data-reveal={String(i)}>
+            <span class="how-dot" aria-hidden="true"></span>
+            <h3>{h.title}</h3>
+            <p>{h.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  {p.slug === 'agentes-ia' && (
+    <section class="section section-tight">
+      <div class="wrap">
+        <div class="sec-head"><h2 class="h2" data-reveal>Pruébalo ahora.</h2><p class="lede" data-reveal="1">El agente real del Mercado del Barranco, en producción.</p></div>
+        <DemoTabs />
+      </div>
+    </section>
+  )}
+
+  <section class="section section-tight">
+    <div class="wrap">
+      {p.slug === 'agentes-ia' ? (
+        <Cases compact />
+      ) : (
+        <figure class="card quote" data-reveal>
+          <blockquote>«{p.slug === 'consultoria-ia' ? TESTIMONIALS.despacho.quote : TESTIMONIALS.ijump.quote}»</blockquote>
+          <figcaption>{p.slug === 'consultoria-ia' ? `${TESTIMONIALS.despacho.who} · ${TESTIMONIALS.despacho.role}` : `${TESTIMONIALS.ijump.who} · ${TESTIMONIALS.ijump.role}`}</figcaption>
+        </figure>
+      )}
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="h2" data-reveal>De la primera llamada a producción.</h2><p class="lede" data-reveal="1">En 2 a 4 semanas, validando cada paso.</p></div>
+      <Process />
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="wrap">
+      <h2 class="h2 more-h">También hacemos</h2>
+      <div class="more">
+        {others.map((o) => (
+          <a class="card card-glow more-card" href={`/${o.slug}`}>
+            <b>{o.title}</b><span>{o.short}</span><ArrowRight />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section"><div class="wrap"><ContactSection /></div></section>
+</Base>
+
+<style>
+  .svc-hero { padding-top: clamp(28px, 6vh, 80px); }
+  .back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+  .back:hover { color: var(--text); }
+  .back :global(svg) { width: 15px; height: 15px; }
+  .svc-head { display: flex; align-items: center; gap: 20px; }
+  .svc-icon { width: 64px; height: 64px; border-radius: 18px; }
+  .svc-icon :global(svg) { width: 28px; height: 28px; }
+  .svc-title { font-size: clamp(2.8rem, 1.4rem + 5vw, 5.6rem); }
+  .svc-claim { margin-top: 28px; font: 750 clamp(1.5rem, 1.1rem + 1.4vw, 2.3rem)/1.15 var(--font-display); letter-spacing: -0.03em; max-width: 26ch; color: var(--text); }
+  .svc-lede { margin-top: 18px; max-width: 58ch; }
+  .svc-actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: center; }
+  .svc-feats { gap: 8px; }
+
+  .section-media { padding-top: clamp(48px, 8vh, 96px); }
+  .clip-frame { border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-line); background: #050608; box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.9); }
+  .clip-frame video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .clip-frame figcaption { display: flex; align-items: center; gap: 10px; padding: 12px 16px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+
+  .plan-big { padding: 12px 28px 22px; font-size: 15px; }
+  .plan-big > div { display: grid; grid-template-columns: 1.6fr 0.7fr 0.7fr 1fr; padding: 15px 0; border-top: 1px solid var(--line); color: var(--text-2); position: relative; z-index: 1; }
+  .plan-big > div:first-child { border-top: 0; }
+  .plan-big .plan-h { color: var(--muted); font-size: 12.5px; }
+  .plan-big b { color: var(--brand); font-weight: 650; }
+  .plan-note { padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--faint); }
+
+  .split { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .split-lede { margin-top: 16px; max-width: 34ch; }
+  .problems { display: grid; border-bottom: 1px solid var(--line); }
+  .problems li { display: grid; grid-template-columns: 32px 1fr; gap: 16px; padding: 22px 0; border-top: 1px solid var(--line); align-items: start; }
+  .problems p { font: 650 clamp(1.1rem, 0.95rem + 0.5vw, 1.35rem)/1.4 var(--font-display); letter-spacing: -0.015em; color: var(--text); }
+  .x { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: rgba(248, 113, 113, 0.1); color: #fca5a5; }
+  .x :global(svg) { width: 16px; height: 16px; }
+
+  .how { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-top: 28px; }
+  .how::before { content: ''; position: absolute; left: 0; right: 0; top: 6px; height: 1px; background: linear-gradient(90deg, var(--brand-line), var(--line) 70%); }
+  .how li { position: relative; display: grid; gap: 10px; align-content: start; }
+  .how-dot { position: absolute; top: -28px; left: 0; width: 13px; height: 13px; border-radius: 50%; background: var(--bg); border: 2px solid var(--brand); }
+  .how h3 { font: 800 clamp(1.25rem, 1rem + 0.7vw, 1.6rem)/1.15 var(--font-display); letter-spacing: -0.025em; }
+  .how p { font-size: 15.5px; color: var(--text-2); line-height: 1.6; max-width: 38ch; }
+
+  .quote { max-width: 900px; padding: clamp(28px, 4vw, 48px); border-color: rgba(34, 211, 238, 0.22); }
+  .quote blockquote { font: 600 clamp(1.3rem, 1rem + 0.9vw, 1.75rem)/1.4 var(--font-display); letter-spacing: -0.02em; max-width: 46ch; }
+  .quote figcaption { margin-top: 20px; color: var(--muted); font-size: 14px; }
+
+  .more-h { font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.2rem); margin-bottom: 20px; }
+  .more { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .more-card { display: grid; gap: 8px; padding: 24px; }
+  .more-card b { position: relative; z-index: 1; font: 800 19px/1.2 var(--font-display); }
+  .more-card span { position: relative; z-index: 1; font-size: 14.5px; color: var(--text-2); }
+  .more-card :global(svg) { width: 18px; height: 18px; color: var(--brand); margin-top: 8px; transition: transform 0.3s var(--ease-out); }
+  .more-card:hover :global(svg) { transform: translateX(4px); }
+
+  @media (max-width: 960px) { .split, .how, .more { grid-template-columns: 1fr; } .how { gap: 28px; } .how::before { display: none; } .how-dot { position: static; } .plan-big > div { grid-template-columns: 1.4fr 0.8fr 0.8fr; } .plan-big > div > :last-child { display: none; } }
+</style>

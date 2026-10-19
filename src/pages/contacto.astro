@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Faq from '../components/Faq.astro';
+---
+<Base faq title="Diagnóstico gratuito · Edrai Solutions" description="Pide tu diagnóstico gratuito de 15 minutos. Te decimos si la IA resuelve lo que te quita tiempo y cuánto costaría. Respuesta en menos de 24 h.">
+  <section class="page-hero"><div class="wrap"><ContactSection heading="h1" /></div></section>
+  <section class="section section-tight"><div class="wrap"><h2 class="h2 faq-h">Antes de escribirnos.</h2><Faq /></div></section>
+</Base>
+<style>.faq-h { margin-bottom: 24px; }</style>

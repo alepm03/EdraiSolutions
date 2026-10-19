@@ -1,0 +1,64 @@
+---
+// Live demos from production in one tabbed block: the real Mercado del Barranco
+// agent (default) and the sector assistants. Islands hydrate only when their
+// panel becomes visible (client:visible on a hidden panel waits for the tab).
+import RealChatDemo from './react/RealChatDemo';
+import ChatbotDemo from './react/ChatbotDemo';
+---
+<div class="demos" data-demos>
+  <div class="demo-tabs" role="tablist" aria-label="Demos">
+    <button role="tab" id="tab-real" aria-controls="panel-real" aria-selected="true" data-demo-tab="real">
+      <span class="live-dot" aria-hidden="true"></span>Agente real<span class="hide-sm">· Mercado del Barranco</span>
+    </button>
+    <button role="tab" id="tab-sector" aria-controls="panel-sector" aria-selected="false" tabindex="-1" data-demo-tab="sector">
+      <span class="hide-sm">Asistentes por sector</span><span class="show-sm">Por sector</span>
+    </button>
+  </div>
+  <div role="tabpanel" id="panel-real" aria-labelledby="tab-real" data-demo-panel="real">
+    <RealChatDemo client:visible />
+  </div>
+  <div role="tabpanel" id="panel-sector" aria-labelledby="tab-sector" data-demo-panel="sector" hidden>
+    <ChatbotDemo client:visible />
+  </div>
+</div>
+
+<style>
+  .demo-tabs { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(255, 255, 255, 0.03); margin-bottom: 24px; max-width: 100%; overflow-x: auto; }
+  .demo-tabs button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; font: 600 14px/1 var(--font-body); color: var(--text-2); white-space: nowrap; transition: background 0.25s, color 0.25s; }
+  .demo-tabs button:hover { color: var(--text); }
+  .demo-tabs button[aria-selected='true'] { background: var(--text); color: var(--bg); }
+  .hide-sm { display: inline; } .show-sm { display: none; }
+  @media (max-width: 640px) {
+    .demo-tabs { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+    .demo-tabs button { justify-content: center; padding: 11px 8px; font-size: 13.5px; }
+    .hide-sm { display: none; }
+    .show-sm { display: inline; }
+  }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.18); }
+</style>
+
+<script>
+  import { onPage } from '../scripts/motion';
+  onPage(() => {
+    const root = document.querySelector<HTMLElement>('[data-demos]');
+    if (!root) return;
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-demo-tab]')];
+    const select = (id: string, focus = false) => {
+      tabs.forEach((t) => {
+        const on = t.dataset.demoTab === id;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        if (on && focus) t.focus();
+      });
+      root.querySelectorAll<HTMLElement>('[data-demo-panel]').forEach((p) => { p.hidden = p.dataset.demoPanel !== id; });
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(t.dataset.demoTab!));
+      t.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        select(next.dataset.demoTab!, true);
+      });
+    });
+  });
+</script>

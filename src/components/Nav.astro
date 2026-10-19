@@ -1,0 +1,78 @@
+---
+import Logo from './Logo.astro';
+import { Menu, X } from '@lucide/astro';
+import { NAV as links } from '../data/site';
+// Persistent across View Transitions: the current link is marked by scripts/motion.ts.
+---
+<header class="nav" data-nav>
+  <div class="wrap nav-row">
+    <a href="/" aria-label="Edrai Solutions, inicio"><Logo wordmark size={30} /></a>
+    <nav aria-label="Principal">
+      <ul class="nav-links">
+        {links.map((l) => <li><a data-nav-link href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="nav-end">
+      <a class="btn btn-primary nav-cta" href="/contacto">Diagnóstico gratuito</a>
+      <button class="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-sheet" data-burger>
+        <Menu class="i-open" /><X class="i-close" />
+      </button>
+    </div>
+  </div>
+  <div class="nav-sheet" id="nav-sheet" hidden>
+    <ul class="wrap">
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      <li><a class="btn btn-primary" href="/contacto">Pedir diagnóstico gratuito</a></li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(5, 7, 11, 0.72);
+    backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid transparent; transition: border-color 0.3s;
+  }
+  .nav.is-scrolled { border-bottom-color: var(--line); }
+  .nav-row { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a { display: block; padding: 8px 12px; border-radius: 8px; font-size: 14px; color: var(--text-2); transition: color 0.2s, background 0.2s; }
+  .nav-links a:hover { color: var(--text); background: var(--surface-2); }
+  .nav-links a[aria-current='page'] { color: var(--text); background: var(--surface-2); box-shadow: inset 0 -2px 0 var(--brand); }
+  .nav-end { display: flex; align-items: center; gap: 8px; }
+  .nav-cta { height: 38px; font-size: 14px; padding: 0 16px; }
+  .nav-burger { display: none; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line-strong); place-items: center; }
+  .nav-burger svg { width: 18px; height: 18px; }
+  .nav-burger .i-close { display: none; }
+  .nav-burger[aria-expanded='true'] .i-open { display: none; }
+  .nav-burger[aria-expanded='true'] .i-close { display: block; }
+  .nav-sheet { border-top: 1px solid var(--line); background: var(--bg); }
+  .nav-sheet ul { display: grid; gap: 2px; padding-block: 12px 20px; }
+  .nav-sheet a:not(.btn) { display: block; padding: 14px 4px; font-size: 18px; border-bottom: 1px solid var(--line); }
+  .nav-sheet .btn { width: 100%; height: 50px; margin-top: 14px; }
+
+  @media (max-width: 960px) {
+    nav[aria-label='Principal'] { display: none; }
+    .nav-burger { display: grid; }
+  }
+  @media (max-width: 520px) { .nav-cta { display: none; } }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]')!;
+  const burger = nav.querySelector<HTMLButtonElement>('[data-burger]')!;
+  const sheet = nav.querySelector<HTMLElement>('#nav-sheet')!;
+  const onScroll = () => nav.classList.toggle('is-scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') !== 'true';
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    sheet.hidden = !open;
+  });
+  sheet.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) { burger.click(); }
+  });
+</script>

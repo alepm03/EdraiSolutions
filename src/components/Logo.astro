@@ -1,0 +1,32 @@
+---
+// Symbol "Corte": exact geometry from the official brand package
+// (viewBox 0 0 64 64, rx16 clip on a 56 square). Never redraw by hand.
+interface Props { size?: number; variant?: 'inverse' | 'primary'; wordmark?: boolean; class?: string }
+const { size = 28, variant = 'inverse', wordmark = false, class: cls = '' } = Astro.props;
+const id = `cut-${Math.random().toString(36).slice(2, 8)}`;
+const lower = variant === 'inverse' ? '#FFFFFF' : '#0D1B2A';
+---
+<span class:list={['logo', cls]}>
+  <svg viewBox="0 0 64 64" width={size} height={size} role={wordmark ? 'presentation' : 'img'} aria-label={wordmark ? undefined : 'Edrai Solutions'}>
+    <defs><clipPath id={id}><rect x="4" y="4" width="56" height="56" rx="16" /></clipPath></defs>
+    <g clip-path={`url(#${id})`}>
+      <path d="M-4 50 L68 18 L68 68 L-4 68 Z" fill={lower} />
+      <path d="M2 38 L74 6 L74 -8 L2 -8 Z" fill="#22D3EE" />
+    </g>
+  </svg>
+  {wordmark && (
+    <span class="logo-word">
+      <span class="logo-name">Edr<span>AI</span></span>
+      <span class="logo-sub">SOLUTIONS</span>
+    </span>
+  )}
+</span>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 10px; }
+  .logo-word { display: flex; flex-direction: column; gap: 3px; }
+  .logo-name { font: 800 19px/1 var(--font-display); letter-spacing: -0.045em; color: var(--text); }
+  .logo-name span { color: var(--brand); }
+  .logo-sub { display: flex; align-items: center; gap: 5px; font: 600 7.5px/1 var(--font-body); letter-spacing: 0.32em; color: var(--muted); }
+  .logo-sub::before { content: ''; width: 10px; height: 1.5px; background: var(--brand); }
+</style>

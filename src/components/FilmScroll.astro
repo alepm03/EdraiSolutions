@@ -1,0 +1,216 @@
+---
+// The 45 s brand film, inline (never behind a click). Desktop with motion: the
+// section pins and the frame grows from a card to the full stage while the
+// intro copy lifts away (GSAP ScrollTrigger, pattern from 21st.dev "scroll
+// animated video", rewritten). It plays muted when on screen; "Ver con sonido"
+// restarts it with audio and controls. A chapter rail outside the frame follows
+// the film's acts from video time and seeks on click. Mobile: the frame runs
+// edge to edge and every control sits below it, never over the picture.
+import { Volume2, Play } from '@lucide/astro';
+
+const chapters = [
+  { t: 0, time: '0:00', label: 'Atiende', text: 'WhatsApp y llamadas contestados, cita creada.' },
+  { t: 14, time: '0:14', label: 'Organiza', text: 'Cuenta de resultados y tesorería al día.' },
+  { t: 26, time: '0:26', label: 'Trabaja', text: 'Tus herramientas, conectadas y trabajando.' },
+  { t: 32, time: '0:32', label: 'Caso real', text: 'Las cifras del Mercado del Barranco.' },
+];
+---
+<section class="film" data-film aria-labelledby="film-title">
+  <div class="film-pin" data-film-pin>
+    <div class="wrap film-intro" data-film-intro>
+      <h2 id="film-title" class="display film-title">Míralo trabajar.<span> 45 segundos de lo que hace la IA en un negocio como el tuyo.</span></h2>
+    </div>
+
+    <div class="film-stage">
+      <figure class="film-frame" data-film-frame>
+        <video
+          data-film-video
+          muted
+          playsinline
+          loop
+          preload="none"
+          poster="/video/edrai-presentacion-poster.webp"
+          width="1920"
+          height="1080"
+          aria-label="Vídeo de presentación de Edrai Solutions, 45 segundos"
+        >
+          <source src="/video/edrai-presentacion.webm" type="video/webm" />
+          <source src="/video/edrai-presentacion.mp4" type="video/mp4" />
+        </video>
+        <span class="film-progress" aria-hidden="true"><i data-film-progress></i></span>
+      </figure>
+    </div>
+  </div>
+
+  <div class="wrap film-under">
+    <button class="film-sound" type="button" data-film-sound>
+      <span class="film-sound-ic"><Volume2 class="i-sound" /><Play class="i-play" /></span>
+      <span class="film-sound-txt"><b>Ver con sonido</b><span>Desde el principio · 45 s</span></span>
+    </button>
+    <ol class="film-rail" aria-label="Capítulos del vídeo">
+      {chapters.map((c, i) => (
+        <li>
+          <button type="button" data-film-chapter={c.t} data-idx={i} aria-current={i === 0 ? 'true' : 'false'}>
+            <span class="rail-time tabular">{c.time}</span>
+            <b>{c.label}</b>
+            <span class="rail-text">{c.text}</span>
+            <span class="rail-bar" aria-hidden="true"><i></i></span>
+          </button>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .film { position: relative; margin-top: clamp(48px, 9vh, 112px); }
+  .film-pin { position: relative; }
+  .film-intro { position: relative; z-index: 2; }
+  .film-title { font-size: clamp(2.2rem, 1.2rem + 3.6vw, 4.6rem); max-width: 18ch; }
+  .film-title span { display: block; margin-top: 14px; font: 500 clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem)/1.4 var(--font-body); letter-spacing: -0.01em; color: var(--text-2); max-width: 40ch; }
+
+  .film-stage { position: relative; margin-top: clamp(28px, 5vh, 56px); display: grid; place-items: center; padding-inline: var(--gutter); }
+  .film-frame {
+    position: relative; width: min(1200px, 100%); aspect-ratio: 16 / 9; border-radius: 22px; overflow: hidden;
+    background: #050608 url('/video/edrai-presentacion-poster.webp') center / cover no-repeat;
+    border: 1px solid var(--glass-line);
+    box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.03);
+    transform-origin: 50% 40%;
+  }
+  .film-frame video { width: 100%; height: 100%; object-fit: cover; }
+  .film-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255, 255, 255, 0.12); z-index: 2; }
+  .film-progress i { display: block; height: 100%; width: 100%; background: var(--brand); transform-origin: left; transform: scaleX(0); }
+
+  .film-under { position: relative; z-index: 2; display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: stretch; margin-top: 24px; }
+  .film-sound {
+    display: inline-flex; align-items: center; gap: 14px; padding: 12px 22px 12px 12px; border-radius: 18px; text-align: left;
+    background: var(--brand); color: var(--brand-ink); transition: background 0.25s, transform 0.4s var(--ease-out);
+  }
+  .film-sound:hover { background: #67e8f9; }
+  .film-sound:active { transform: scale(0.98); }
+  .film-sound-ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(3, 22, 28, 0.12); }
+  .film-sound-ic svg { width: 20px; height: 20px; }
+  .film-sound-txt { display: grid; gap: 3px; white-space: nowrap; }
+  .film-sound-txt b { font: 700 16px/1.1 var(--font-body); }
+  .film-sound-txt span { font-size: 12.5px; opacity: 0.75; }
+  .film-sound .i-play { display: none; }
+  .film.is-reduced .film-sound .i-sound { display: none; }
+  .film.is-reduced .film-sound .i-play { display: block; }
+
+  .film-rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .film-rail button {
+    position: relative; width: 100%; height: 100%; text-align: left; display: grid; gap: 4px; align-content: start;
+    padding: 12px 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.015);
+    transition: border-color 0.25s, background 0.25s, opacity 0.25s; opacity: 0.6;
+  }
+  .film-rail button:hover { opacity: 0.9; }
+  .film-rail button[aria-current='true'] { opacity: 1; border-color: var(--brand-line); background: var(--brand-tint); }
+  .rail-time { font-size: 12px; color: var(--brand); font-weight: 700; }
+  .film-rail b { font: 800 16px/1.2 var(--font-display); letter-spacing: -0.01em; }
+  .rail-text { font-size: 13px; color: var(--text-2); line-height: 1.4; }
+  .rail-bar { position: absolute; left: 14px; right: 14px; bottom: 7px; height: 2px; border-radius: 2px; overflow: hidden; }
+  .rail-bar i { display: block; width: 100%; height: 100%; background: var(--brand); transform-origin: left; transform: scaleX(0); }
+
+  @media (max-width: 1000px) {
+    .film-under { grid-template-columns: 1fr; }
+    .film-rail { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .film-stage { padding-inline: 0; }
+    .film-frame { width: 100%; border-radius: 0; border-inline: 0; }
+    .film-sound { justify-content: flex-start; }
+    .rail-text { display: none; }
+  }
+</style>
+
+<script>
+  import { onPage, gsap, motionAllowed } from '../scripts/motion';
+
+  onPage(() => {
+    const root = document.querySelector<HTMLElement>('[data-film]');
+    if (!root) return;
+    const video = root.querySelector<HTMLVideoElement>('[data-film-video]')!;
+    const frame = root.querySelector<HTMLElement>('[data-film-frame]')!;
+    const sound = root.querySelector<HTMLButtonElement>('[data-film-sound]')!;
+    const bar = root.querySelector<HTMLElement>('[data-film-progress]')!;
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-film-chapter]')];
+    const motion = motionAllowed();
+    root.classList.toggle('is-reduced', !motion);
+
+    const starts = chips.map((c) => Number(c.dataset.filmChapter));
+    const sync = () => {
+      const t = video.currentTime;
+      const d = video.duration || 45;
+      let idx = 0;
+      starts.forEach((s, i) => { if (t >= s) idx = i; });
+      chips.forEach((c, i) => {
+        c.setAttribute('aria-current', String(i === idx));
+        const end = starts[i + 1] ?? d;
+        const p = i === idx ? Math.min(1, Math.max(0, (t - starts[i]) / (end - starts[i]))) : 0;
+        c.querySelector<HTMLElement>('.rail-bar i')!.style.transform = `scaleX(${p})`;
+      });
+      bar.style.transform = `scaleX(${t / d})`;
+    };
+    video.addEventListener('timeupdate', sync);
+    sync();
+
+    // Muted autoplay only while on screen (and only with motion allowed).
+    let io: IntersectionObserver | undefined;
+    if (motion && 'IntersectionObserver' in window) {
+      io = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) video.play().catch(() => {});
+        else {
+          video.pause();
+          if (!video.muted) { video.muted = true; video.controls = false; video.loop = true; }
+        }
+      }, { threshold: 0.35 });
+      io.observe(frame);
+    }
+
+    sound.addEventListener('click', () => {
+      video.loop = false;
+      video.muted = false;
+      video.controls = true;
+      video.currentTime = 0;
+      video.play().catch(() => {});
+      frame.scrollIntoView({ block: 'center', behavior: motion ? 'smooth' : 'auto' });
+    });
+    video.addEventListener('ended', () => {
+      video.controls = false;
+      video.muted = true;
+      video.loop = true;
+    });
+    chips.forEach((c) => c.addEventListener('click', () => {
+      video.currentTime = Number(c.dataset.filmChapter);
+      video.play().catch(() => {});
+      sync();
+    }));
+
+    // Scroll-expand: pin and grow, desktop only.
+    const mm = gsap.matchMedia();
+    if (motion) {
+      mm.add('(min-width: 900px)', () => {
+        const intro = root.querySelector<HTMLElement>('[data-film-intro]')!;
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: root,
+            start: 'top top+=72',
+            end: '+=110%',
+            pin: root.querySelector('[data-film-pin]'),
+            scrub: 0.6,
+            anticipatePin: 1,
+          },
+        });
+        tl.fromTo(frame, { scale: 0.72, borderRadius: 28 }, { scale: 1, borderRadius: 14, ease: 'none' }, 0)
+          .to(intro, { yPercent: -40, opacity: 0, ease: 'none' }, 0)
+          .fromTo(frame, { y: 0 }, { y: () => -Math.min(180, intro.offsetHeight * 0.85), ease: 'none' }, 0);
+      });
+    }
+
+    return () => {
+      io?.disconnect();
+      mm.revert();
+      video.pause();
+    };
+  });
+</script>
