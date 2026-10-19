@@ -39,7 +39,6 @@ import HeroParticles from './components/HeroParticles';
 import HeroFlowConsole from './components/HeroFlowConsole';
 import SiteBackground from './components/SiteBackground';
 import SectionDivider from './components/SectionDivider';
-import AnimatedCounter from './components/AnimatedCounter';
 import LogoMarquee from './components/LogoMarquee';
 import ClientTestimonials from './components/ClientTestimonials';
 import Logo from './components/Logo';
@@ -309,29 +308,21 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="py-14 bg-[#020617]/50 backdrop-blur-sm border-y border-white/5">
+      {/* Monthly proof strip: one real, dated figure from production instead of
+          the old stats bar (80% / ×3 had no source). Update monthly from the
+          Mercado del Barranco agent database (Supabase barranco-agent). */}
+      <section aria-label="Métrica del último mes" className="py-8 bg-[#020617]/50 backdrop-blur-sm border-y border-white/5">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 max-w-5xl mx-auto">
-            {[
-              { prefix: '', value: 24, suffix: '/7', label: 'Disponibilidad continua' },
-              { prefix: '', value: 80, suffix: '%', label: 'Reducción de tareas manuales' },
-              { prefix: '< ', value: 4, suffix: ' sem', label: 'De idea a producción' },
-              { prefix: '×', value: 3, suffix: '', label: 'Retorno medio de inversión' },
-            ].map((stat, idx) => (
-              <div key={idx} className="gsap-reveal text-center group">
-                <AnimatedCounter
-                  prefix={stat.prefix}
-                  value={stat.value}
-                  suffix={stat.suffix}
-                  className="block text-4xl md:text-5xl font-black text-cyan-400 tracking-tighter mb-2 group-hover:scale-105 transition-transform"
-                />
-                <div className="text-gray-500 text-[11px] font-black uppercase tracking-[0.3em]">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
+          <a href="#clientes" className="group gsap-reveal max-w-5xl mx-auto flex flex-col md:flex-row md:items-center gap-3 md:gap-6 text-center md:text-left">
+            <span className="shrink-0 inline-flex items-center justify-center gap-2 self-center rounded-full border border-cyan-400/30 bg-cyan-400/[0.07] px-3 py-1 text-[11px] font-black uppercase tracking-[0.25em] text-cyan-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+              Septiembre 2026
+            </span>
+            <p className="text-slate-300 text-base md:text-lg font-medium leading-snug">
+              El agente de IA del Mercado del Barranco atendió <strong className="text-white font-black tabular-nums">111 conversaciones</strong> y <strong className="text-white font-black tabular-nums">197 mensajes</strong> de clientes; el <strong className="text-cyan-400 font-black tabular-nums">94,6&nbsp;%</strong> sin pasar al equipo.
+              <span className="ml-2 text-cyan-400 font-bold whitespace-nowrap group-hover:underline underline-offset-4">Ver el caso ↓</span>
+            </p>
+          </a>
         </div>
       </section>
 

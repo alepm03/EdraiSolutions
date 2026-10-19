@@ -1,14 +1,15 @@
 import React from 'react';
 import { Scale } from 'lucide-react';
 
-// Real client testimonials. Figures come from the Mercado del Barranco chatbot
-// database (Supabase, 24/06 to 27/09/2026); the event-closing time is the
-// client's own account of their process. Quotes pending client sign-off.
+// Real client testimonials. Figures are the last full month (September 2026)
+// from the Mercado del Barranco agent database (Supabase barranco-agent);
+// update them monthly together with the strip under the hero in App.tsx.
+// The event-closing time is the client's own account of their process.
 
 const BARRANCO_STATS = [
-  { value: <>+200</>, label: 'mensajes de clientes respondidos al mes' },
-  { value: <>2<span className="text-cyan-400">/</span>3</>, label: 'de las conversaciones llegan en inglés' },
-  { value: <>+90%</>, label: 'de las conversaciones resueltas sin pasar al equipo' },
+  { value: <>197</>, label: 'mensajes de clientes respondidos en septiembre' },
+  { value: <>63<span className="text-[0.55em] tracking-normal text-cyan-400">&nbsp;%</span></>, label: 'de las conversaciones llegan en inglés' },
+  { value: <>94,6<span className="text-[0.55em] tracking-normal text-cyan-400">&nbsp;%</span></>, label: 'de las conversaciones resueltas sin pasar al equipo' },
   {
     value: <>&minus;2 <span className="text-[0.55em] tracking-normal text-cyan-400">sem.</span></>,
     label: 'hasta dos semanas antes para cerrar un evento: un formulario sustituye a 5+ correos',
@@ -57,7 +58,7 @@ const ClientTestimonials: React.FC = () => (
               </div>
             ))}
             <div className="col-span-2 text-[11px] text-slate-500">
-              Datos reales del chatbot. Tiempo de cierre de eventos según el equipo del Mercado.
+              Datos reales del chatbot, septiembre de 2026. Tiempo de cierre de eventos según el equipo del Mercado.
             </div>
           </div>
         </figure>
