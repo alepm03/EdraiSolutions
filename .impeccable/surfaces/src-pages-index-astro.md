@@ -19,7 +19,7 @@ OWN-WORLD: Deep navy ground (#081120) under a single slow aurora (cyan, blue, in
 
 STORY: The visitor sees the agent working (console), watches the 45 s film as they scroll, understands the three pillars, learns chatbot vs automation vs agent from a vertical reel, tries the real Barranco agent, trusts the monthly numbers, books the diagnosis.
 
-FIRST VIEWPORT: Left: H1 "La IA que atiende, organiza y trabaja por tu negocio." with lede, primary CTA and WhatsApp. Right: production HeroFlowConsole. Below the fold edge: the monthly proof strip.
+FIRST VIEWPORT: Left: H1 "Menos trabajo repetitivo. Más tiempo para tus clientes." (benefit first, AI only in the lede as the lever; owner choice 20 Oct 2026) with lede, primary CTA and WhatsApp. Right: production HeroFlowConsole. Below the fold edge: the monthly proof strip.
 
 FORM: User-pinned hybrid, so the roll was not run (a user-pinned direction beats the roll). Ricardo's pin, 19 Oct 2026: «me gustaría un híbrido, incorporar las cosas buenas de cada una de ellas»; «los componentes de la antigua son mejores». seed: none (roll not run, direction pinned by the user). Signature interactions: the scroll-expand film (pins and grows, chapters seek, "Ver con sonido"), the sticky phone reel synced to the steps, and View Transitions that morph each bento title into its service page hero.
 

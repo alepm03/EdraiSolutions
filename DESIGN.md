@@ -25,7 +25,7 @@ colors:
 typography:
   display:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
-    fontSize: "clamp(2.5rem, min(1rem + 4.6vw, 9vh), 5rem)"
+    fontSize: "clamp(2.5rem, min(1rem + 4.6vw, 9vh), 4.5rem)"
     fontWeight: 850
     lineHeight: 0.98
     letterSpacing: "-0.035em"
@@ -188,7 +188,7 @@ A deep navy palette with a single electric cyan reserved for the agent, the next
 **Character:** A heavy, slightly narrow grotesk headline that reads like a product launch, set against Inter's neutral, highly legible text. Sentence case throughout; the weight and tight tracking do the work that capitals used to.
 
 ### Hierarchy
-- **Display** (850, fluid up to 5rem, 0.98): the home H1 only, max 14ch, balanced wrap.
+- **Display** (850, fluid up to 4.5rem, 0.98): the home H1 only, max 16ch, balanced wrap, with a forced break between its two sentences.
 - **Display page** (850, fluid up to 5.2rem, 0.98): inner page and service hero titles (service titles run slightly larger, up to 5.6rem), max 16ch.
 - **Headline** (800, fluid 2 to 3.25rem, 1.05): section heads, paired with a right-aligned lede in a two-column head that stacks under 860px.
 - **Title** (800, 19px, 1.2): card and step titles in Archivo.

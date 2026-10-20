@@ -228,7 +228,7 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Home H1 only; Archivo 850 at 96% width, sentence case, max 14ch."
+        "purpose": "Home H1 only; Archivo 850 at 96% width, sentence case, max 16ch."
       },
       "display-page": {
         "displayName": "Display page",
