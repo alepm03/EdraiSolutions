@@ -67,7 +67,7 @@
       "ink-ground": {
         "role": "neutral",
         "displayName": "Navy Ink Ground",
-        "canonical": "#05070b",
+        "canonical": "#081120",
         "tonalRamp": [
           "#131b2a",
           "#23314d",
@@ -82,7 +82,7 @@
       "surface-1": {
         "role": "neutral",
         "displayName": "Surface 1",
-        "canonical": "#0e0f12",
+        "canonical": "#0e1a2d",
         "tonalRamp": [
           "#1b1d22",
           "#31353f",
@@ -97,7 +97,7 @@
       "surface-2": {
         "role": "neutral",
         "displayName": "Surface 2",
-        "canonical": "#14161a",
+        "canonical": "#132238",
         "tonalRamp": [
           "#1b1d23",
           "#31363f",
@@ -112,9 +112,9 @@
       "surface-3": {
         "role": "neutral",
         "displayName": "Surface 3",
-        "canonical": "#1b1e23",
+        "canonical": "#192b44",
         "tonalRamp": [
-          "#1b1e23",
+          "#192b44",
           "#31363f",
           "#474f5c",
           "#5d6879",
@@ -202,12 +202,12 @@
       "line": {
         "role": "neutral",
         "displayName": "Hairline",
-        "canonical": "rgba(255, 255, 255, 0.07)"
+        "canonical": "rgba(160, 200, 255, 0.08)"
       },
       "line-strong": {
         "role": "neutral",
         "displayName": "Strong Hairline",
-        "canonical": "rgba(255, 255, 255, 0.12)"
+        "canonical": "rgba(160, 200, 255, 0.14)"
       },
       "glass-line": {
         "role": "neutral",
@@ -369,7 +369,7 @@
       "refersTo": "button-primary",
       "description": "The diagnosis action. Cyan pill with Cyan Ink label; brightens on hover.",
       "html": "<button class=\"ds-btn ds-btn-primary\">Pedir diagnóstico gratuito <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
-      "css": ":root{--bg:#05070b;--surface-2:#14161a;--line-strong:rgba(255,255,255,0.12);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-primary{background:var(--brand);color:var(--brand-ink);} .ds-btn-primary:hover{background:#67e8f9;}"
+      "css": ":root{--bg:#081120;--surface-2:#132238;--line-strong:rgba(160,200,255,0.14);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-primary{background:var(--brand);color:var(--brand-ink);} .ds-btn-primary:hover{background:#67e8f9;}"
     },
     {
       "name": "Quiet Button",
@@ -377,7 +377,7 @@
       "refersTo": "button-quiet",
       "description": "Secondary action: outlined pill on the dark ground.",
       "html": "<button class=\"ds-btn ds-btn-quiet\">Escríbenos por WhatsApp</button>",
-      "css": ":root{--bg:#05070b;--surface-2:#14161a;--line-strong:rgba(255,255,255,0.12);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-quiet{background:transparent;color:var(--text);border:1px solid var(--line-strong);} .ds-btn-quiet:hover{background:var(--surface-2);border-color:rgba(255,255,255,0.2);}"
+      "css": ":root{--bg:#081120;--surface-2:#132238;--line-strong:rgba(160,200,255,0.14);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-quiet{background:transparent;color:var(--text);border:1px solid var(--line-strong);} .ds-btn-quiet:hover{background:var(--surface-2);border-color:rgba(255,255,255,0.2);}"
     },
     {
       "name": "Light Button",
@@ -385,7 +385,7 @@
       "refersTo": "button-light",
       "description": "Second action over a dark media panel.",
       "html": "<button class=\"ds-btn ds-btn-light\">Ver el caso</button>",
-      "css": ":root{--bg:#05070b;--surface-2:#14161a;--line-strong:rgba(255,255,255,0.12);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-light{background:var(--text);color:var(--bg);} .ds-btn-light:hover{background:#fff;}"
+      "css": ":root{--bg:#081120;--surface-2:#132238;--line-strong:rgba(160,200,255,0.14);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;font:550 15px/1 var(--font-body);letter-spacing:-0.005em;white-space:nowrap;cursor:pointer;border:0;transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease-out);} .ds-btn:active{transform:scale(0.98);} .ds-btn:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-btn-light{background:var(--text);color:var(--bg);} .ds-btn-light:hover{background:#fff;}"
     },
     {
       "name": "Pillar Card",
@@ -393,7 +393,7 @@
       "refersTo": "card",
       "description": "Glass card with icon tile, Archivo title, check list and arrow link; cursor glow and cyan border on hover.",
       "html": "<a class=\"ds-card\" href=\"#\"><span class=\"ds-tile\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 8V4H8\"/><rect width=\"16\" height=\"12\" x=\"4\" y=\"8\" rx=\"2\"/><path d=\"M2 14h2\"/><path d=\"M20 14h2\"/><path d=\"M15 13v2\"/><path d=\"M9 13v2\"/></svg></span><h3 class=\"ds-card-h\">Agentes de IA</h3><ul class=\"ds-checks\"><li><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg>Atiende WhatsApp, web y teléfono</li><li><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg>Reserva y recuerda citas</li></ul><span class=\"ds-link\">Ver agentes de IA <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a>",
-      "css": ":root{--bg:#05070b;--surface-2:#14161a;--line-strong:rgba(255,255,255,0.12);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-card{position:relative;display:grid;gap:14px;max-width:360px;padding:28px;border-radius:20px;overflow:hidden;color:var(--text);text-decoration:none;font-family:var(--font-body);background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.018)),#05070b;border:1px solid var(--glass-line);box-shadow:var(--glass-edge),0 24px 48px -32px rgba(0,0,0,0.8);transition:border-color .35s,background .35s;} .ds-card::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(220px circle at 30% 0%,rgba(34,211,238,0.12),transparent 60%);opacity:0;transition:opacity .4s ease;pointer-events:none;} .ds-card:hover{border-color:rgba(34,211,238,0.32);} .ds-card:hover::after{opacity:1;} .ds-card:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-tile{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.28);color:#67e8f9;} .ds-card-h{margin:0;font:800 22px/1.15 var(--font-display);letter-spacing:-0.02em;} .ds-checks{list-style:none;margin:0;padding:0;display:grid;gap:10px;} .ds-checks li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45;color:var(--text-2);} .ds-checks svg{flex:none;margin-top:2px;color:var(--brand);} .ds-link{display:inline-flex;align-items:center;gap:6px;font-weight:550;font-size:15px;} .ds-link svg{width:15px;height:15px;transition:transform .25s var(--ease-out);} .ds-card:hover .ds-link svg{transform:translateX(3px);}"
+      "css": ":root{--bg:#081120;--surface-2:#132238;--line-strong:rgba(160,200,255,0.14);--glass-line:rgba(255,255,255,0.09);--glass-edge:inset 0 1px 0 rgba(255,255,255,0.07);--text:#f5f6f7;--text-2:#b4b9c1;--muted:#8b9099;--brand:#22d3ee;--brand-ink:#03161c;--ease-out:cubic-bezier(0.16,1,0.3,1);--font-display:'Archivo Variable','Archivo',system-ui,sans-serif;--font-body:'Inter Variable','Inter',system-ui,sans-serif;} .ds-card{position:relative;display:grid;gap:14px;max-width:360px;padding:28px;border-radius:20px;overflow:hidden;color:var(--text);text-decoration:none;font-family:var(--font-body);background:linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.018)),#081120;border:1px solid var(--glass-line);box-shadow:var(--glass-edge),0 24px 48px -32px rgba(0,0,0,0.8);transition:border-color .35s,background .35s;} .ds-card::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(220px circle at 30% 0%,rgba(34,211,238,0.12),transparent 60%);opacity:0;transition:opacity .4s ease;pointer-events:none;} .ds-card:hover{border-color:rgba(34,211,238,0.32);} .ds-card:hover::after{opacity:1;} .ds-card:focus-visible{outline:2px solid #22d3ee;outline-offset:3px;} .ds-tile{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.28);color:#67e8f9;} .ds-card-h{margin:0;font:800 22px/1.15 var(--font-display);letter-spacing:-0.02em;} .ds-checks{list-style:none;margin:0;padding:0;display:grid;gap:10px;} .ds-checks li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45;color:var(--text-2);} .ds-checks svg{flex:none;margin-top:2px;color:var(--brand);} .ds-link{display:inline-flex;align-items:center;gap:6px;font-weight:550;font-size:15px;} .ds-link svg{width:15px;height:15px;transition:transform .25s var(--ease-out);} .ds-card:hover .ds-link svg{transform:translateX(3px);}"
     },
     {
       "name": "Icon Tile",
@@ -430,7 +430,7 @@
   ],
   "narrative": {
     "northStar": "The Lit Control Room",
-    "overview": "A near-black stage with a navy cast where the product works in plain sight. The page is dark and quiet so that the things that are alive (the agent console, the film, the reel, the live chat) carry the light. Cyan is the colour of the agent itself: it marks the one action to take, the live state and the thin lines that connect things, and nothing else. The craft bar is the category standard at full finish (linear.app, sierra.ai, decagon.ai): restrained, product-led, legible.\n\nSurfaces are glass cards floating over four very soft cyan and sky radial light fields painted on the body. Depth comes from translucency, a hairline top edge and long, low, black ambient shadows, never from colour fills. Motion is part of the world: content rises once as it enters, the film pins and grows as you scroll, the reel follows the video, and navigating between the home and a service page morphs the pillar title and icon in place.\n\nThis world is a user-pinned hybrid: the production site's rich components inside the multi-page prototype's restraint. It explicitly refuses production's noise (particles, aurora, canvas beams, marquee, uppercase black headings).",
+    "overview": "A deep navy stage where the product works in plain sight. The page is dark and calm, never flat black, so that the things that are alive (the agent console, the film, the reel, the live chat) carry the light. Cyan is the colour of the agent itself: it marks the one action to take, the live state and the thin lines that connect things, and nothing else. The craft bar is the category standard at full finish (linear.app, sierra.ai, decagon.ai): restrained, product-led, legible.\n\nSurfaces are glass cards floating over a slow aurora: three blurred fields of cyan, blue and indigo fixed behind every page, drifting over a 48-second cycle. Depth comes from translucency, a hairline top edge and long, low, black ambient shadows, never from colour fills. Motion is part of the world: content rises once as it enters, the film pins and grows as you scroll, the reel follows the video, and navigating between the home and a service page morphs the pillar title and icon in place.\n\nThis world is a user-pinned hybrid: the production site's rich components inside the multi-page prototype's restraint. It explicitly refuses production's noise (particles, canvas beams, moving lines and dots, marquee, uppercase black headings). The one ambient layer it keeps is the slow aurora, chosen by the owner on 20 Oct 2026 because flat black read as too basic.",
     "keyCharacteristics": [
       "Near-black navy ground with three greyscale surfaces and hairline white borders.",
       "One accent, cyan, used as a signal and never as a field.",
@@ -451,9 +451,9 @@
         "section": "colors"
       },
       {
-        "name": "The Light Fields Rule",
-        "body": "Atmosphere comes only from the four fixed radial gradients on the body (cyan and sky at 7 to 13% opacity). Do not add per-section glows, auroras or particle layers.",
-        "section": "colors"
+        "name": "The One Aurora Rule",
+        "body": "Atmosphere comes only from the single aurora layer (body::before, fixed, behind everything, 48 s drift, still under reduced motion). No per-section glows, second animated layer, particles, lines or dots. Never flat black: the ground is navy.",
+        "section": "Atmosphere comes only from the single aurora layer (body::before, fixed, behind everything, 48 s drift, still under reduced motion). No per-section glows, second animated layer, particles, lines or dots. Never flat black: the ground is navy."
       },
       {
         "name": "The Sentence Case Rule",
@@ -472,7 +472,7 @@
       }
     ],
     "dos": [
-      "Do keep the ground at Navy Ink with only the four body light fields for atmosphere.",
+      "Do keep the ground at Navy Ink with the single slow aurora as the only atmosphere, and mark at most one key word per heading in cyan.",
       "Do use Agent Cyan for the diagnosis action, icon tiles, live state, progress and lines, and Cyan Ink for anything sitting on it.",
       "Do set headings in Archivo 800 to 850, sentence case, negative tracking, balanced wrap.",
       "Do build containers as glass cards: 20px radius, hairline glass border, inset top highlight, long soft black drop, cursor glow on hover.",

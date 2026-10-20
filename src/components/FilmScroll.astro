@@ -18,7 +18,7 @@ const chapters = [
 <section class="film" data-film aria-labelledby="film-title">
   <div class="film-pin" data-film-pin>
     <div class="wrap film-intro" data-film-intro>
-      <h2 id="film-title" class="display film-title">Míralo trabajar.<span> 45 segundos de lo que hace la IA en un negocio como el tuyo.</span></h2>
+      <h2 id="film-title" class="display film-title">Míralo <span class="hl">trabajar</span>.<span> 45 segundos de lo que hace la IA en un negocio como el tuyo.</span></h2>
     </div>
 
     <div class="film-stage">
@@ -67,7 +67,7 @@ const chapters = [
   .film-pin { position: relative; }
   .film-intro { position: relative; z-index: 2; }
   .film-title { font-size: clamp(2.2rem, 1.2rem + 3.6vw, 4.6rem); max-width: 18ch; }
-  .film-title span { display: block; margin-top: 14px; font: 500 clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem)/1.4 var(--font-body); letter-spacing: -0.01em; color: var(--text-2); max-width: 40ch; }
+  .film-title span:not(.hl) { display: block; margin-top: 14px; font: 500 clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem)/1.4 var(--font-body); letter-spacing: -0.01em; color: var(--text-2); max-width: 40ch; }
 
   .film-stage { position: relative; margin-top: clamp(28px, 5vh, 56px); display: grid; place-items: center; padding-inline: var(--gutter); }
   .film-frame {

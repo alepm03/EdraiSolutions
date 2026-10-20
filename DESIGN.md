@@ -1,13 +1,13 @@
 ---
 name: Edrai Solutions
-description: AI agents, custom software and automation for Spanish service SMBs, shown working on a near-black product stage.
+description: AI agents, custom software and automation for Spanish service SMBs, shown working on a deep navy product stage lit by a slow aurora.
 colors:
-  ink-ground: "#05070b"
-  surface-1: "#0e0f12"
-  surface-2: "#14161a"
-  surface-3: "#1b1e23"
-  line: "rgba(255, 255, 255, 0.07)"
-  line-strong: "rgba(255, 255, 255, 0.12)"
+  ink-ground: "#081120"
+  surface-1: "#0e1a2d"
+  surface-2: "#132238"
+  surface-3: "#192b44"
+  line: "rgba(160, 200, 255, 0.08)"
+  line-strong: "rgba(160, 200, 255, 0.14)"
   glass-line: "rgba(255, 255, 255, 0.09)"
   text: "#f5f6f7"
   text-2: "#b4b9c1"
@@ -20,6 +20,8 @@ colors:
   cyan-tint: "rgba(34, 211, 238, 0.1)"
   cyan-line: "rgba(34, 211, 238, 0.35)"
   live-green: "#4ade80"
+  aurora-blue: "#3b82f6"
+  aurora-indigo: "#6366f1"
 typography:
   display:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
@@ -135,33 +137,34 @@ components:
 
 **Creative North Star: "The Lit Control Room"**
 
-A near-black stage with a navy cast where the product works in plain sight. The page is dark and quiet so that the things that are alive (the agent console, the film, the reel, the live chat) carry the light. Cyan is the colour of the agent itself: it marks the one action to take, the live state and the thin lines that connect things, and nothing else. The craft bar is the category standard at full finish (linear.app, sierra.ai, decagon.ai): restrained, product-led, legible.
+A deep navy stage where the product works in plain sight. The page is dark and calm, never flat black, so that the things that are alive (the agent console, the film, the reel, the live chat) carry the light. Cyan is the colour of the agent itself: it marks the one action to take, the live state and the thin lines that connect things, and nothing else. The craft bar is the category standard at full finish (linear.app, sierra.ai, decagon.ai): restrained, product-led, legible.
 
-Surfaces are glass cards floating over four very soft cyan and sky radial light fields painted on the body. Depth comes from translucency, a hairline top edge and long, low, black ambient shadows, never from colour fills. Motion is part of the world: content rises once as it enters, the film pins and grows as you scroll, the reel follows the video, and navigating between the home and a service page morphs the pillar title and icon in place.
+Surfaces are glass cards floating over a slow aurora: three blurred fields of cyan, blue and indigo fixed behind every page, drifting over a 48-second cycle. Depth comes from translucency, a hairline top edge and long, low, black ambient shadows, never from colour fills. Motion is part of the world: content rises once as it enters, the film pins and grows as you scroll, the reel follows the video, and navigating between the home and a service page morphs the pillar title and icon in place.
 
-This world is a user-pinned hybrid: the production site's rich components inside the multi-page prototype's restraint. It explicitly refuses production's noise (particles, aurora, canvas beams, marquee, uppercase black headings).
+This world is a user-pinned hybrid: the production site's rich components inside the multi-page prototype's restraint. It explicitly refuses production's noise (particles, canvas beams, moving lines and dots, marquee, uppercase black headings). The one ambient layer it keeps is the slow aurora, chosen by the owner on 20 Oct 2026 because flat black read as too basic.
 
 **Key Characteristics:**
-- Near-black navy ground with three greyscale surfaces and hairline white borders.
+- Deep navy ground with three navy surfaces and cool hairline borders, under a slow aurora.
 - One accent, cyan, used as a signal and never as a field.
-- Archivo heavy, slightly condensed, sentence case, tight negative tracking; Inter for everything you read.
+- Archivo heavy, slightly condensed, sentence case, tight negative tracking, with one key word per heading in cyan; Inter for everything you read.
 - Glass cards (20px radius) with a cursor-following cyan glow on hover.
 - Motion that explains: expo-out reveals once, scroll-pinned film, video-synced reel, shared-element page transitions.
 - Illustrative data is always labelled; real figures come from one monthly source.
 
 ## Colors
 
-A dark, nearly monochrome palette with a single electric cyan reserved for the agent and the next step.
+A deep navy palette with a single electric cyan reserved for the agent, the next step and the key word of a heading.
 
 ### Primary
-- **Agent Cyan** (agent-cyan): primary button fill, solid icon tile, progress bars on the film and reel, the active-nav underline, the rule in the logo lockup, focus outlines, selection, caret. Its tint and line variants (cyan-tint, cyan-line) draw icon tiles, active reel steps and hovered card borders.
+- **Agent Cyan** (agent-cyan): the key word of a heading (see The Key Word Rule), primary button fill, solid icon tile, progress bars on the film and reel, the active-nav underline, the rule in the logo lockup, focus outlines, selection, caret. Its tint and line variants (cyan-tint, cyan-line) draw icon tiles, active reel steps and hovered card borders.
 - **Bright Cyan** (cyan-bright): hover state of the primary button and the glyph colour inside outlined icon tiles.
-- **Deep Sky** (cyan-deep): only inside the body's ambient light fields, alternating with Agent Cyan so the glow has temperature.
+- **Deep Sky** (cyan-deep): reserved for gradients and hover temperature; never a flat fill.
 - **Cyan Ink** (cyan-ink): text and icons placed on a cyan fill. Never plain black.
 
 ### Neutral
-- **Navy Ink Ground** (ink-ground): the page background everywhere, behind the radial light fields; also the nav glass base at 72% and the mobile sheet.
-- **Surface 1 / 2 / 3** (surface-1, surface-2, surface-3): three steps of tonal lift. Surface 2 is the hover and active state for quiet buttons and nav links; Surface 3 fills small inline icon chips and the scrollbar thumb.
+- **Navy Ink Ground** (ink-ground): the page background everywhere, behind the aurora; also the nav glass base at 72%, the reel caption base and the mobile sheet.
+- **Aurora Blue / Aurora Indigo** (aurora-blue, aurora-indigo): only inside the aurora layer (blue at 20%, indigo at 14%, Agent Cyan at 16%, blurred 40px). Never on components.
+- **Surface 1 / 2 / 3** (surface-1, surface-2, surface-3): three steps of navy tonal lift. Surface 2 is the hover and active state for quiet buttons and nav links; Surface 3 fills small inline icon chips and the scrollbar thumb.
 - **Hairline / Strong Hairline / Glass Line** (line, line-strong, glass-line): dividers, quiet button and burger borders, card and frame borders.
 - **Text, Text 2, Muted, Faint** (text, text-2, muted, faint): headings and primary copy; ledes, nav links and list copy; meta and demo tags; the quietest captions.
 
@@ -173,7 +176,9 @@ A dark, nearly monochrome palette with a single electric cyan reserved for the a
 
 **The One Cyan Action Rule.** A cyan-filled button always means one thing: request the free diagnosis (the nav CTA and the hero CTA are the same action). Every other action uses the quiet (outlined) or light button.
 
-**The Light Fields Rule.** Atmosphere comes only from the four fixed radial gradients on the body (cyan and sky at 7 to 13% opacity). Do not add per-section glows, auroras or particle layers.
+**The One Aurora Rule.** Atmosphere comes only from the single aurora layer (`body::before`, fixed, behind everything, 48 s drift, still under reduced motion). Do not add per-section glows, a second animated layer, particles, lines or dots. Never return to flat black: the ground is navy.
+
+**The Key Word Rule.** A heading (H1 or H2) may set one word or short phrase in Agent Cyan with `.hl`: the word that carries the promise ("trabaja", "Pruébalo.", "sus números"). One per heading at most; never in ledes, body copy, buttons or cards; FAQ and legal headings stay white. Solid colour only, no gradient text.
 
 ## Typography
 
@@ -262,7 +267,7 @@ Astro View Transitions with a persistent nav and chat. Leaving content fades up 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep the ground at Navy Ink with only the four body light fields for atmosphere.
+- **Do** keep the ground at Navy Ink with the single slow aurora as the only atmosphere, and mark at most one key word per heading in cyan.
 - **Do** use Agent Cyan for the diagnosis action, icon tiles, live state, progress and lines, and Cyan Ink for anything sitting on it.
 - **Do** set headings in Archivo 800 to 850, sentence case, negative tracking, balanced wrap.
 - **Do** build containers as glass cards: 20px radius, hairline glass border, inset top highlight, long soft black drop, cursor glow on hover.

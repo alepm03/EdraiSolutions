@@ -7,17 +7,17 @@
   --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
   --font-display: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
   --color-brand: #22d3ee;
-  --color-ink: #05070b;
+  --color-ink: #081120;
 }
 
 :root {
-  /* Ground and surfaces: near-black with a navy cast (hybrid of prod #030712 and the prototype), three steps */
-  --bg: #05070b;
-  --surface-1: #0e0f12;
-  --surface-2: #14161a;
-  --surface-3: #1b1e23;
-  --line: rgba(255, 255, 255, 0.07);
-  --line-strong: rgba(255, 255, 255, 0.12);
+  /* Ground and surfaces: deep navy ("Aurora lenta", chosen by Ricardo 20 oct 2026), three steps */
+  --bg: #081120;
+  --surface-1: #0e1a2d;
+  --surface-2: #132238;
+  --surface-3: #192b44;
+  --line: rgba(160, 200, 255, 0.08);
+  --line-strong: rgba(160, 200, 255, 0.14);
 
   --text: #f5f6f7;
   --text-2: #b4b9c1;
@@ -39,7 +39,7 @@
   --gutter: clamp(16px, 4vw, 40px);
   --section: clamp(88px, 14vh, 160px);
 
-  /* Glass: translucent surfaces over the page's light fields (the web's brand face per design_v3 §1) */
+  /* Glass: translucent surfaces over the page's aurora (the web's brand face per design_v3 §1) */
   --glass: rgba(255, 255, 255, 0.035);
   --glass-strong: rgba(255, 255, 255, 0.055);
   --glass-line: rgba(255, 255, 255, 0.09);
@@ -66,12 +66,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(900px 600px at 82% -4%, rgba(34, 211, 238, 0.13), transparent 62%),
-    radial-gradient(800px 700px at -8% 34%, rgba(14, 165, 233, 0.08), transparent 60%),
-    radial-gradient(900px 700px at 105% 62%, rgba(34, 211, 238, 0.07), transparent 62%),
-    radial-gradient(1000px 600px at 30% 96%, rgba(14, 165, 233, 0.08), transparent 60%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   font: 400 16px/1.6 var(--font-body);
   font-feature-settings: 'cv11', 'ss01';
@@ -205,3 +200,24 @@ input, textarea { caret-color: var(--brand); }
   :root { --section: 72px; }
   .section-tight { padding-block: 56px; }
 }
+
+/* Aurora: three blurred colour fields behind every page, drifting very slowly.
+   Fixed to the viewport so every section gets colour, not only the top of the page. */
+body::before {
+  content: ''; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(36% 30% at 78% 18%, rgba(34, 211, 238, 0.16), transparent 70%),
+    radial-gradient(40% 36% at 18% 52%, rgba(59, 130, 246, 0.2), transparent 70%),
+    radial-gradient(34% 30% at 64% 86%, rgba(99, 102, 241, 0.14), transparent 70%);
+  filter: blur(40px);
+  animation: auroraDrift 48s ease-in-out infinite alternate;
+}
+@keyframes auroraDrift {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate3d(-4%, 3%, 0) rotate(8deg) scale(1.08); }
+  100% { transform: translate3d(3%, -2%, 0) rotate(-6deg) scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
+
+/* Key word of a headline in cyan: one per heading at most, never in body copy */
+.hl { color: var(--brand); }
