@@ -15,7 +15,7 @@ History: the 13 Oct prototype (canon card, seed a8a8418d) was rejected by Ricard
 
 THESIS: A hybrid pinned by Ricardo. Production's rich components (Flow + Console hero, bento cards with icon tiles and cursor glow, live chat demos, testimonials, process cards, team photos, form) inside the prototype's multi-page structure and restraint. Video is shown inline, never behind a modal. Refuses production's noise (particles, aurora, canvas beams, marquee, uppercase black headings) and the prototype's sparseness.
 
-OWN-WORLD: Near-black ground with a navy cast (#05070b), three greyscale surfaces, hairline borders, glass cards. Cyan #22d3ee only as accent: primary action, icon tiles, live state, lines. Never a cyan full-bleed background. Archivo 800 sentence-case display, Inter body. Corte mark.
+OWN-WORLD: Deep navy ground (#081120) under a single slow aurora (cyan, blue, indigo; owner choice 20 Oct 2026), three navy surfaces, hairline borders, glass cards. Cyan #22d3ee only as accent: primary action, icon tiles, live state, lines. Never a cyan full-bleed background. Archivo 800 sentence-case display with one key word per heading in cyan, Inter body. Corte mark.
 
 STORY: The visitor sees the agent working (console), watches the 45 s film as they scroll, understands the three pillars, learns chatbot vs automation vs agent from a vertical reel, tries the real Barranco agent, trusts the monthly numbers, books the diagnosis.
 
