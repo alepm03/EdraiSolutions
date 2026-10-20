@@ -19,7 +19,7 @@ const Icon = { 'agentes-ia': Bot, 'software-a-medida': Code, automatizacion: Wor
 const others = PILLARS.filter((o) => o.slug !== p.slug);
 const clip = { 'software-a-medida': 'clip-organiza', automatizacion: 'clip-trabaja' }[p.slug as string];
 ---
-<Base title={`${p.title} · Edrai Solutions`} description={`${p.short} ${p.description}`}>
+<Base title={p.seoTitle} description={p.meta} service={{ name: p.title, description: p.meta }}>
   <section class="svc-hero">
     <div class="wrap">
       <a class="back" href="/#servicios"><ArrowLeft /> Servicios</a>

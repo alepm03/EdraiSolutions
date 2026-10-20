@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Página no encontrada · Edrai Solutions" description="Esta página no existe o ha cambiado de dirección." noindex>
+  <section class="page-hero">
+    <div class="wrap">
+      <h1 class="display page-h1">Esta página <span class="hl">no existe</span>.</h1>
+      <p class="lede page-lede">Puede que haya cambiado de dirección. Desde aquí puedes volver al inicio o ver lo que hacemos.</p>
+      <div class="nf-actions">
+        <a class="btn btn-primary" href="/">Volver al inicio</a>
+        <a class="btn btn-quiet" href="/#servicios">Ver servicios</a>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>.nf-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }</style>

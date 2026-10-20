@@ -1,0 +1,28 @@
+# Edrai Solutions
+
+> Agencia de IA en Madrid para pymes de servicios en España (5 a 50 personas). Construimos agentes de IA que atienden a los clientes por WhatsApp, chat web y teléfono; software a medida con la cuenta de resultados y la tesorería al día; y automatizaciones que conectan las herramientas que el negocio ya usa. Precio cerrado, en producción en 2 a 4 semanas y soporte después. Diagnóstico gratuito de 15 minutos.
+
+## Servicios
+
+- [Agentes de IA](https://edraisolutions.es/agentes-ia/): atienden por WhatsApp, chat web y teléfono a cualquier hora, responden con la información real del negocio, reservan, envían recordatorios y pasan a una persona lo que lo necesita, con el resumen y los datos de contacto.
+- [Software a medida](https://edraisolutions.es/software-a-medida/): facturas, cobros y movimientos del banco entran solos; cuenta de resultados, tesorería y previsión a 90 días actualizadas cada día.
+- [Automatización](https://edraisolutions.es/automatizacion/): conecta agenda, CRM, facturación, email y hojas de cálculo; reseñas de Google, recordatorios e informes que se envían solos, con monitorización de cada flujo.
+- [Consultoría de IA](https://edraisolutions.es/consultoria-ia/): diagnóstico gratuito, plan priorizado por impacto con coste estimado y formación del equipo.
+
+## Casos reales
+
+- [Mercado del Barranco (Sevilla)](https://edraisolutions.es/casos/mercado-del-barranco/): su agente de IA atiende el chat de la web desde junio de 2026. En septiembre de 2026 atendió a más de 100 clientes (111 conversaciones), el 63 % en inglés, y resolvió el 94,6 % sin pasar al equipo.
+- [Todos los casos](https://edraisolutions.es/casos/): incluye I Jump Skydive.
+
+## Empresa
+
+- [Sobre nosotros](https://edraisolutions.es/sobre-nosotros/): equipo fundador, Ricardo Pichardo (CEO) y Alejandro Pichardo (CTO). Quien hace el diagnóstico diseña y programa la solución.
+- [Contacto y diagnóstico gratuito](https://edraisolutions.es/contacto/): respuesta en menos de 24 h. Email ricardopichardo@edraisolutions.es, WhatsApp +34 654 954 602.
+
+## Preguntas frecuentes
+
+- Sin conocimientos técnicos: nos encargamos de toda la parte técnica y formamos al equipo.
+- Plazo: entre 2 y 4 semanas desde que se aprueba el plan.
+- Precio: depende del servicio; el diagnóstico es gratuito e incluye un presupuesto cerrado.
+- Integración: se conecta con la web, el CRM y las herramientas que el negocio ya tiene.
+- Datos: cumplimiento del RGPD, con datos procesados en servidores europeos.
