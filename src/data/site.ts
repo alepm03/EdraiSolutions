@@ -9,14 +9,20 @@ export const WA_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hol
 export const EMAIL = 'ricardopichardo@edraisolutions.es';
 export const INSTAGRAM = 'https://www.instagram.com/edraisolutions/';
 
-/** Last full month of the Mercado del Barranco agent (Supabase barranco-agent). Update monthly. */
+/**
+ * Monthly average of the Mercado del Barranco agent (Supabase barranco-agent, channel web),
+ * full months July to October 2026. June is left out (live from 24/06, earlier rows are tests).
+ * English share covers August to October only: the language field was not reliable before late July.
+ * Monthly: Jul 104/201/94,2 % · Aug 104/213/69,2 %/95,2 % · Sep 111/197/63,1 %/94,6 % · Oct 74/136/63,5 %/90,5 %.
+ */
 export const MONTHLY = {
-  month: 'septiembre 2026',
-  monthShort: 'Septiembre 2026',
-  conversations: 111,
-  messages: 197,
-  englishPct: '63',
-  resolvedPct: '94,6',
+  period: 'julio a octubre de 2026',
+  periodShort: 'Media mensual · jul-oct 2026',
+  englishPeriod: 'agosto a octubre',
+  conversations: 98,
+  messages: 187,
+  englishPct: '65',
+  resolvedPct: '93,9',
 };
 
 export type PillarSlug = 'agentes-ia' | 'software-a-medida' | 'automatizacion' | 'consultoria-ia';

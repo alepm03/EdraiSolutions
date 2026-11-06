@@ -1,6 +1,6 @@
 ---
 // Real clients (production ClientTestimonials, restyled). Barranco figures are
-// the last full month from its agent database (MONTHLY in data/site.ts).
+// the monthly average from its agent database (MONTHLY in data/site.ts).
 import { Scale, ArrowRight } from '@lucide/astro';
 import { MONTHLY, TESTIMONIALS as T } from '../data/site';
 
@@ -8,8 +8,8 @@ interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
 
 const stats = [
-  { v: String(MONTHLY.conversations), u: '', l: `conversaciones atendidas en ${MONTHLY.month.split(' ')[0]}` },
-  { v: String(MONTHLY.messages), u: '', l: 'mensajes de clientes respondidos' },
+  { v: String(MONTHLY.conversations), u: '', l: 'conversaciones atendidas al mes' },
+  { v: String(MONTHLY.messages), u: '', l: 'mensajes de clientes respondidos al mes' },
   { v: MONTHLY.englishPct, u: '%', l: 'de las conversaciones, en inglés' },
   { v: MONTHLY.resolvedPct, u: '%', l: 'resueltas sin pasar al equipo' },
 ];
@@ -28,7 +28,7 @@ const stats = [
     {stats.map((s) => (
       <div><b class="tabular">{s.v}<small>{s.u}</small></b><span>{s.l}</span></div>
     ))}
-    <p class="case-src"><span class="live" aria-hidden="true"></span>Datos reales del agente, {MONTHLY.month}. Se actualizan cada mes.</p>
+    <p class="case-src"><span class="live" aria-hidden="true"></span>Media mensual de los datos reales del agente, {MONTHLY.period} (el inglés, de {MONTHLY.englishPeriod}).</p>
   </div>
 </figure>
 
