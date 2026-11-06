@@ -11,7 +11,7 @@
 
 ## Casos reales
 
-- [Mercado del Barranco (Sevilla)](https://edraisolutions.es/casos/mercado-del-barranco/): su agente de IA atiende el chat de la web desde junio de 2026. En septiembre de 2026 atendió a más de 100 clientes (111 conversaciones), el 63 % en inglés, y resolvió el 94,6 % sin pasar al equipo.
+- [Mercado del Barranco (Sevilla)](https://edraisolutions.es/casos/mercado-del-barranco/): su agente de IA atiende el chat de la web desde junio de 2026. De media mensual (julio a octubre de 2026) atiende 98 conversaciones y 187 mensajes de clientes, resuelve el 93,9 % sin pasar al equipo y el 65 % de las conversaciones son en inglés (agosto a octubre).
 - [Todos los casos](https://edraisolutions.es/casos/): incluye I Jump Skydive.
 
 ## Empresa
