@@ -14,15 +14,16 @@ export const INSTAGRAM = 'https://www.instagram.com/edraisolutions/';
  * full months July to October 2026. June is left out (live from 24/06, earlier rows are tests).
  * English share covers August to October only: the language field was not reliable before late July.
  * Monthly: Jul 104/201/94,2 % · Aug 104/213/69,2 %/95,2 % · Sep 111/197/63,1 %/94,6 % · Oct 74/136/63,5 %/90,5 %.
+ * Exact averages: 98 conversations, 187 messages, 65 % English, 93,9 % resolved.
+ * Published figures are rounded down so they stay true. Conversations are the running total
+ * since go-live (450 on 9 Nov 2026), shown as +400; the rest are the monthly averages above.
  */
 export const MONTHLY = {
   period: 'julio a octubre de 2026',
-  periodShort: 'Media mensual · jul-oct 2026',
-  englishPeriod: 'agosto a octubre',
-  conversations: 98,
-  messages: 187,
-  englishPct: '65',
-  resolvedPct: '93,9',
+  conversationsTotal: '+400',
+  messages: '+180',
+  englishPct: '+60',
+  resolvedPct: '+90',
 };
 
 export type PillarSlug = 'agentes-ia' | 'software-a-medida' | 'automatizacion' | 'consultoria-ia';
