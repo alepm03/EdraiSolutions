@@ -52,7 +52,7 @@ Process: free 15-minute diagnosis, closed-price proposal, implementation in 2 to
 
 ## Evidence on Hand
 
-- Mercado del Barranco (food market): AI agent on its website chat (channel `web` in Supabase `barranco-agent`, not WhatsApp) live since 24/06/2026. Figures are published as a monthly average of full months (July to October 2026, June excluded as a partial launch month): 98 conversations, 187 customer messages, 93.9% resolved without escalation, 65% in English (August to October only; language field unreliable before late July). Not updated monthly. Live demo (`RealChatDemo`) and testimonial on site.
+- Mercado del Barranco (food market): AI agent on its website chat (channel `web` in Supabase `barranco-agent`, not WhatsApp) live since 24/06/2026. Figures are published as a monthly average of full months (July to October 2026, June excluded as a partial launch month): 98 conversations, 187 customer messages, 93.9% resolved without escalation, 65% in English (August to October only; language field unreliable before late July). Not updated monthly. Published rounded down: +400 conversations (running total, 450 on 9 Nov 2026), +180 messages a month, +90% resolved, +60% English. Live demo (`RealChatDemo`) and testimonial on site.
 - Since 19 Oct 2026 the site shows the last full month's exact figures instead of "+200" and "+90%". "−2 semanas / 5+ correos" is the client's own statement. "Respuesta en menos de 24 h" is already a public commitment on the current site.
 - I Jump Skydive: custom operating software (bookings, manifest, finance, cash, CRM). Testimonial on site; no figures.
 - Law firm testimonial on site.
