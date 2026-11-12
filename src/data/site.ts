@@ -9,14 +9,21 @@ export const WA_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hol
 export const EMAIL = 'ricardopichardo@edraisolutions.es';
 export const INSTAGRAM = 'https://www.instagram.com/edraisolutions/';
 
-/** Last full month of the Mercado del Barranco agent (Supabase barranco-agent). Update monthly. */
+/**
+ * Monthly average of the Mercado del Barranco agent (Supabase barranco-agent, channel web),
+ * full months July to October 2026. June is left out (live from 24/06, earlier rows are tests).
+ * English share covers August to October only: the language field was not reliable before late July.
+ * Monthly: Jul 104/201/94,2 % · Aug 104/213/69,2 %/95,2 % · Sep 111/197/63,1 %/94,6 % · Oct 74/136/63,5 %/90,5 %.
+ * Exact averages: 98 conversations, 187 messages, 65 % English, 93,9 % resolved.
+ * Published figures are rounded down so they stay true. Conversations are the running total
+ * since go-live (450 on 9 Nov 2026), shown as +400; the rest are the monthly averages above.
+ */
 export const MONTHLY = {
-  month: 'septiembre 2026',
-  monthShort: 'Septiembre 2026',
-  conversations: 111,
-  messages: 197,
-  englishPct: '63',
-  resolvedPct: '94,6',
+  period: 'julio a octubre de 2026',
+  conversationsTotal: '+400',
+  messages: '+180',
+  englishPct: '+60',
+  resolvedPct: '+90',
 };
 
 export type PillarSlug = 'agentes-ia' | 'software-a-medida' | 'automatizacion' | 'consultoria-ia';
@@ -32,6 +39,9 @@ export interface Pillar {
   problems: string[];
   how: { title: string; text: string }[];
   examples: string[];
+  /** SEO: <title> (under 60 chars) and meta description (under 160) */
+  seoTitle: string;
+  meta: string;
 }
 
 export const PILLARS: Pillar[] = [
@@ -54,6 +64,8 @@ export const PILLARS: Pillar[] = [
       { title: 'Sabe cuándo parar', text: 'Lo que necesita a una persona llega a tu equipo con el resumen y los datos de contacto.' },
     ],
     examples: ['Citas de clínica por WhatsApp', 'Reservas de restaurante por teléfono', 'Consultas de inmobiliaria desde la web'],
+    seoTitle: 'Agentes de IA para WhatsApp, web y teléfono · Edrai',
+    meta: 'Agentes de IA que atienden a tus clientes por WhatsApp, chat web y teléfono a cualquier hora: responden con tus datos, reservan y avisan a tu equipo.',
   },
   {
     slug: 'software-a-medida',
@@ -74,6 +86,8 @@ export const PILLARS: Pillar[] = [
       { title: 'Crece contigo', text: 'Empezamos por el proceso que más duele y lo ampliamos con el uso real. Soporte y evolución incluidos.' },
     ],
     examples: ['Cuenta de resultados automática', 'Previsión de tesorería a 90 días', 'Plataforma de reservas, caja y CRM'],
+    seoTitle: 'Software a medida para pymes · Edrai Solutions',
+    meta: 'Software a medida para pymes: facturas, cobros y banco conectados, con cuenta de resultados, tesorería y previsión a 90 días siempre al día.',
   },
   {
     slug: 'automatizacion',
@@ -94,6 +108,8 @@ export const PILLARS: Pillar[] = [
       { title: 'Lo vigilamos', text: 'Monitorizamos cada flujo y te avisamos si algo falla antes de que se note.' },
     ],
     examples: ['Formulario web a CRM con propuesta de llamada', 'Reseñas de Google tras cada servicio', 'Informe semanal automático'],
+    seoTitle: 'Automatización de procesos para pymes · Edrai',
+    meta: 'Conectamos agenda, CRM, facturación y email para que los datos pasen solos. Reseñas, recordatorios e informes sin depender de que alguien se acuerde.',
   },
   {
     slug: 'consultoria-ia',
@@ -114,6 +130,8 @@ export const PILLARS: Pillar[] = [
       { title: 'Formación', text: 'Tu equipo aprende a usar la IA en su día a día, con sus propias tareas.' },
     ],
     examples: ['Auditoría de procesos', 'Plan de implantación por fases', 'Formación del equipo'],
+    seoTitle: 'Consultoría de IA para pymes · Edrai Solutions',
+    meta: 'Diagnóstico gratuito de 15 minutos y plan priorizado con coste estimado para aplicar la IA en tu pyme, con formación para tu equipo.',
   },
 ];
 

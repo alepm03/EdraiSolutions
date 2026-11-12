@@ -14,7 +14,7 @@ Web de [Edrai Solutions](https://edraisolutions.es), agencia de IA de Madrid: ag
 
 - `src/pages/`: rutas (home, `[service].astro` para los cuatro servicios, casos, contacto, sobre nosotros, legal).
 - `src/components/`: secciones en Astro; `src/components/react/`: islas React.
-- `src/data/site.ts`: todo el contenido. **Las cifras del Mercado del Barranco (`MONTHLY`) se actualizan a mano cada mes** desde Supabase `barranco-agent`.
+- `src/data/site.ts`: todo el contenido. Las cifras del Mercado del Barranco (`MONTHLY`) salen de Supabase `barranco-agent` y se publican redondeadas a la baja: conversaciones en total acumulado (+400) y el resto en media mensual de julio a octubre de 2026. No hay que tocarlas cada mes.
 - `src/scripts/motion.ts`: scroll suave, GSAP y efectos que se reenganchan en cada navegación.
 - `public/video/`: película de 45 s, bucle, reels verticales y clips de las páginas de servicio.
 - `DESIGN.md` y `PRODUCT.md`: sistema de diseño y contexto de producto.

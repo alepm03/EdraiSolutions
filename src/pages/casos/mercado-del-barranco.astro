@@ -6,7 +6,7 @@ import ContactSection from '../../components/ContactSection.astro';
 import { ArrowLeft } from '@lucide/astro';
 import { MONTHLY } from '../../data/site';
 ---
-<Base title="Mercado del Barranco · Caso real · Edrai Solutions" description={`El agente de IA del Mercado del Barranco atiende a sus clientes en su web desde junio de 2026. En ${MONTHLY.month}: ${MONTHLY.conversations} conversaciones y el ${MONTHLY.resolvedPct} % resueltas sin pasar al equipo.`}>
+<Base title="Mercado del Barranco · Caso real · Edrai Solutions" description={`Caso real: el agente de IA del Mercado del Barranco (Sevilla) lleva más de 400 conversaciones atendidas y resuelve más del 90 % sin pasar al equipo.`}>
   <section class="page-hero">
     <div class="wrap">
       <a class="back" href="/casos"><ArrowLeft /> Casos</a>
@@ -17,7 +17,7 @@ import { MONTHLY } from '../../data/site';
   <section class="section section-tight"><div class="wrap"><Cases compact /></div></section>
   <section class="section section-tight">
     <div class="wrap">
-      <div class="sec-head"><h2 class="h2">Habla con su agente.</h2><p class="lede">Es el mismo que usan sus clientes, en producción. Pregúntale lo que preguntaría un turista.</p></div>
+      <div class="sec-head"><h2 class="h2">Habla con <span class="hl">su agente</span>.</h2><p class="lede">Es el mismo que usan sus clientes, en producción. Pregúntale lo que preguntaría un turista.</p></div>
       <RealChatDemo client:visible />
     </div>
   </section>

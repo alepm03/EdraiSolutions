@@ -1,6 +1,6 @@
 ---
 // Real clients (production ClientTestimonials, restyled). Barranco figures are
-// the last full month from its agent database (MONTHLY in data/site.ts).
+// rounded down from its agent database (MONTHLY in data/site.ts).
 import { Scale, ArrowRight } from '@lucide/astro';
 import { MONTHLY, TESTIMONIALS as T } from '../data/site';
 
@@ -8,8 +8,8 @@ interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
 
 const stats = [
-  { v: String(MONTHLY.conversations), u: '', l: `conversaciones atendidas en ${MONTHLY.month.split(' ')[0]}` },
-  { v: String(MONTHLY.messages), u: '', l: 'mensajes de clientes respondidos' },
+  { v: MONTHLY.conversationsTotal, u: '', l: 'conversaciones atendidas' },
+  { v: MONTHLY.messages, u: '', l: 'mensajes de clientes respondidos al mes' },
   { v: MONTHLY.englishPct, u: '%', l: 'de las conversaciones, en inglés' },
   { v: MONTHLY.resolvedPct, u: '%', l: 'resueltas sin pasar al equipo' },
 ];
@@ -28,7 +28,7 @@ const stats = [
     {stats.map((s) => (
       <div><b class="tabular">{s.v}<small>{s.u}</small></b><span>{s.l}</span></div>
     ))}
-    <p class="case-src"><span class="live" aria-hidden="true"></span>Datos reales del agente, {MONTHLY.month}. Se actualizan cada mes.</p>
+    <p class="case-src"><span class="live" aria-hidden="true"></span>Datos reales del agente, redondeados a la baja: conversaciones en total; el resto, media mensual de {MONTHLY.period}.</p>
   </div>
 </figure>
 
@@ -53,7 +53,7 @@ const stats = [
      clients stacked on the right. Ruled, no boxes. */
   .cases { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
   .cases.compact { grid-template-columns: 1fr; }
-  .case-main { display: grid; gap: clamp(20px, 3svh, 32px); padding-top: 22px; border-top: 2px solid var(--brand); }
+  .case-main { display: grid; gap: clamp(18px, 2.6svh, 28px); padding-top: 18px; border-top: 2px solid var(--brand); }
   .compact .case-main { grid-template-columns: 1.1fr 1fr; gap: 48px; }
   .case-quote { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
   .case-quote blockquote { font: 650 clamp(1.25rem, 1rem + 0.9vw, 1.7rem)/1.35 var(--font-display); letter-spacing: -0.02em; text-wrap: pretty; max-width: 36ch; }

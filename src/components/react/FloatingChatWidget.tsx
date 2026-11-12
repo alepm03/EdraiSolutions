@@ -142,7 +142,7 @@ Inclúyelo UNA SOLA VEZ, cuando ya tengas todos los datos completos.`,
     <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end font-sans">
       {/* Chat Window */}
       {isOpen && (
-        <div className="mb-6 w-[380px] sm:w-[420px] h-[600px] bg-gray-950/80 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-white/10 animate-in slide-in-from-bottom-8 fade-in duration-500">
+        <div className="mb-6 w-[380px] sm:w-[420px] h-[600px] bg-[#0b1626]/85 backdrop-blur-2xl rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-white/10 animate-in slide-in-from-bottom-8 fade-in duration-500">
           
           {/* Header */}
           <div className="relative bg-white/[0.04] px-6 py-5 flex items-center justify-between border-b border-white/10">
