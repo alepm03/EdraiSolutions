@@ -1,28 +1,41 @@
 ---
-// Production's process cards (icon tile, connector) in the hybrid language.
-import { Search, PenTool, Rocket, LifeBuoy } from '@lucide/astro';
+// The four steps as one timeline. Each step is headed by what the visitor
+// gets at that point (wording already public on the site), on a single rule
+// that fills as it enters the screen.
 import { PROCESS } from '../data/site';
-const icons = [Search, PenTool, Rocket, LifeBuoy];
+const when = ['15 minutos', 'Coste y plazos', '2 a 4 semanas', 'Después'];
 ---
-<ol class="process">
-  {PROCESS.map((s, i) => {
-    const Icon = icons[i];
-    return (
-      <li class="card" data-reveal={String(i)}>
-        <span class={`icon-tile ${i === 0 ? 'solid' : ''}`}><Icon /></span>
-        <h3>{s.title}</h3>
-        <p>{s.text}</p>
-      </li>
-    );
-  })}
+<ol class="process" data-reveal>
+  {PROCESS.map((s, i) => (
+    <li>
+      <span class="p-when tabular">{when[i]}</span>
+      <h3>{s.title}</h3>
+      <p>{s.text}</p>
+    </li>
+  ))}
 </ol>
 
 <style>
-  .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; }
-  .process::before { content: ''; position: absolute; left: 6%; right: 6%; top: 50px; height: 1px; background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.35), transparent); }
-  .process li { display: grid; gap: 14px; align-content: start; padding: 28px 24px; }
-  .process h3 { font: 800 19px/1.2 var(--font-display); letter-spacing: -0.02em; }
-  .process p { font-size: 15px; color: var(--text-2); line-height: 1.55; }
-  @media (max-width: 960px) { .process { grid-template-columns: 1fr 1fr; } .process::before { display: none; } }
-  @media (max-width: 560px) { .process { grid-template-columns: 1fr; } }
+  .process { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 40px); padding-top: 26px; }
+  .process::before, .process::after { content: ''; position: absolute; left: 0; right: 0; top: 6px; height: 1px; background: var(--line-strong); }
+  .process::after { background: var(--brand); transform-origin: left; }
+  :global(.js-motion) .process::after { transform: scaleX(0); }
+  :global(.js-motion) .process.is-in::after { transform: scaleX(1); transition: transform 1.6s var(--ease-out) 0.2s; }
+  .process li { position: relative; display: grid; gap: 10px; align-content: start; }
+  .process li::before { content: ''; position: absolute; z-index: 1; top: -26px; left: 0; width: 13px; height: 13px; border-radius: 50%; background: var(--bg); border: 2px solid var(--brand); }
+  :global(.band) .process li::before { background: var(--band); }
+  .process li:first-child::before { background: var(--brand); }
+  .p-when { font-size: 13.5px; font-weight: 650; color: var(--brand); }
+  .process h3 { font: 800 clamp(1.15rem, 1rem + 0.5vw, 1.4rem)/1.2 var(--font-display); letter-spacing: -0.02em; text-wrap: balance; }
+  .process p { font-size: 15px; color: var(--text-2); line-height: 1.55; max-width: 34ch; }
+  @media (max-width: 860px) {
+    .process { grid-template-columns: 1fr; gap: 0; padding-top: 0; padding-left: 30px; }
+    .process::before, .process::after { left: 6px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; }
+    .process::after { transform-origin: top; }
+    :global(.js-motion) .process::after { transform: scaleY(0); }
+    :global(.js-motion) .process.is-in::after { transform: scaleY(1); }
+    .process li { padding-bottom: 28px; }
+    .process li:last-child { padding-bottom: 0; }
+    .process li::before { top: 0; left: -30px; }
+  }
 </style>

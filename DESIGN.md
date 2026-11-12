@@ -68,24 +68,23 @@ typography:
     letterSpacing: "-0.005em"
 rounded:
   link: "8px"
-  tile: "12px"
-  rail: "14px"
-  step: "18px"
-  card: "20px"
-  frame: "22px"
-  pill: "999px"
+  button: "8px"
+  card: "12px"
+  frame: "12px"
+  tag: "4px"
 spacing:
   wrap: "1200px"
   gutter: "clamp(16px, 4vw, 40px)"
-  section: "clamp(88px, 14vh, 160px)"
-  section-tight: "clamp(64px, 10vh, 120px)"
+  section: "clamp(56px, 9svh, 104px)"
+  section-tight: "clamp(48px, 7svh, 88px)"
+  screen: "calc(100svh - 68px)"
   nav-height: "68px"
 components:
   button-primary:
     backgroundColor: "{colors.agent-cyan}"
     textColor: "{colors.cyan-ink}"
     typography: "{typography.label}"
-    rounded: "{rounded.pill}"
+    rounded: "{rounded.button}"
     padding: "0 18px"
     height: "44px"
   button-primary-hover:
@@ -94,7 +93,7 @@ components:
   button-quiet:
     textColor: "{colors.text}"
     typography: "{typography.label}"
-    rounded: "{rounded.pill}"
+    rounded: "{rounded.button}"
     padding: "0 18px"
     height: "44px"
   button-quiet-hover:
@@ -102,7 +101,7 @@ components:
   button-light:
     backgroundColor: "{colors.text}"
     textColor: "{colors.ink-ground}"
-    rounded: "{rounded.pill}"
+    rounded: "{rounded.button}"
     padding: "0 18px"
     height: "44px"
   card:
@@ -120,7 +119,7 @@ components:
     size: "44px"
   tag-demo:
     textColor: "{colors.muted}"
-    rounded: "{rounded.pill}"
+    rounded: "{rounded.button}"
     padding: "4px 9px"
   nav-link:
     textColor: "{colors.text-2}"
@@ -132,6 +131,21 @@ components:
 ---
 
 # Design System: Edrai Solutions
+
+## Revision of 12 Nov 2026 (supersedes what follows where they differ)
+
+Owner request: a look that reads less as AI-generated, each offer in its own clearly separated section, and every section sized to the screen. The brand stays (navy ground with the slow aurora, Agent Cyan as a signal and for one key word per heading, Archivo and Inter, the Corte mark). What changed:
+
+- **No glass.** Sections alternate between the navy ground (where the slow aurora from 20 Oct still shows through) and an opaque, slightly lifted band (`--band` #0b1729, hairline top and bottom), so each one reads as its own block. Blur on surfaces, translucent gradients, ambient drop shadows and the cursor glow are gone; the nav keeps its blur because it sits over content.
+- **Rules, not cards.** Lists (features, steps, sectors, FAQ, quotes, team, contact points) are hairline rows. A framed panel (12px radius, strong hairline, flat fill) is reserved for product visuals, the chat demos and the form.
+- **Square-ish shapes.** Buttons and links 8px, panels 12px, tags 4px. No pills except the phone mute control.
+- **No icon tiles.** Icons are bare line glyphs in cyan. Services are identified by number (01 to 03) and consulting by the label "Por dónde empezar", on the home and on each service page.
+- **One section, one screen.** `--screen` is the viewport minus the nav. The hero fills it with the agent's real figures as its bottom rule. Services are four chapters, each `--screen` minus a 52px sticky index that marks the current chapter and carries a scroll-driven progress line. Section padding scales with `svh`, media (film frame, reel phone, chat panels) cap their size against `--screen`, and a `max-height: 820px` query tightens the rhythm on short laptops. Below 1025px wide sections flow at natural height.
+- **Cases on one screen.** The lead case (quote over its four dated figures, cyan top rule) sits beside the two other clients.
+- **Process as a timeline** headed by what each step gives (15 minutos, Coste y plazos, 2 a 4 semanas, Después), not four icon cards.
+- **Platform features in use:** scroll-driven animation (`view-timeline`) with a static fallback, `::details-content` with `interpolate-size` for the FAQ, `svh` units, `text-wrap: balance / pretty`, exclusive `<details name>`, View Transitions (unchanged).
+
+The Signal Not Field rule, the One Cyan Action rule, the Sentence Case rule, the demo tag rule and the no-em-dash rule all stand.
 
 ## Overview
 

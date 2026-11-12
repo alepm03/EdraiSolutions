@@ -1,0 +1,241 @@
+---
+// What we do, one chapter per service. Each chapter fills the screen under the
+// nav and a sticky index, so a visitor always sees one offer at a time and
+// which of the four it is. The three things we build are numbered; consulting
+// is the entry point and is labelled as such. Titles share a transition:name
+// with their service page hero, so they morph on navigation.
+import { ArrowRight, CalendarDays, Users, Receipt, Star } from '@lucide/astro';
+import { pillar } from '../data/site';
+
+const agents = pillar('agentes-ia');
+const soft = pillar('software-a-medida');
+const auto = pillar('automatizacion');
+const consult = pillar('consultoria-ia');
+
+const chapters = [
+  { p: agents, n: '01', short: 'Agentes', cta: 'Ver agentes de IA' },
+  { p: soft, n: '02', short: 'Software', cta: 'Ver software a medida' },
+  { p: auto, n: '03', short: 'Automatización', cta: 'Ver automatización' },
+  { p: consult, n: '', short: 'Consultoría', cta: 'Ver consultoría de IA' },
+];
+---
+<section class="svc band" id="servicios" data-svc>
+  <div class="wrap svc-intro">
+    <div class="sec-head">
+      <h2 class="h2" data-reveal><span class="hl">Tres formas</span> de poner la IA a trabajar en tu negocio.</h2>
+      <p class="lede" data-reveal="1">Lo construimos de punta a punta: el agente, el software y las conexiones entre tus herramientas. Con precio cerrado y soporte después. Y si no sabes cuál te hace falta, empezamos por ahí.</p>
+    </div>
+  </div>
+
+  <nav class="svc-rail" aria-label="Servicios">
+    <ol class="wrap">
+      {chapters.map((c, i) => (
+        <li>
+          <a href={`#servicio-${c.p.slug}`} data-svc-link={c.p.slug} aria-current={i === 0 ? 'true' : 'false'}>
+            <span class="rail-n tabular">{c.n || 'Inicio'}</span>
+            <span class="rail-long">{c.p.title}</span>
+            <span class="rail-short">{c.short}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <span class="svc-progress" aria-hidden="true"></span>
+  </nav>
+
+  {chapters.map((c, i) => (
+    <article class:list={['svc-ch', { flip: i % 2 === 1 }]} id={`servicio-${c.p.slug}`} data-svc-ch={c.p.slug}>
+      <div class="wrap svc-grid">
+        <div class="svc-copy">
+          <p class="svc-n tabular">{c.n ? <>{c.n}<span> / 03</span></> : 'Por dónde empezar'}</p>
+          <h3 transition:name={`pillar-title-${c.p.slug}`}>{c.p.title}</h3>
+          <p class="svc-short">{c.p.short}</p>
+          <p class="svc-desc">{c.p.description}</p>
+          <ul class="checks">{c.p.features.map((f) => <li>{f}</li>)}</ul>
+          <a class="btn btn-quiet svc-cta" href={`/${c.p.slug}`}>{c.cta} <ArrowRight /></a>
+        </div>
+
+        <div class="svc-viz" aria-hidden="true">
+          {c.p.slug === 'agentes-ia' && (
+            <figure class="viz viz-video">
+              <video data-loop muted loop playsinline preload="none" poster="/video/edrai-bucle-poster.webp" width="1920" height="1080">
+                <source src="/video/edrai-bucle.webm" type="video/webm" />
+                <source src="/video/edrai-bucle.mp4" type="video/mp4" />
+              </video>
+            </figure>
+          )}
+
+          {c.p.slug === 'software-a-medida' && (
+            <div class="viz viz-fin">
+              <div class="viz-head"><b>Cuenta de resultados · octubre</b><span class="tag-demo">Datos de ejemplo</span></div>
+              <dl class="fin-rows">
+                <div><dt>Ingresos</dt><dd class="tabular">48.250 €</dd></div>
+                <div><dt>Gastos</dt><dd class="tabular neg">−33.620 €</dd></div>
+                <div class="tot"><dt>Resultado</dt><dd class="tabular">14.630 €</dd></div>
+              </dl>
+              <svg class="fin-line" viewBox="0 0 300 70" preserveAspectRatio="none">
+                <path d="M0 52 C 30 48, 45 58, 70 44 S 110 34, 130 38 S 160 28, 180 30" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                <path d="M180 30 C 205 28, 220 18, 245 24 S 280 12, 300 10" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+                <line x1="180" y1="0" x2="180" y2="70" stroke="rgba(255,255,255,.25)" stroke-dasharray="3 4" vector-effect="non-scaling-stroke" />
+              </svg>
+              <div class="fin-foot"><span>Tesorería</span><span>Hoy · previsión 90 días</span></div>
+            </div>
+          )}
+
+          {c.p.slug === 'automatizacion' && (
+            <div class="viz viz-flow">
+              <div class="viz-head"><b>Al terminar una cita</b><span class="tag-demo">Ejemplo de flujo</span></div>
+              <div class="node"><span class="ic"><CalendarDays /></span><b>Nueva cita</b><span>Agenda</span></div>
+              <div class="node"><span class="ic"><Users /></span><b>Ficha actualizada</b><span>CRM</span></div>
+              <div class="node"><span class="ic"><Receipt /></span><b>Factura emitida</b><span>Facturación</span></div>
+              <div class="node"><span class="ic"><Star /></span><b>Reseña pedida</b><span>Google</span></div>
+            </div>
+          )}
+
+          {c.p.slug === 'consultoria-ia' && (
+            <div class="viz viz-plan">
+              <div class="viz-head"><b>Plan priorizado</b><span class="tag-demo">Ejemplo</span></div>
+              <div class="plan-row plan-h"><span>Proceso</span><span>Impacto</span><span>Esfuerzo</span></div>
+              <div class="plan-row"><span>Atención por WhatsApp</span><b>Alto</b><span>Bajo</span></div>
+              <div class="plan-row"><span>Facturación manual</span><b>Alto</b><span>Medio</span></div>
+              <div class="plan-row"><span>Reseñas tras cada visita</span><span>Medio</span><span>Bajo</span></div>
+              <div class="plan-row"><span>Informe semanal</span><span>Medio</span><span>Bajo</span></div>
+            </div>
+          )}
+        </div>
+      </div>
+    </article>
+  ))}
+</section>
+
+<style>
+  .svc { --rail-h: 52px; position: relative; view-timeline: --svc block; }
+  .svc-intro { padding-top: var(--section); padding-bottom: clamp(24px, 4svh, 40px); }
+  .svc-intro .sec-head { margin-bottom: 0; }
+
+  /* Sticky index: always says which of the four you are looking at. */
+  .svc-rail { position: sticky; top: var(--nav-h); z-index: 30; height: var(--rail-h); background: var(--band); border-block: 1px solid var(--line); }
+  .svc-rail ol { display: flex; height: 100%; gap: clamp(4px, 2vw, 28px); }
+  .svc-rail a { position: relative; display: inline-flex; align-items: center; gap: 10px; height: 100%; font-size: 14.5px; font-weight: 550; color: var(--muted); white-space: nowrap; transition: color 0.25s; }
+  .svc-rail a:hover { color: var(--text); }
+  .svc-rail a[aria-current='true'] { color: var(--text); }
+  .svc-rail a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--brand); transform: scaleX(0); transform-origin: left; transition: transform 0.45s var(--ease-out); }
+  .svc-rail a[aria-current='true']::after { transform: scaleX(1); }
+  .rail-n { font-size: 12.5px; font-weight: 700; color: var(--brand); }
+  .rail-short { display: none; }
+  /* Reading progress across the four chapters, driven by scroll (no JS). */
+  .svc-progress { position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--brand); transform: scaleX(0); transform-origin: left; }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .svc-progress { animation: svc-progress linear both; animation-timeline: --svc; animation-range: contain 0% contain 100%; }
+    }
+  }
+  @keyframes svc-progress { to { transform: scaleX(1); } }
+
+  /* One chapter, one screen. */
+  .svc-ch { min-height: calc(var(--screen) - var(--rail-h)); display: grid; align-items: center; padding-block: clamp(36px, 6svh, 72px); scroll-margin-top: var(--rail-h); }
+  .svc-ch + .svc-ch { border-top: 1px solid var(--line); }
+  .svc-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .flip .svc-copy { order: 2; }
+  .flip .svc-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+
+  .svc-copy { display: grid; justify-items: start; }
+  .svc-n { font: 800 15px/1 var(--font-display); color: var(--brand); letter-spacing: 0; }
+  .svc-n span { color: var(--faint); font-weight: 600; }
+  .svc-copy h3 { margin-top: 14px; font: 850 clamp(2.2rem, 1.2rem + 2.9vw, 3.6rem)/1 var(--font-display); font-stretch: 96%; letter-spacing: -0.035em; }
+  .svc-short { margin-top: 16px; font: 600 clamp(1.1rem, 1rem + 0.5vw, 1.35rem)/1.35 var(--font-display); letter-spacing: -0.015em; color: var(--text); max-width: 30ch; text-wrap: balance; }
+  .svc-desc { margin-top: 12px; color: var(--text-2); font-size: 15.5px; line-height: 1.6; max-width: 50ch; text-wrap: pretty; }
+  .svc-copy .checks { margin-top: 22px; width: 100%; max-width: 460px; }
+  .svc-cta { margin-top: 26px; }
+  .svc-cta :global(svg) { transition: transform 0.25s var(--ease-out); }
+  .svc-cta:hover :global(svg) { transform: translateX(3px); }
+
+  /* Product visuals: the only framed panels in the section. */
+  .viz { border-radius: var(--r-m); border: 1px solid var(--line-strong); background: var(--bg); overflow: hidden; }
+  .viz-video { aspect-ratio: 16 / 10; background: #050608 url('/video/edrai-bucle-poster.webp') center / cover no-repeat; }
+  .viz-video video { width: 100%; height: 100%; object-fit: cover; }
+  .viz-fin, .viz-flow, .viz-plan { padding: clamp(20px, 2.6vw, 32px); font-size: 15px; }
+  .viz-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; padding-bottom: 16px; }
+  .viz-head b { font: 800 17px/1.2 var(--font-display); letter-spacing: -0.015em; }
+
+  .fin-rows { margin: 0; display: grid; }
+  .fin-rows div { display: flex; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--line); }
+  .fin-rows dt { color: var(--text-2); }
+  .fin-rows dd { margin: 0; font-weight: 600; }
+  .fin-rows .neg { color: var(--muted); }
+  .fin-rows .tot { border-top-color: var(--line-strong); }
+  .fin-rows .tot dt { color: var(--text); font-weight: 600; }
+  .fin-rows .tot dd { color: var(--ok); font: 800 22px/1 var(--font-display); }
+  .fin-line { width: 100%; height: clamp(72px, 12svh, 120px); margin-top: 14px; }
+  .fin-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+
+  .node { position: relative; display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 14px; padding: 13px 0; }
+  .node:not(:last-child)::after { content: ''; position: absolute; left: 17.5px; top: 50px; height: calc(100% - 38px); width: 1px; background: var(--line-strong); }
+  .node b { font-weight: 600; }
+  .node > span:last-child { font-size: 13px; color: var(--muted); }
+  .ic { width: 36px; height: 36px; border-radius: var(--r-s); display: grid; place-items: center; background: var(--surface-2); color: var(--text-2); }
+  .ic :global(svg) { width: 17px; height: 17px; }
+  .node:nth-child(2) .ic { color: var(--brand-ink); background: var(--brand); }
+
+  .plan-row { display: grid; grid-template-columns: 1.7fr 0.7fr 0.7fr; padding: 13px 0; border-top: 1px solid var(--line); color: var(--text-2); }
+  .plan-h { color: var(--muted); font-size: 12.5px; }
+  .plan-row b { font-weight: 650; color: var(--brand); }
+
+  /* Each visual plays once when its chapter arrives. */
+  .js-motion .svc-ch .svc-copy > *, .js-motion .svc-ch .viz { opacity: 0; transform: translateY(16px); }
+  .js-motion .svc-ch.is-in .svc-copy > *, .js-motion .svc-ch.is-in .viz { opacity: 1; transform: none; transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); transition-delay: calc(var(--i, 0) * 60ms); }
+  .svc-copy > :nth-child(2) { --i: 1; } .svc-copy > :nth-child(3) { --i: 2; } .svc-copy > :nth-child(4) { --i: 3; }
+  .svc-copy > :nth-child(5) { --i: 4; } .svc-copy > :nth-child(6) { --i: 5; } .viz { --i: 2; }
+  .js-motion .svc-ch.is-in .node { animation: node-in 0.6s var(--ease-out) both; }
+  .js-motion .svc-ch.is-in .node:nth-child(3) { animation-delay: 0.3s; }
+  .js-motion .svc-ch.is-in .node:nth-child(4) { animation-delay: 0.55s; }
+  .js-motion .svc-ch.is-in .node:nth-child(5) { animation-delay: 0.8s; }
+  .js-motion .svc-ch.is-in .fin-line path { stroke-dasharray: 400; animation: draw 1.6s var(--ease-out) both 0.3s; }
+  .js-motion .svc-ch.is-in .fin-line path + path { stroke-dasharray: 2 6; animation: fade-in 0.8s ease both 1.4s; }
+  @keyframes node-in { from { opacity: 0; transform: translateY(8px); } }
+  @keyframes draw { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+  @keyframes fade-in { from { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .viz-video video { display: none; } }
+
+  @media (max-width: 900px) {
+    .svc { --rail-h: 46px; }
+    .svc-rail ol { justify-content: space-between; gap: 0; }
+    .svc-rail a { font-size: 13.5px; gap: 0; }
+    .rail-n, .rail-long { display: none; }
+    .rail-short { display: inline; }
+    .svc-ch { min-height: 0; padding-block: 44px; }
+    .svc-grid, .flip .svc-grid { grid-template-columns: 1fr; gap: 28px; }
+    .flip .svc-copy { order: 0; }
+    .svc-copy .checks { max-width: none; }
+  }
+  @media (max-width: 380px) { .svc-rail a { font-size: 12.5px; } }
+</style>
+
+<script>
+  import { onPage, motionAllowed } from '../scripts/motion';
+
+  onPage(() => {
+    const root = document.querySelector<HTMLElement>('[data-svc]');
+    if (!root || !('IntersectionObserver' in window)) return;
+    const chapters = [...root.querySelectorAll<HTMLElement>('[data-svc-ch]')];
+    const links = [...root.querySelectorAll<HTMLAnchorElement>('[data-svc-link]')];
+    if (!motionAllowed()) chapters.forEach((c) => c.classList.add('is-in'));
+
+    // The chapter crossing the middle of the screen is the current one.
+    const current = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const slug = (e.target as HTMLElement).dataset.svcCh;
+        links.forEach((l) => l.setAttribute('aria-current', String(l.dataset.svcLink === slug)));
+      }
+    }, { rootMargin: '-50% 0px -50% 0px' });
+    const enter = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add('is-in');
+        enter.unobserve(e.target);
+      }
+    }, { rootMargin: '0px 0px -22% 0px' });
+    chapters.forEach((c) => { current.observe(c); enter.observe(c); });
+    return () => { current.disconnect(); enter.disconnect(); };
+  });
+</script>

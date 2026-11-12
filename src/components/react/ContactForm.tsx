@@ -43,8 +43,8 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={submit} className="ph-no-capture grid gap-5" noValidate={false}>
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={submit} className="ph-no-capture grid gap-4" noValidate={false}>
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="cf-name" className={label}>Nombre *</label>
           <input id="cf-name" required autoComplete="name" placeholder="Tu nombre o el de tu negocio" className={field}
@@ -84,11 +84,11 @@ const ContactForm: React.FC = () => {
       )}
 
       <button type="submit" disabled={status === 'loading'}
-        className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-cyan-400 px-6 text-[16px] font-semibold text-[#03161c] transition hover:bg-cyan-300 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60">
+        className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-cyan-400 px-6 text-[16px] font-semibold text-[#03161c] transition hover:bg-cyan-300 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60">
         {status === 'loading' ? 'Enviando…' : <>Pedir diagnóstico gratuito <ArrowRight className="h-4 w-4" /></>}
       </button>
       <a href={WA} target="_blank" rel="noopener noreferrer"
-        className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/15 text-[15px] font-semibold text-white transition hover:bg-white/5">
+        className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-white/15 text-[15px] font-semibold text-white transition hover:bg-white/5">
         <MessageCircle className="h-4 w-4" /> Prefiero escribir por WhatsApp
       </a>
       <p className="text-center text-[12.5px] text-slate-500">Respuesta en menos de 24 h · Diagnóstico de 15 minutos · Sin compromiso</p>

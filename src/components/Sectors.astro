@@ -20,8 +20,8 @@ const icons = { stethoscope: Stethoscope, utensils: Utensils, dumbbell: Dumbbell
 <p class="sectors-more">¿No ves tu sector? <a href="/contacto">Cuéntanoslo</a>: lo más probable es que ya hayamos resuelto algo parecido.</p>
 
 <style>
-  .sectors { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(32px, 5vw, 72px); border-bottom: 1px solid var(--line); }
-  .sectors li { display: grid; grid-template-columns: 40px 1fr; column-gap: 18px; row-gap: 6px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .sectors { display: grid; grid-template-columns: 1fr 1fr; column-gap: clamp(32px, 5vw, 72px); border-bottom: 1px solid var(--line-strong); }
+  .sectors li { display: grid; grid-template-columns: 40px 1fr; column-gap: 18px; row-gap: 6px; padding: clamp(18px, 3svh, 26px) 0; border-top: 1px solid var(--line-strong); }
   .s-ic { grid-row: span 2; width: 40px; height: 40px; display: grid; place-items: center; color: var(--brand); }
   .s-ic :global(svg) { width: 26px; height: 26px; stroke-width: 1.6; }
   .sectors h3 { font: 800 clamp(1.2rem, 1rem + 0.6vw, 1.5rem)/1.15 var(--font-display); letter-spacing: -0.025em; }
