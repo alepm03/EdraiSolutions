@@ -53,32 +53,33 @@ const icons = { chat: MessageSquare, repeat: Repeat, spark: Sparkles, search: Se
 <style>
   .reel { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
   .reel-copy { display: grid; gap: 18px; align-content: start; padding-top: 8px; }
-  .reel-steps { display: grid; gap: 10px; margin-top: 18px; }
+  .reel-steps { display: grid; margin-top: 14px; border-bottom: 1px solid var(--line); }
   .reel-step {
-    position: relative; width: 100%; text-align: left; display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;
-    padding: 18px 20px 22px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.015);
-    transition: border-color 0.3s, background 0.3s, opacity 0.3s; opacity: 0.62;
+    position: relative; width: 100%; text-align: left; display: grid; grid-template-columns: 28px 1fr; gap: 16px; align-items: start;
+    padding: 18px 0 20px; border-top: 1px solid var(--line);
+    transition: opacity 0.3s; opacity: 0.5;
   }
-  .reel-step:hover { opacity: 0.9; }
-  .reel-step[aria-current='true'] { opacity: 1; border-color: rgba(34, 211, 238, 0.35); background: rgba(34, 211, 238, 0.05); }
+  .reel-step:hover { opacity: 0.85; }
+  .reel-step[aria-current='true'] { opacity: 1; }
+  .reel-step :global(.icon-tile) { color: var(--muted); transition: color 0.3s; }
+  .reel-step[aria-current='true'] :global(.icon-tile) { color: var(--brand); }
   .reel-step-copy { display: grid; gap: 4px; }
   .reel-step-copy b { font: 800 19px/1.2 var(--font-display); letter-spacing: -0.02em; }
   .reel-step-copy span { color: var(--text-2); font-size: 15px; line-height: 1.5; }
-  .reel-step-bar { position: absolute; left: 20px; right: 20px; bottom: 9px; height: 2px; border-radius: 2px; background: transparent; overflow: hidden; }
-  .reel-step[aria-current='true'] .reel-step-bar { background: rgba(255, 255, 255, 0.08); }
+  .reel-step-bar { position: absolute; left: 0; right: 0; top: -1px; height: 1px; overflow: hidden; }
   .reel-step-bar i { display: block; width: 100%; height: 100%; background: var(--brand); transform-origin: left; transform: scaleX(0); }
   .reel-rule { margin-top: 6px; color: var(--muted); font-size: 14.5px; max-width: 52ch; }
 
   .reel-phone-col { position: sticky; top: 96px; display: grid; justify-items: center; gap: 12px; }
+  /* The phone never outgrows the screen: its width follows the available height. */
   .reel-phone {
-    position: relative; width: min(340px, 100%); border-radius: 46px; padding: 10px;
-    background: linear-gradient(160deg, #1c2027, #0b0d11 55%); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 60px 120px -40px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative; width: min(340px, 100%, calc((var(--screen) - 2 * var(--section) - 40px) * 9 / 16)); border-radius: 46px; padding: 10px;
+    background: #14171c; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
   .reel-phone video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 37px; background: #050608; }
   .reel-mute {
     position: absolute; right: 22px; bottom: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border-radius: 999px;
-    background: rgba(5, 7, 11, 0.7); border: 1px solid rgba(255, 255, 255, 0.14); font: 600 12.5px/1 var(--font-body); color: #fff;
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    background: rgba(5, 7, 11, 0.82); border: 1px solid rgba(255, 255, 255, 0.14); font: 600 12.5px/1 var(--font-body); color: #fff;
   }
   .reel-mute svg { width: 14px; height: 14px; }
   .reel-mute .i-on, .reel-mute[aria-pressed='true'] .i-off { display: none; }
@@ -91,13 +92,12 @@ const icons = { chat: MessageSquare, repeat: Repeat, spark: Sparkles, search: Se
     .reel-copy > :global(h2) { order: 1; }
     .reel-copy > .lede { order: 2; }
     .reel-phone-col { position: relative; top: 0; order: 3; margin-top: 6px; }
-    .reel-steps { order: 4; margin-top: 4px; gap: 8px; }
+    .reel-steps { order: 4; margin-top: 4px; }
     .reel-rule { order: 5; }
     .reel-phone { width: min(230px, 62vw); border-radius: 36px; padding: 8px; }
     .reel-phone video { border-radius: 29px; }
     .reel-note { display: none; }
-    .reel-step { padding: 14px 16px 18px; grid-template-columns: 36px 1fr; gap: 12px; }
-    .reel-step :global(.icon-tile) { width: 36px; height: 36px; }
+    .reel-step { padding: 14px 0 16px; gap: 12px; }
     .reel-step-copy b { font-size: 16.5px; }
     .reel-step-copy span { font-size: 14px; }
   }

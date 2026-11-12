@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import HeroFlowConsole from '../components/react/HeroFlowConsole';
 import FilmScroll from '../components/FilmScroll.astro';
-import ServicesBento from '../components/ServicesBento.astro';
+import Services from '../components/Services.astro';
 import ReelSticky from '../components/ReelSticky.astro';
 import DemoTabs from '../components/DemoTabs.astro';
 import Cases from '../components/Cases.astro';
@@ -18,7 +18,8 @@ import { WA_URL, MONTHLY } from '../data/site';
   title="Edrai Solutions · Agentes de IA, software y automatización para tu negocio"
   description="Agentes de IA que atienden por WhatsApp, teléfono y web, software a medida y automatizaciones para pymes en España. Diagnóstico gratuito de 15 minutos."
 >
-  <!-- HERO: the claim on the left, production's Flow + Console on the right -->
+  <!-- HERO: one screen. The claim on the left, production's Flow + Console on
+       the right, and the dated monthly figure as the bottom rule of the fold. -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
@@ -35,14 +36,11 @@ import { WA_URL, MONTHLY } from '../data/site';
         <span class="tag-demo hero-tag">Demo ilustrativa</span>
       </div>
     </div>
-  </section>
 
-  <!-- PROOF: one real, dated monthly figure + named clients -->
-  <section class="proof" aria-label="Clientes y métrica del último mes">
-    <div class="wrap proof-row">
+    <div class="wrap proof rise" style="--d:4" role="group" aria-label="Clientes y métrica del último mes">
       <a class="proof-metric" href="#casos">
         <span class="proof-month"><span class="dot" aria-hidden="true"></span>{MONTHLY.monthShort}</span>
-        <span>El agente del Mercado del Barranco atendió <b class="tabular">{MONTHLY.conversations} conversaciones</b>; el <b class="tabular brand">{MONTHLY.resolvedPct}&nbsp;%</b> sin pasar al equipo.</span>
+        <span>El agente del Mercado del Barranco atendió <b class="tabular">{MONTHLY.conversations} conversaciones</b>; el <b class="tabular">{MONTHLY.resolvedPct}&nbsp;%</b> sin pasar al equipo.</span>
       </a>
       <div class="proof-logos">
         <span class="proof-label">En producción en</span>
@@ -55,19 +53,11 @@ import { WA_URL, MONTHLY } from '../data/site';
   <!-- THE FILM: inline, scroll-expand -->
   <FilmScroll />
 
-  <!-- SERVICES -->
-  <section class="section" id="servicios">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2 class="h2" data-reveal>Tres formas de poner la IA a trabajar en tu negocio.</h2>
-        <p class="lede" data-reveal="1">Lo construimos de punta a punta para tu negocio: el agente, el software y las conexiones entre tus herramientas. Con precio cerrado y soporte después.</p>
-      </div>
-      <ServicesBento />
-    </div>
-  </section>
+  <!-- SERVICES: one chapter per service, each a full screen -->
+  <Services />
 
   <!-- VERTICAL REEL beside the three-way explanation -->
-  <section class="section section-tight">
+  <section class="section reel-sec" id="diferencias">
     <div class="wrap">
       <ReelSticky
         title="¿Chatbot, automatización o agente?"
@@ -84,7 +74,7 @@ import { WA_URL, MONTHLY } from '../data/site';
   </section>
 
   <!-- DEMOS -->
-  <section class="section" id="demos">
+  <section class="section band" id="demos">
     <div class="wrap">
       <div class="sec-head">
         <h2 class="h2" data-reveal>No te lo contamos. Pruébalo.</h2>
@@ -106,7 +96,7 @@ import { WA_URL, MONTHLY } from '../data/site';
   </section>
 
   <!-- SECTORS -->
-  <section class="section section-tight">
+  <section class="section band" id="sectores">
     <div class="wrap">
       <div class="sec-head">
         <h2 class="h2" data-reveal>Para negocios que viven de atender bien.</h2>
@@ -117,7 +107,7 @@ import { WA_URL, MONTHLY } from '../data/site';
   </section>
 
   <!-- PROCESS -->
-  <section class="section">
+  <section class="section" id="proceso">
     <div class="wrap">
       <div class="sec-head">
         <h2 class="h2" data-reveal>De la primera llamada a producción.</h2>
@@ -128,7 +118,7 @@ import { WA_URL, MONTHLY } from '../data/site';
   </section>
 
   <!-- TEAM -->
-  <section class="section section-tight">
+  <section class="section band" id="equipo">
     <div class="wrap">
       <div class="sec-head">
         <h2 class="h2" data-reveal>Hablas con quien lo construye.</h2>
@@ -139,7 +129,7 @@ import { WA_URL, MONTHLY } from '../data/site';
   </section>
 
   <!-- FAQ -->
-  <section class="section section-tight">
+  <section class="section" id="preguntas">
     <div class="wrap faq-wrap">
       <h2 class="h2" data-reveal>Lo que nos preguntan antes de empezar.</h2>
       <Faq />
@@ -147,16 +137,16 @@ import { WA_URL, MONTHLY } from '../data/site';
   </section>
 
   <!-- CONTACT -->
-  <section class="section" id="diagnostico">
+  <section class="section band" id="diagnostico">
     <div class="wrap"><ContactSection /></div>
   </section>
 </Base>
 
 <style>
-  .hero { padding-top: clamp(28px, 7vh, 96px); }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
-  .hero-copy { display: grid; gap: 24px; }
-  .hero-h1 { font-size: clamp(2.5rem, min(1rem + 4.6vw, 9vh), 5rem); max-width: 14ch; }
+  .hero { min-height: var(--screen); display: grid; grid-template-rows: 1fr auto; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; padding-block: clamp(20px, 4svh, 48px); }
+  .hero-copy { display: grid; gap: clamp(16px, 2.6svh, 24px); }
+  .hero-h1 { font-size: clamp(2.5rem, min(1rem + 4.6vw, 9svh), 5rem); max-width: 14ch; }
   .hero-lede { max-width: 40ch; }
   .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
   :global(.btn-lg) { height: 52px; padding: 0 24px; font-size: 16px; }
@@ -164,28 +154,33 @@ import { WA_URL, MONTHLY } from '../data/site';
   .hero-demo { position: relative; }
   .hero-tag { position: absolute; right: 0; bottom: -34px; }
 
-  .proof { margin-top: clamp(56px, 9vh, 104px); }
-  .proof-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; padding: 18px 22px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.02); }
-  .proof-metric { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; color: var(--text-2); font-size: 15.5px; }
-  .proof-metric b { color: var(--text); font-weight: 750; }
-  .proof-metric b.brand { color: var(--brand); }
+  /* The proof is the bottom rule of the first screen, not a floating box. */
+  .proof { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 28px; padding-block: 16px; border-top: 1px solid var(--line-strong); }
+  .proof-metric { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; color: var(--text-2); font-size: 14.5px; }
+  .proof-metric b { color: var(--text); font-weight: 700; }
   .proof-metric:hover > span:last-child { color: var(--text); }
-  .proof-month { display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--brand-line); background: var(--brand-tint); color: var(--brand); font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+  .proof-month { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-size: 13px; font-weight: 650; white-space: nowrap; }
   .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
-  .proof-logos { display: flex; align-items: center; gap: 12px 22px; flex-wrap: wrap; font-size: 14.5px; font-weight: 600; color: var(--text-2); }
+  .proof-logos { display: flex; align-items: center; gap: 10px 18px; flex-wrap: wrap; font-size: 14px; font-weight: 600; color: var(--text-2); }
   .proof-label { color: var(--faint); font-weight: 500; font-size: 13.5px; }
   .proof-item { display: inline-flex; align-items: center; gap: 9px; }
-  .proof-item img { width: 28px; height: 28px; border-radius: 8px; }
+  .proof-item img { width: 24px; height: 24px; border-radius: 5px; }
 
   .faq-wrap { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
 
+  /* Short screens: the console scales down with the height so the fold holds. */
+  @media (min-width: 1025px) and (max-height: 820px) {
+    .hero-demo { zoom: 0.86; }
+    .hero-grid { padding-block: 14px 30px; }
+    .hero-tag { bottom: -30px; }
+  }
   @media (max-width: 1024px) {
-    .hero-grid { grid-template-columns: 1fr; }
+    .hero { min-height: 0; }
+    .hero-grid { grid-template-columns: 1fr; padding-block: 28px 56px; }
     .hero-h1 { max-width: 16ch; }
     .faq-wrap { grid-template-columns: 1fr; gap: 24px; }
   }
   @media (max-width: 640px) {
     .hero-actions :global(.btn) { flex: 1 1 auto; }
-    .proof-row { padding: 16px; }
   }
 </style>

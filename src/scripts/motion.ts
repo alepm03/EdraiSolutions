@@ -17,6 +17,10 @@ let cleanups: Array<() => void> = [];
 let lenis: Lenis | null = null;
 let started = false;
 
+/** Where an anchor target should stop: the page's scroll padding plus the target's own scroll margin, as the browser does natively. */
+const anchorOffset = (target: Element) =>
+  (parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0) + (parseFloat(getComputedStyle(target).scrollMarginTop) || 0);
+
 export const motionAllowed = () => document.documentElement.classList.contains('js-motion');
 
 /** Register a page-level effect. It runs on every page load and its cleanup before the next swap. */
@@ -64,20 +68,6 @@ function loops(): Cleanup {
   return () => io.disconnect();
 }
 
-/** Cursor-following glow on cards (production's .card-glow::after reads --glow-x/y). */
-function cardGlow(): Cleanup {
-  if (!matchMedia('(hover: hover)').matches) return;
-  const onMove = (e: PointerEvent) => {
-    const card = (e.target as HTMLElement).closest<HTMLElement>('.card-glow');
-    if (!card) return;
-    const r = card.getBoundingClientRect();
-    card.style.setProperty('--glow-x', `${e.clientX - r.left}px`);
-    card.style.setProperty('--glow-y', `${e.clientY - r.top}px`);
-  };
-  document.addEventListener('pointermove', onMove, { passive: true });
-  return () => document.removeEventListener('pointermove', onMove);
-}
-
 /** Mark the current section in the persistent nav. */
 function navState(): Cleanup {
   const path = location.pathname.replace(/\/$/, '') || '/';
@@ -107,17 +97,24 @@ export function initMotion() {
       const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target as HTMLElement, { offset: -80 });
+      // Land below whatever is sticky above the target (its scroll-margin-top).
+      lenis.scrollTo(target as HTMLElement, { offset: -anchorOffset(target) });
     });
   }
 
-  inits.unshift(reveals, loops, navState, cardGlow);
+  inits.unshift(reveals, loops, navState);
 
   document.addEventListener('astro:page-load', () => {
     const target = location.hash ? document.querySelector<HTMLElement>(location.hash) : null;
-    lenis?.scrollTo(target ?? 0, { immediate: true, force: true, offset: target ? -80 : 0 });
+    if (!target) lenis?.scrollTo(0, { immediate: true, force: true });
     inits.forEach(runOne);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      // Pinned sections add height on refresh, so an anchor is only resolved after it.
+      if (!target) return;
+      if (lenis) lenis.scrollTo(target, { immediate: true, force: true, offset: -anchorOffset(target) });
+      else target.scrollIntoView();
+    });
   });
 
   // The router swaps <html> attributes from the new document: keep the motion flag.

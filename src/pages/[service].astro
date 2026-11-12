@@ -7,7 +7,7 @@ import DemoTabs from '../components/DemoTabs.astro';
 import Cases from '../components/Cases.astro';
 import Process from '../components/Process.astro';
 import ContactSection from '../components/ContactSection.astro';
-import { Bot, Code, Workflow, ScanSearch, Check, ArrowRight, X, ArrowLeft } from '@lucide/astro';
+import { Check, ArrowRight, X, ArrowLeft } from '@lucide/astro';
 import { PILLARS, TESTIMONIALS, type Pillar } from '../data/site';
 
 export function getStaticPaths() {
@@ -15,18 +15,17 @@ export function getStaticPaths() {
 }
 interface Props { p: Pillar }
 const { p } = Astro.props;
-const Icon = { 'agentes-ia': Bot, 'software-a-medida': Code, automatizacion: Workflow, 'consultoria-ia': ScanSearch }[p.slug];
+// Same numbering as the home chapters: three things we build, consulting as the entry point.
+const order = PILLARS.findIndex((o) => o.slug === p.slug) + 1;
+const label = p.slug === 'consultoria-ia' ? 'Por dónde empezar' : `0${order} / 03`;
 const others = PILLARS.filter((o) => o.slug !== p.slug);
 const clip = { 'software-a-medida': 'clip-organiza', automatizacion: 'clip-trabaja' }[p.slug as string];
 ---
 <Base title={`${p.title} · Edrai Solutions`} description={`${p.short} ${p.description}`}>
   <section class="svc-hero">
     <div class="wrap">
-      <a class="back" href="/#servicios"><ArrowLeft /> Servicios</a>
-      <div class="svc-head">
-        <span class="icon-tile svc-icon" transition:name={`pillar-icon-${p.slug}`}><Icon /></span>
-        <h1 class="display svc-title" transition:name={`pillar-title-${p.slug}`}>{p.title}</h1>
-      </div>
+      <p class="svc-top"><a class="back" href={`/#servicio-${p.slug}`}><ArrowLeft /> Servicios</a><span class="svc-n tabular">{label}</span></p>
+      <h1 class="display svc-title" transition:name={`pillar-title-${p.slug}`}>{p.title}</h1>
       <p class="svc-claim rise" style="--d:1">{p.hero}</p>
       <p class="lede svc-lede rise" style="--d:2">{p.short} {p.description}</p>
       <div class="svc-actions rise" style="--d:3">
@@ -149,7 +148,7 @@ const clip = { 'software-a-medida': 'clip-organiza', automatizacion: 'clip-traba
       <h2 class="h2 more-h">También hacemos</h2>
       <div class="more">
         {others.map((o) => (
-          <a class="card card-glow more-card" href={`/${o.slug}`}>
+          <a class="card more-card" href={`/${o.slug}`}>
             <b>{o.title}</b><span>{o.short}</span><ArrowRight />
           </a>
         ))}
@@ -162,20 +161,19 @@ const clip = { 'software-a-medida': 'clip-organiza', automatizacion: 'clip-traba
 
 <style>
   .svc-hero { padding-top: clamp(28px, 6vh, 80px); }
-  .back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+  .svc-top { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+  .svc-n { font: 800 15px/1 var(--font-display); color: var(--brand); }
+  .back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); }
   .back:hover { color: var(--text); }
   .back :global(svg) { width: 15px; height: 15px; }
-  .svc-head { display: flex; align-items: center; gap: 20px; }
-  .svc-icon { width: 64px; height: 64px; border-radius: 18px; }
-  .svc-icon :global(svg) { width: 28px; height: 28px; }
   .svc-title { font-size: clamp(2.8rem, 1.4rem + 5vw, 5.6rem); }
   .svc-claim { margin-top: 28px; font: 750 clamp(1.5rem, 1.1rem + 1.4vw, 2.3rem)/1.15 var(--font-display); letter-spacing: -0.03em; max-width: 26ch; color: var(--text); }
   .svc-lede { margin-top: 18px; max-width: 58ch; }
   .svc-actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: center; }
-  .svc-feats { gap: 8px; }
+  .svc-feats { min-width: min(100%, 380px); }
 
   .section-media { padding-top: clamp(48px, 8vh, 96px); }
-  .clip-frame { border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-line); background: #050608; box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.9); }
+  .clip-frame { width: min(100%, calc((var(--screen) - 120px) * 16 / 9)); margin-inline: auto; border-radius: var(--r-m); overflow: hidden; border: 1px solid var(--line-strong); background: #050608; }
   .clip-frame video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
   .clip-frame figcaption { display: flex; align-items: center; gap: 10px; padding: 12px 16px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
 
@@ -191,7 +189,7 @@ const clip = { 'software-a-medida': 'clip-organiza', automatizacion: 'clip-traba
   .problems { display: grid; border-bottom: 1px solid var(--line); }
   .problems li { display: grid; grid-template-columns: 32px 1fr; gap: 16px; padding: 22px 0; border-top: 1px solid var(--line); align-items: start; }
   .problems p { font: 650 clamp(1.1rem, 0.95rem + 0.5vw, 1.35rem)/1.4 var(--font-display); letter-spacing: -0.015em; color: var(--text); }
-  .x { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: rgba(248, 113, 113, 0.1); color: #fca5a5; }
+  .x { width: 32px; height: 32px; border-radius: 6px; display: grid; place-items: center; background: rgba(248, 113, 113, 0.1); color: #fca5a5; }
   .x :global(svg) { width: 16px; height: 16px; }
 
   .how { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-top: 28px; }
@@ -201,7 +199,7 @@ const clip = { 'software-a-medida': 'clip-organiza', automatizacion: 'clip-traba
   .how h3 { font: 800 clamp(1.25rem, 1rem + 0.7vw, 1.6rem)/1.15 var(--font-display); letter-spacing: -0.025em; }
   .how p { font-size: 15.5px; color: var(--text-2); line-height: 1.6; max-width: 38ch; }
 
-  .quote { max-width: 900px; padding: clamp(28px, 4vw, 48px); border-color: rgba(34, 211, 238, 0.22); }
+  .quote { max-width: 900px; padding: 26px 0 0; border: 0; border-top: 2px solid var(--brand); border-radius: 0; background: none; }
   .quote blockquote { font: 600 clamp(1.3rem, 1rem + 0.9vw, 1.75rem)/1.4 var(--font-display); letter-spacing: -0.02em; max-width: 46ch; }
   .quote figcaption { margin-top: 20px; color: var(--muted); font-size: 14px; }
 

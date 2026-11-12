@@ -127,15 +127,14 @@ const RealChatDemo: React.FC = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="glass rounded-[22px] overflow-hidden border border-white/10 shadow-2xl relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[100px] pointer-events-none"></div>
+    <div className="mx-auto">
+      <div className="glass rounded-xl overflow-hidden relative">
 
         <div className="grid lg:grid-cols-12">
           {/* Info Sidebar */}
-          <div className="lg:col-span-4 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-white/10 bg-white/[0.01]">
+          <div className="lg:col-span-4 p-6 lg:p-9 border-b lg:border-b-0 lg:border-r border-white/10 bg-white/[0.01]">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-14 h-14 bg-cyan-400 rounded-2xl flex items-center justify-center text-[#03161c]">
+              <div className="w-12 h-12 bg-cyan-400 rounded-lg flex items-center justify-center text-[#03161c]">
                 <Store className="w-7 h-7" />
               </div>
               <div>
@@ -168,7 +167,7 @@ const RealChatDemo: React.FC = () => {
           </div>
 
           {/* Chat Area */}
-          <div className="lg:col-span-8 flex flex-col h-[600px] bg-black/20">
+          <div className="lg:col-span-8 flex flex-col h-[clamp(380px,calc(100svh-455px),600px)] bg-black/20">
             <div className="flex-1 overflow-y-auto p-6 lg:p-10 space-y-6 scrollbar-thin scrollbar-thumb-white/10" ref={scrollRef}>
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>

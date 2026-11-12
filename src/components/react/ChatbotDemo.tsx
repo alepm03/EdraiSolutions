@@ -152,20 +152,20 @@ const ChatbotDemo: React.FC = () => {
   };
 
   return (
-    <div className="grid lg:grid-cols-12 gap-12 max-w-6xl mx-auto">
+    <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 mx-auto">
       {/* Selection Area */}
-      <div className="lg:col-span-5 space-y-6">
+      <div className="lg:col-span-5 space-y-4">
         <h4 className="text-xl font-bold mb-6 flex items-center gap-2 tracking-tight">
           Elige un asistente
         </h4>
-        <div className="space-y-4">
+        <div className="space-y-2.5">
           {AGENTS.map((agent) => (
             <button
               key={agent.id}
               onClick={() => changeAgent(agent)}
-              className={`w-full text-left p-6 rounded-2xl border transition-all flex items-center gap-6 group relative overflow-hidden ${
+              className={`w-full text-left p-4 rounded-lg border transition-all flex items-center gap-4 group relative overflow-hidden ${
                 selectedAgent.id === agent.id 
-                  ? 'bg-cyan-500/10 border-cyan-400 shadow-[0_0_30px_rgba(34,211,238,0.1)]' 
+                  ? 'bg-cyan-500/10 border-cyan-400' 
                   : 'bg-white/5 border-white/10 hover:border-white/20'
               }`}
             >
@@ -191,8 +191,7 @@ const ChatbotDemo: React.FC = () => {
           ))}
         </div>
 
-        <div className="bg-white/[0.03] p-8 rounded-3xl border border-white/5 mt-12 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-400/5 blur-[60px] group-hover:bg-cyan-400/15 transition-all"></div>
+        <div className="bg-white/[0.03] p-6 rounded-lg border border-white/5 mt-6 relative overflow-hidden group">
           <div className="flex items-center gap-3 mb-4 text-cyan-400">
             <Lightbulb className="w-6 h-6" />
             <h5 className="font-bold text-lg tracking-tight">Hecho a medida</h5>
@@ -207,7 +206,7 @@ const ChatbotDemo: React.FC = () => {
       </div>
 
       {/* Chat Window */}
-      <div className="lg:col-span-7 h-[680px] flex flex-col glass rounded-[22px] overflow-hidden border border-white/10 relative shadow-2xl">
+      <div className="lg:col-span-7 h-[clamp(420px,calc(100svh-390px),640px)] flex flex-col glass rounded-xl overflow-hidden relative">
         {/* Chat Header */}
         <div className="px-8 py-6 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
           <div className="flex items-center space-x-4">

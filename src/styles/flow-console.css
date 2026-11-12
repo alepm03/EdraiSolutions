@@ -1,18 +1,4 @@
-/* HeroFlowConsole (.efc-*) and card glow, ported from the production site (EdraiSolutions-web index.html <style>). */
-        /* Cursor-following glow for tilt cards (--glow-x/y set via GSAP) */
-        .card-glow::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(220px circle at var(--glow-x, 50%) var(--glow-y, 0%), rgba(34, 211, 238, 0.12), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .card-glow:hover::after { opacity: 1; }
-
+/* HeroFlowConsole (.efc-*), ported from the production site (EdraiSolutions-web index.html <style>). */
         /* ═══════════════════════════════════════════════════════════════
            Hero «Flujo + Consola» (components/HeroFlowConsole.tsx)
            Disparador → pulso por el cable → el símbolo late → la consola
